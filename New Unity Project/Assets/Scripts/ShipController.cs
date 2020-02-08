@@ -50,6 +50,7 @@ public class ShipController : MonoBehaviour
         state = PlayerState.Dead;
         renderer.enabled = false;
         myCollider.enabled = false;
+        myBody.velocity = Vector2.zero;
     }
 
     void Update()

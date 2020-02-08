@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,16 +11,21 @@ public class GameController : MonoBehaviour
     public GameObject asteroidPrefab;
     public GameObject[] possiblePositions;
 
-    float asteroidSpawnTimer;
+    public GameObject starPrefab;
+
+    public Sprite LossSprite;
 
     ShipController player;
+    SpriteRenderer spriteRenderer;
 
     GameState state;
+    float asteroidSpawnTimer;
 
     void Start()
     {
         state = GameState.MainMenu;
         player = FindObjectOfType<ShipController>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
         if (player == null)
         {
@@ -37,11 +43,13 @@ public class GameController : MonoBehaviour
                 state = GameState.Playing;
                 break;
             case GameState.Playing:
+                spriteRenderer.sprite = null;
                 Debug.Log("Playing game!");
                 UpdatePlayState();
                 break;
             case GameState.Dead:
-                Debug.Log("Press key to continue!");
+                spriteRenderer.sprite = LossSprite;
+
                 if (Input.anyKey)
                 {
                     state = GameState.MainMenu;
@@ -55,9 +63,31 @@ public class GameController : MonoBehaviour
     void StartGame()
     {
         player.Spawn(Vector2.zero);
+        Instantiate(starPrefab, possiblePositions[Random.Range(0, possiblePositions.Length)].transform.position, Quaternion.identity);
     }
 
     void UpdatePlayState()
+    {
+        HandleLossCondition();
+        HandleAsteroidSpawning();
+    }
+
+    private void HandleLossCondition()
+    {
+        if (FindObjectsOfType<StarController>().Length == 0 || player.CurrentHealth() == 0)
+        {
+            player.Die();
+
+            foreach (var body in FindObjectsOfType<CelestialBody>())
+            {
+                Destroy(body.gameObject);
+            }
+
+            state = GameState.Dead;
+        }
+    }
+
+    private void HandleAsteroidSpawning()
     {
         if (FindObjectsOfType<AsteroidController>().Length < maxNumberOfAsteroids)
         {
@@ -69,12 +99,6 @@ public class GameController : MonoBehaviour
             asteroidSpawnTimer = 0;
             Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
         }
-
-        if (player.CurrentHealth() == 0)
-        {
-            player.Die();
-            state = GameState.Dead;
-        }
     }
 
     Vector2 PickAsteroidSpawnPoint()
@@ -84,11 +108,8 @@ public class GameController : MonoBehaviour
             return Vector2.zero;
         }
 
-        var stars = FindObjectsOfType<StarController>();
-        var asteroids = FindObjectsOfType<AsteroidController>();
-
-        var bodies = (from star in stars select star.gameObject)
-            .Concat(from asteroid in asteroids select asteroid.gameObject)
+        var bodies = (from star in FindObjectsOfType<StarController>() select star.gameObject)
+            .Concat(from asteroid in FindObjectsOfType<AsteroidController>() select asteroid.gameObject)
             .ToList();
 
         var maxDistance = 0f;
