@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidController : MonoBehaviour
+public class AsteroidController : CelestialBody
 {
     public SpriteRenderer halo;
-    CelestialBody body;
 
-    void Start()
+    private void Start()
     {
-        body = GetComponent<CelestialBody>();
+        ParentStart();
+        damageToPlayerOnCollision = 1;
     }
 
     void FixedUpdate()
     {
-        halo.enabled = body.state == CelestialState.Selected;
+        ParentFixedUpdate();
+        halo.enabled = state == CelestialState.Selected;
+    }
+
+    public override void HandlePlayerCollision()
+    {
+        GameObject.Destroy(gameObject);
     }
 }

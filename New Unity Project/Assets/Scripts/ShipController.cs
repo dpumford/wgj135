@@ -13,12 +13,18 @@ public class ShipController : MonoBehaviour
 
     public int speed = 10;
     public float shootSpeed = 5;
+    public int maxHealth = 3;
+
+    int currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         direction = Vector2.zero;
         rotation = Vector2.zero;
+        currentHealth = maxHealth;
+
+        Debug.Log("Health: " + currentHealth);
 
         myBody = GetComponent<Rigidbody2D>();
         laser = GetComponentInChildren<Laser>();
@@ -38,6 +44,22 @@ public class ShipController : MonoBehaviour
         SetShipRotation();
 
         myBody.AddForce(direction * speed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        AsteroidController asteroid = collision.gameObject.GetComponent<AsteroidController>();
+        StarController star = collision.gameObject.GetComponent<StarController>();
+
+        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star;
+
+        if (body != null)
+        {
+            currentHealth -= body.damageToPlayerOnCollision;
+            Debug.Log("Health: " + currentHealth);
+            body.HandlePlayerCollision();
+        }
+
     }
 
     void SetShipDirection()

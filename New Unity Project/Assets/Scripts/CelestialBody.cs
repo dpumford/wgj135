@@ -11,8 +11,12 @@ public class CelestialBody : MonoBehaviour
     private CircleCollider2D myCollider;
 
     public CelestialState state = CelestialState.Collectible;
+    public int damageToPlayerOnCollision;
 
-    void Start()
+    public float safeFireDistance = .5f;
+    Vector2 firedPosition = Vector2.zero;
+
+    protected void ParentStart()
     {
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<CircleCollider2D>();
@@ -21,11 +25,20 @@ public class CelestialBody : MonoBehaviour
         myBody.velocity = initialSpeed * new Vector2(Mathf.Cos(initialAngle), Mathf.Sin(initialAngle));
     }
 
-    void FixedUpdate()
+    protected void ParentFixedUpdate()
     {
         if (state == CelestialState.Collectible || state == CelestialState.Fired)
         {
             RunGravity();
+        }
+
+        if (state == CelestialState.Firing)
+        {
+            if (Vector2.Distance(firedPosition, transform.position) > safeFireDistance)
+            {
+                myCollider.enabled = true;
+                state = CelestialState.Fired;
+            }
         }
     }
 
@@ -35,12 +48,22 @@ public class CelestialBody : MonoBehaviour
 
         foreach (var other in others)
         {
-            if (other != this && (other.state == CelestialState.Collectible || other.state == CelestialState.Free))
+            Rigidbody2D body = other.GetComponent<Rigidbody2D>();
+
+            if (other != this && body != null && (other.state == CelestialState.Collectible || other.state == CelestialState.Free))
             {
                 var directionToOther = other.transform.position - transform.position;
-                myBody.AddForce(directionToOther.normalized * other.GetComponent<Rigidbody2D>().mass / directionToOther.sqrMagnitude);
+
+                //Debug.Log("Dir " + directionToOther + " mass " + body.mass + " force " + directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
+
+                myBody.AddForce(directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
             }
         }
+    }
+
+    public virtual void HandlePlayerCollision()
+    {
+
     }
 
     public void SetOrbitingPosition(Vector2 newPosition)
@@ -79,13 +102,18 @@ public class CelestialBody : MonoBehaviour
 
     public void Fire(Vector2 velocity)
     {
-        state = CelestialState.Fired;
+        state = CelestialState.Firing;
         myBody.velocity = velocity;
-        myCollider.enabled = true;
+        firedPosition = transform.position;
     }
 
     public bool IsCollectible()
     {
         return state == CelestialState.Collectible;
+    }
+
+    public void RegisterPlayerCollision()
+    {
+        GameObject.Destroy(this);
     }
 }

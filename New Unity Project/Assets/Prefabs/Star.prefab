@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1445310760035435622}
   - component: {fileID: 1445310760035435623}
-  - component: {fileID: 1445310760035435616}
   - component: {fileID: 1445310760035435617}
   - component: {fileID: 1445310760035435618}
   - component: {fileID: 1445310760035435629}
@@ -86,22 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1445310760035435616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445310760035435628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 659889c02d4ae8146afc5b09cfd8b063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialSpeed: 0
-  initialAngle: 0
-  halo: {fileID: 0}
-  state: 0
 --- !u!50 &1445310760035435617
 Rigidbody2D:
   serializedVersion: 4
@@ -151,6 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887336d7729266d4885e42640e00f27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialSpeed: 0
+  initialAngle: 0
+  state: 0
+  damageToPlayerOnCollision: 0
   ringCount: 2
   segmentCount: 3
   segmentLimit: 3

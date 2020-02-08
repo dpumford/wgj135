@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarController : MonoBehaviour
+public class StarController : CelestialBody
 {
     public int ringCount = 2;
     public int segmentCount = 3;
@@ -13,11 +13,14 @@ public class StarController : MonoBehaviour
 
     void Start()
     {
+        ParentStart();
         segmentTimer = 0;
+        damageToPlayerOnCollision = 999;
     }
 
     void FixedUpdate()
     {
+        ParentFixedUpdate();
         UpdateSegments();
     }
 
