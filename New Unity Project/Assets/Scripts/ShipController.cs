@@ -70,7 +70,11 @@ public class ShipController : MonoBehaviour
 
     void CheckOrbitalFire()
     {
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButton(1))
+        {
+            orbit.PrepareFire();
+        } 
+        else if (Input.GetMouseButtonUp(1))
         {
             orbit.Fire(rotation * shootSpeed);
         }
