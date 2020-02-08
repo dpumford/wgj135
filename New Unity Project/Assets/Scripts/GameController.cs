@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameController : MonoBehaviour
 {
     public float asteroidSpawnSeconds = 10;
+    public int maxNumberOfAsteroids = 4;
     public GameObject asteroidPrefab;
+    public GameObject[] possiblePositions;
 
     float asteroidSpawnTimer;
 
@@ -17,12 +20,51 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        asteroidSpawnTimer += Time.deltaTime;
+        if (FindObjectsOfType<AsteroidController>().Length < maxNumberOfAsteroids)
+        {
+            asteroidSpawnTimer += Time.deltaTime;
+        }
 
         if (asteroidSpawnTimer > asteroidSpawnSeconds)
         {
             asteroidSpawnTimer = 0;
-            Instantiate(asteroidPrefab, Vector3.zero, Quaternion.identity);
+            Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
         }
+    }
+
+    Vector2 PickAsteroidSpawnPoint()
+    {
+        if (possiblePositions.Length == 0)
+        {
+            return Vector2.zero;
+        }
+
+        var stars = FindObjectsOfType<StarController>();
+        var asteroids = FindObjectsOfType<AsteroidController>();
+
+        var bodies = (from star in stars select star.gameObject)
+            .Concat(from asteroid in asteroids select asteroid.gameObject)
+            .ToList();
+
+        var maxDistance = 0f;
+        GameObject bestSpawnPoint = null;
+
+        foreach (var point in possiblePositions)
+        {
+            var totalDistance = 0f;
+
+            foreach (var body in bodies)
+            {
+                totalDistance += (body.transform.position - point.transform.position).magnitude;
+            }
+
+            if (totalDistance > maxDistance)
+            {
+                maxDistance = totalDistance;
+                bestSpawnPoint = point;
+            }
+        }
+
+        return bestSpawnPoint.transform.position;
     }
 }
