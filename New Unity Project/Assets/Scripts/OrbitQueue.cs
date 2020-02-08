@@ -151,4 +151,9 @@ public class OrbitQueue : MonoBehaviour
             orbiterToFire = null;
         }
     }
+
+    public void Clear()
+    {
+        orbiters.Clear();
+    }
 }

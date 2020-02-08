@@ -51,6 +51,7 @@ public class ShipController : MonoBehaviour
         renderer.enabled = false;
         myCollider.enabled = false;
         myBody.velocity = Vector2.zero;
+        orbit.Clear();
     }
 
     void Update()
@@ -85,8 +86,9 @@ public class ShipController : MonoBehaviour
     {
         AsteroidController asteroid = collision.gameObject.GetComponent<AsteroidController>();
         StarController star = collision.gameObject.GetComponent<StarController>();
+        BlackHoleController blackHole = collision.gameObject.GetComponent<BlackHoleController>();
 
-        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star;
+        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star ?? (CelestialBody)blackHole;
 
         if (body != null)
         {

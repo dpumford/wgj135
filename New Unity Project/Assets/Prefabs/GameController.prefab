@@ -292,4 +292,6 @@ MonoBehaviour:
   - {fileID: 1977467764246865823}
   starPrefab: {fileID: 1445310760035435628, guid: 27b47e1c42b9c744c98091a551fd3f80,
     type: 3}
+  blackHolePrefab: {fileID: 7567829744488338450, guid: e8676ba1d7e37e749b7c379fe2889172,
+    type: 3}
   LossSprite: {fileID: 21300000, guid: 0e23bd0a7bce81c4099d50bce2026017, type: 3}
