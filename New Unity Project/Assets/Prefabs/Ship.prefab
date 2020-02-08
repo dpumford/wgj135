@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3700080873159685994}
   - component: {fileID: 3700080873159685995}
   - component: {fileID: 3700080873159685993}
+  - component: {fileID: 2207752081699053145}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   shootSpeed: 5
+  maxHealth: 3
 --- !u!50 &3700080873159685995
 Rigidbody2D:
   serializedVersion: 4
@@ -166,6 +168,40 @@ MonoBehaviour:
   capacity: 10
   spinFrames: 240
   spinDistance: 1
+--- !u!60 &2207752081699053145
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700080873159686006}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.64, y: 0.64}
+      - {x: -0.64, y: -0.64}
+      - {x: 0.68293446, y: -0.016081333}
+    - - {x: -0.5, y: -0.11}
+      - {x: 0.32, y: -0.099999994}
+      - {x: -0.5, y: -0.51}
+    - - {x: -0.5, y: 0.5}
+      - {x: 0.29999998, y: 0.099999994}
+      - {x: -0.5, y: 0.11}
 --- !u!1 &3700080874085974547
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +272,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1518452551
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

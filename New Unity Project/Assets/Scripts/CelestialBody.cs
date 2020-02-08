@@ -11,6 +11,7 @@ public class CelestialBody : MonoBehaviour
     private CircleCollider2D myCollider;
 
     public CelestialState state = CelestialState.Collectible;
+    public int damageToPlayerOnCollision;
 
     void Start()
     {
@@ -36,11 +37,22 @@ public class CelestialBody : MonoBehaviour
         foreach (var other in others)
         {
             if (other != this && (other.state == CelestialState.Collectible || other.state == CelestialState.Free))
+            Rigidbody2D body = other.GetComponent<Rigidbody2D>();
+
+            if (other != this && body != null && other.IsCollectible())
             {
                 var directionToOther = other.transform.position - transform.position;
-                myBody.AddForce(directionToOther.normalized * other.GetComponent<Rigidbody2D>().mass / directionToOther.sqrMagnitude);
+
+                Debug.Log("Dir " + directionToOther + " mass " + body.mass + " force " + directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
+
+                myBody.AddForce(directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
             }
         }
+    }
+
+    public virtual void HandlePlayerCollision()
+    {
+
     }
 
     public void SetOrbitingPosition(Vector2 newPosition)
@@ -87,5 +99,10 @@ public class CelestialBody : MonoBehaviour
     public bool IsCollectible()
     {
         return state == CelestialState.Collectible;
+    }
+
+    public void RegisterPlayerCollision()
+    {
+        GameObject.Destroy(this);
     }
 }
