@@ -24,9 +24,14 @@ public class StarController : CelestialBody
         UpdateSegments();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        HandleAsteroids(collision);
+        AsteroidController asteroid = collision.gameObject.GetComponent<AsteroidController>();
+
+        if (asteroid != null)
+        {
+            HandleAsteroids(asteroid);
+        }
     }
 
     private void UpdateSegments()
@@ -51,22 +56,17 @@ public class StarController : CelestialBody
         }
     }
 
-    private void HandleAsteroids(Collider2D collision)
+    private void HandleAsteroids(AsteroidController asteroid)
     {
-        var asteroid = collision.GetComponent<AsteroidController>();
+        segmentCount++;
 
-        if (asteroid != null)
+        if (segmentCount > segmentLimit)
         {
-            segmentCount++;
-
-            if (segmentCount > segmentLimit)
-            {
-                segmentCount = 1;
-                ringCount++;
-            }
-
-            segmentTimer = 0;
-            Destroy(collision.gameObject);
+            segmentCount = 1;
+            ringCount++;
         }
+
+        segmentTimer = 0;
+        Destroy(asteroid.gameObject);
     }
 }

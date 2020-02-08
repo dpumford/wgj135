@@ -75,7 +75,10 @@ public class ShipController : MonoBehaviour
         SetShipDirection();
         SetShipRotation();
 
-        myBody.AddForce(direction * speed);
+        if (state == PlayerState.Alive)
+        {
+            myBody.AddForce(direction * speed);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -131,10 +134,12 @@ public class ShipController : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
+            state = PlayerState.Aiming;
             orbit.PrepareFire();
         } 
         else if (Input.GetMouseButtonUp(1))
         {
+            state = PlayerState.Alive;
             orbit.Fire(rotation.normalized * shootSpeed);
         }
     }
