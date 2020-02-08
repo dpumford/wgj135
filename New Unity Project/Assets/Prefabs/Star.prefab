@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1445310760035435617}
   - component: {fileID: 1445310760035435618}
   - component: {fileID: 1445310760035435629}
+  - component: {fileID: 5568368487704802377}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -137,13 +138,33 @@ MonoBehaviour:
   initialSpeed: 0
   initialAngle: 0
   state: 2
-  damageToPlayerOnCollision: 0
+  damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
-  ringCount: 2
-  segmentCount: 3
-  segmentLimit: 3
-  timePerSegment: 10
-  segmentTimer: 0
+--- !u!114 &5568368487704802377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445310760035435628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62d335a7528a0b409d511ee2724712e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needs:
+  - material: 0
+    count: 2
+    max: 3
+  - material: 1
+    count: 2
+    max: 3
+  - material: 2
+    count: 2
+    max: 3
+  timePerDecay: 10
+  incorrectMaterialTimePenalty: 3
+  decayTimer: 0
 --- !u!1 &5548096022167896861
 GameObject:
   m_ObjectHideFlags: 0
