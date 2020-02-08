@@ -97,7 +97,26 @@ public class GameController : MonoBehaviour
         if (asteroidSpawnTimer > asteroidSpawnSeconds)
         {
             asteroidSpawnTimer = 0;
-            Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
+            var asteroid = Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
+            AsteroidController aController = asteroid.GetComponent<AsteroidController>();
+            aController.Init(RandomMaterial());
+        }
+    }
+    
+    Material RandomMaterial()
+    {
+        switch (Mathf.Floor(Random.value * 4))
+        {
+            case 0:
+                return Material.Hydrogen;
+            case 1:
+                return Material.Helium;
+            case 2:
+                return Material.Lithium;
+            case 3:
+                return Material.Boron;
+            default:
+                return Material.Hydrogen;
         }
     }
 
