@@ -37,7 +37,8 @@ public class CelestialBody : MonoBehaviour
         {
             if (other != this && other.IsCollectible())
             {
-                myBody.AddForce((other.transform.position - transform.position) * other.GetComponent<Rigidbody2D>().mass);
+                var directionToOther = other.transform.position - transform.position;
+                myBody.AddForce(directionToOther.normalized * other.GetComponent<Rigidbody2D>().mass / directionToOther.sqrMagnitude);
             }
         }
 
