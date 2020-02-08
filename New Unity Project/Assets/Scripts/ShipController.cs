@@ -8,14 +8,26 @@ public class ShipController : MonoBehaviour
     Vector2 rotation;
     Rigidbody2D myBody;
 
+    Laser laser;
+    OrbitQueue orbit;
+
     public int speed = 10;
 
     // Start is called before the first frame update
     void Start()
     {
-        myBody = GetComponent<Rigidbody2D>();
         direction = Vector2.zero;
         rotation = Vector2.zero;
+
+        myBody = GetComponent<Rigidbody2D>();
+        laser = GetComponentInChildren<Laser>();
+        orbit = GetComponent<OrbitQueue>();
+    }
+
+    void Update()
+    {
+        CheckLaserFire();
+        CheckOrbitQueue();
     }
 
     void FixedUpdate()
@@ -44,5 +56,18 @@ public class ShipController : MonoBehaviour
         float rotationAngle = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         myBody.MoveRotation(rotationAngle);
+    }
+
+    void CheckLaserFire()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            laser.Fire();
+        }
+    }
+
+    void CheckOrbitQueue()
+    {
+        orbit.CollectOrbiters(laser.GetColliders());
     }
 }
