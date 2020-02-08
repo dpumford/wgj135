@@ -53,7 +53,8 @@ public class Laser : MonoBehaviour
             myCollider.enabled = true;
             line.enabled = true;
             frames_remaining -= 1;
-        } else if (frames_remaining == 0)
+        }
+        else if (frames_remaining == 0)
         {
             myCollider.enabled = false;
             line.enabled = false;

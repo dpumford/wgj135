@@ -41,29 +41,32 @@ public class CelestialBody : MonoBehaviour
                 myBody.AddForce(directionToOther.normalized * other.GetComponent<Rigidbody2D>().mass / directionToOther.sqrMagnitude);
             }
         }
-
-        Debug.Log($"{transform.name}: {myBody.velocity}");
     }
 
     public void SetOrbitingPosition(Vector2 newPosition)
     {
         if (state != CelestialState.Collectible)
         {
-            //TODO: Lerp into position?
             myBody.position = newPosition;
         }
     }
 
     public void Collect()
     {
-        state = CelestialState.Collected;
-        myBody.velocity = Vector2.zero;
+        if (state == CelestialState.Collectible)
+        {
+            state = CelestialState.Collected;
+            myBody.velocity = Vector2.zero;
+        }
     }
 
     public void Fire(Vector2 velocity)
     {
-        state = CelestialState.Collectible;
-        myBody.velocity = velocity;
+        if (state == CelestialState.Collected)
+        {
+            state = CelestialState.Collectible;
+            myBody.velocity = velocity;
+        }
     }
 
     public bool IsCollectible()

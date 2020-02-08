@@ -1,5 +1,6 @@
 ﻿public enum CelestialState
 {
     Collectible,
-    Collected
+    Collected,
+    Free
 }
