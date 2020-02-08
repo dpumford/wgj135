@@ -48,6 +48,7 @@ public class CelestialBody : MonoBehaviour
     {
         if (!collectible)
         {
+            //TODO: Lerp into position?
             myBody.position = newPosition;
         }
     }
