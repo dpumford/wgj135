@@ -6,5 +6,4 @@
     Selected,
     PrepareFire,
     Firing,
-    Fired,
 }

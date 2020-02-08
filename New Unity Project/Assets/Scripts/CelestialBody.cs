@@ -27,7 +27,7 @@ public class CelestialBody : MonoBehaviour
 
     protected void ParentFixedUpdate()
     {
-        if (state == CelestialState.Collectible || state == CelestialState.Fired)
+        if (state == CelestialState.Collectible)
         {
             RunGravity();
         }
@@ -37,7 +37,7 @@ public class CelestialBody : MonoBehaviour
             if (Vector2.Distance(firedPosition, transform.position) > safeFireDistance)
             {
                 myCollider.enabled = true;
-                state = CelestialState.Fired;
+                state = CelestialState.Collectible;
             }
         }
     }
@@ -54,8 +54,6 @@ public class CelestialBody : MonoBehaviour
             {
                 var directionToOther = other.transform.position - transform.position;
 
-                //Debug.Log("Dir " + directionToOther + " mass " + body.mass + " force " + directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
-
                 myBody.AddForce(directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
             }
         }
@@ -69,6 +67,11 @@ public class CelestialBody : MonoBehaviour
     public void SetOrbitingPosition(Vector2 newPosition)
     {
         if (state != CelestialState.Collectible)
+        {
+            myBody.position = Vector2.Lerp(myBody.position, newPosition, 0.2f);
+        }
+
+        if (state != CelestialState.PrepareFire)
         {
             myBody.position = Vector2.Lerp(myBody.position, newPosition, 0.2f);
         }
