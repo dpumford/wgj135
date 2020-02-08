@@ -76,7 +76,7 @@ public class ShipController : MonoBehaviour
         } 
         else if (Input.GetMouseButtonUp(1))
         {
-            orbit.Fire(rotation * shootSpeed);
+            orbit.Fire(rotation.normalized * shootSpeed);
         }
     }
 
