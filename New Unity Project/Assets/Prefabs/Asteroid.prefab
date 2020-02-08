@@ -181,7 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSpeed: 0
   initialAngle: 0
-  halo: {fileID: 7586646606411016816}
   state: 0
 --- !u!50 &3427561956176874275
 Rigidbody2D:
@@ -232,3 +231,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008b74efd47d348479ebd4267357bcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  halo: {fileID: 7586646606411016816}

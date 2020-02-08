@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public SpriteRenderer halo;
+    CelestialBody body;
+
     void Start()
     {
-        
+        body = GetComponent<CelestialBody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        halo.enabled = body.state == CelestialState.Selected;
     }
 }

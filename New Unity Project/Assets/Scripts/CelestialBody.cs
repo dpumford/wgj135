@@ -6,7 +6,6 @@ public class CelestialBody : MonoBehaviour
 {
     public float initialSpeed;
     public float initialAngle;
-    public SpriteRenderer halo;
 
     private Rigidbody2D myBody;
 
@@ -18,11 +17,6 @@ public class CelestialBody : MonoBehaviour
 
         initialAngle = Random.Range(0, Mathf.PI * 2);
         myBody.velocity = initialSpeed * new Vector2(Mathf.Cos(initialAngle), Mathf.Sin(initialAngle));
-
-        if (halo == null)
-        {
-            Debug.LogError("I'm a celestial body with no halo! " + transform.name);
-        }
     }
 
     void FixedUpdate()
@@ -30,11 +24,6 @@ public class CelestialBody : MonoBehaviour
         if (state == CelestialState.Collectible || state == CelestialState.Fired)
         {
             RunGravity();
-        }
-
-        if (halo != null)
-        {
-            halo.enabled = state == CelestialState.Selected;
         }
     }
 

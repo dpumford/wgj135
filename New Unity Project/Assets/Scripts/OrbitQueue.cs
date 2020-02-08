@@ -75,7 +75,11 @@ public class OrbitQueue : MonoBehaviour
 
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
 
-        if (scrollValue > 0)
+        if (orbiters.Count == 0)
+        {
+            selectedOrbiter = 0;
+        }
+        else if (scrollValue > 0)
         {
             if (selectedOrbiter == orbiters.Count - 1)
             {
