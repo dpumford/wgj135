@@ -12,13 +12,32 @@ public class OrbitQueue : MonoBehaviour
     int currentFrame = 0;
 
     Transform parentTransform;
+    Transform shootPosition;
+
+    CelestialBody orbiterToFire = null;
+
     void Start()
     {
         bodies = new LinkedList<CelestialBody>();
         parentTransform = GetComponentInParent<Transform>();
+        shootPosition = GameObject.Find("ShootPoint").GetComponent<Transform>();
     }
 
     void FixedUpdate()
+    {
+        UpdateOrbiterToFirePosition();
+        UpdateOrbiterPositions();
+    }
+
+    void UpdateOrbiterToFirePosition()
+    {
+        if (orbiterToFire != null)
+        {
+            orbiterToFire.SetOrbitingPosition(shootPosition.position);
+        }
+    }
+
+    void UpdateOrbiterPositions()
     {
         float degreeInterval = 360.0f / bodies.Count;
         float spinProgress = 360 * currentFrame / spinFrames;
@@ -55,14 +74,23 @@ public class OrbitQueue : MonoBehaviour
         }
     }
 
-    public void Fire(Vector2 velocity)
+    public void PrepareFire()
     {
-        if (bodies.Count > 0)
+        if (bodies.Count > 0 && orbiterToFire == null)
         {
-            var first = bodies.First;
+            var orbiter = bodies.First.Value;
             bodies.RemoveFirst();
 
-            first.Value.Fire(velocity);
+            orbiterToFire = orbiter;
+        }
+    }
+
+    public void Fire(Vector2 velocity)
+    {
+        if (orbiterToFire != null)
+        {
+            orbiterToFire.Fire(velocity);
+            orbiterToFire = null;
         }
     }
 }
