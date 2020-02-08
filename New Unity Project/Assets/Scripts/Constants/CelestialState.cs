@@ -2,5 +2,8 @@
 {
     Collectible,
     Collected,
-    Free
+    Free,
+    Selected,
+    PrepareFire,
+    Fired,
 }

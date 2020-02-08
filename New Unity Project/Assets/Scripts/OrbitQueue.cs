@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class OrbitQueue : MonoBehaviour
 {
-    LinkedList<CelestialBody> bodies;
+    List<CelestialBody> orbiters;
     public int capacity = 10;
+    int selectedOrbiter;
 
     public int spinFrames = 240;
     public int spinDistance = 1;
@@ -18,9 +19,14 @@ public class OrbitQueue : MonoBehaviour
 
     void Start()
     {
-        bodies = new LinkedList<CelestialBody>();
+        orbiters = new List<CelestialBody>();
         parentTransform = GetComponentInParent<Transform>();
         shootPosition = GameObject.Find("ShootPoint").GetComponent<Transform>();
+    }
+
+    void Update()
+    {
+        UpdateSelectedOrbiter();
     }
 
     void FixedUpdate()
@@ -39,13 +45,13 @@ public class OrbitQueue : MonoBehaviour
 
     void UpdateOrbiterPositions()
     {
-        float degreeInterval = 360.0f / bodies.Count;
+        float degreeInterval = 360.0f / orbiters.Count;
         float spinProgress = 360 * currentFrame / spinFrames;
 
         int slot = 0;
         Vector2 orbiterPosition = Vector2.zero;
 
-        foreach (var orbiter in bodies)
+        foreach (var orbiter in orbiters)
         {
             float angle = (degreeInterval * slot + spinProgress) % 360;
 
@@ -63,25 +69,73 @@ public class OrbitQueue : MonoBehaviour
         currentFrame %= spinFrames;
     }
 
-    public void CollectOrbiters(LinkedList<CelestialBody> newOrbiters)
+    void UpdateSelectedOrbiter()
     {
-        while (newOrbiters.Count > 0 && bodies.Count < capacity)
+        int oldSelection = selectedOrbiter;
+
+        float scrollValue = Input.GetAxis("Mouse ScrollWheel");
+
+        if (scrollValue > 0)
         {
-            CelestialBody orbiter = newOrbiters.Last.Value;
+            if (selectedOrbiter == orbiters.Count - 1)
+            {
+                selectedOrbiter = 0;
+            } 
+            else
+            {
+                selectedOrbiter++;
+            }
+        } 
+        else if (scrollValue < 0)
+        {
+            if (selectedOrbiter == 0)
+            {
+                selectedOrbiter = orbiters.Count - 1;
+            }
+            else
+            {
+                selectedOrbiter--;
+            }
+        }
+        
+        if (orbiters.Count > 0)
+        {
+            orbiters[oldSelection].Deselect();
+            orbiters[selectedOrbiter].Select();
+        }
+    }
+
+    public void CollectOrbiters(List<CelestialBody> newOrbiters)
+    {
+        while (newOrbiters.Count > 0 && orbiters.Count < capacity)
+        {
+            CelestialBody orbiter = newOrbiters[0];
             orbiter.Collect();
-            bodies.AddLast(orbiter);
-            newOrbiters.RemoveLast();
+            orbiters.Add(orbiter);
+            newOrbiters.RemoveAt(0);
         }
     }
 
     public void PrepareFire()
     {
-        if (bodies.Count > 0 && orbiterToFire == null)
+        if (orbiters.Count > 0 && orbiterToFire == null)
         {
-            var orbiter = bodies.First.Value;
-            bodies.RemoveFirst();
+            orbiterToFire = orbiters[selectedOrbiter];
+            orbiters.RemoveAt(selectedOrbiter);
 
-            orbiterToFire = orbiter;
+            orbiterToFire.PrepareFire();
+
+            selectedOrbiter--;
+
+            if (selectedOrbiter < 0)
+            {
+                selectedOrbiter = 0;
+            }
+
+            if (orbiters.Count > 0)
+            {
+                orbiters[selectedOrbiter].Select();
+            }
         }
     }
 

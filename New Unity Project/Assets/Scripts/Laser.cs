@@ -5,7 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     LineRenderer line;
-    LinkedList<CelestialBody> colliders;
+    List<CelestialBody> colliders;
     BoxCollider2D myCollider;
 
     public int duration_frames = 10;
@@ -16,7 +16,7 @@ public class Laser : MonoBehaviour
         line = GetComponent<LineRenderer>();
         line.enabled = false;
 
-        colliders = new LinkedList<CelestialBody>();
+        colliders = new List<CelestialBody>();
 
         myCollider = GetComponent<BoxCollider2D>();
         myCollider.enabled = false;
@@ -24,16 +24,15 @@ public class Laser : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Colliding");
         CelestialBody body = other.gameObject.GetComponent<CelestialBody>();
 
         if (body != null && body.IsCollectible())
         {
-            colliders.AddLast(body);
+            colliders.Add(body);
         }
     }
 
-    public LinkedList<CelestialBody> GetColliders()
+    public List<CelestialBody> GetColliders()
     {
         return colliders;
     }

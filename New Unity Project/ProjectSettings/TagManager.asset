@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 2776514745
     locked: 0
+  - name: Lights
+    uniqueID: 2696939757
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -6,27 +6,36 @@ public class CelestialBody : MonoBehaviour
 {
     public float initialSpeed;
     public float initialAngle;
+    public SpriteRenderer halo;
 
     private Rigidbody2D myBody;
 
     public CelestialState state = CelestialState.Collectible;
 
-    // Start is called before the first frame update
     void Start()
     {
         myBody = GetComponent<Rigidbody2D>();
 
         initialAngle = Random.Range(0, Mathf.PI * 2);
         myBody.velocity = initialSpeed * new Vector2(Mathf.Cos(initialAngle), Mathf.Sin(initialAngle));
+
+        if (halo == null)
+        {
+            Debug.LogError("I'm a celestial body with no halo! " + transform.name);
+        }
     }
 
     void FixedUpdate()
     {
-        if (state == CelestialState.Collectible)
+        if (state == CelestialState.Collectible || state == CelestialState.Fired)
         {
             RunGravity();
         }
-        
+
+        if (halo != null)
+        {
+            halo.enabled = state == CelestialState.Selected;
+        }
     }
 
     void RunGravity()
@@ -60,13 +69,26 @@ public class CelestialBody : MonoBehaviour
         }
     }
 
+    public void Select()
+    {
+        state = CelestialState.Selected;
+    }
+
+    // This should only be called on orbiters that have been collected
+    public void Deselect()
+    {
+        state = CelestialState.Collected;
+    }
+
+    public void PrepareFire()
+    {
+        state = CelestialState.PrepareFire;
+    }
+
     public void Fire(Vector2 velocity)
     {
-        if (state == CelestialState.Collected)
-        {
-            state = CelestialState.Collectible;
-            myBody.velocity = velocity;
-        }
+        state = CelestialState.Fired;
+        myBody.velocity = velocity;
     }
 
     public bool IsCollectible()
