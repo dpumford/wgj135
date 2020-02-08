@@ -12,13 +12,52 @@ public class GameController : MonoBehaviour
 
     float asteroidSpawnTimer;
 
+    ShipController player;
+
+    GameState state;
+
     void Start()
     {
+        state = GameState.MainMenu;
+        player = FindObjectOfType<ShipController>();
         
+        if (player == null)
+        {
+            Debug.LogError("Missing a player!!");
+        }
     }
 
     // Update is called once per frame
     void Update()
+    {
+        switch (state) {
+            case GameState.MainMenu:
+                Debug.Log("At menu!");
+                StartGame();
+                state = GameState.Playing;
+                break;
+            case GameState.Playing:
+                Debug.Log("Playing game!");
+                UpdatePlayState();
+                break;
+            case GameState.Dead:
+                Debug.Log("Press key to continue!");
+                if (Input.anyKey)
+                {
+                    state = GameState.MainMenu;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    void StartGame()
+    {
+        player.Spawn(Vector2.zero);
+    }
+
+    void UpdatePlayState()
     {
         if (FindObjectsOfType<AsteroidController>().Length < maxNumberOfAsteroids)
         {
@@ -29,6 +68,12 @@ public class GameController : MonoBehaviour
         {
             asteroidSpawnTimer = 0;
             Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
+        }
+
+        if (player.CurrentHealth() == 0)
+        {
+            player.Die();
+            state = GameState.Dead;
         }
     }
 

@@ -8,6 +8,8 @@ public class ShipController : MonoBehaviour
     Vector2 rotation;
 
     Rigidbody2D myBody;
+    PolygonCollider2D myCollider;
+    SpriteRenderer renderer;
     Laser laser;
     OrbitQueue orbit;
 
@@ -16,23 +18,47 @@ public class ShipController : MonoBehaviour
     public int maxHealth = 3;
 
     int currentHealth;
+    PlayerState state;
 
-    // Start is called before the first frame update
     void Start()
     {
+        myBody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<PolygonCollider2D>();
+        laser = GetComponentInChildren<Laser>();
+        orbit = GetComponent<OrbitQueue>();
+        renderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Spawn(Vector2 spawnPoint)
+    {
+        Debug.Log("Spawning!");
+        state = PlayerState.Alive;
+        renderer.enabled = true;
+        myCollider.enabled = true;
+
+        transform.position = spawnPoint;
         direction = Vector2.zero;
         rotation = Vector2.zero;
         currentHealth = maxHealth;
 
         Debug.Log("Health: " + currentHealth);
+    }
 
-        myBody = GetComponent<Rigidbody2D>();
-        laser = GetComponentInChildren<Laser>();
-        orbit = GetComponent<OrbitQueue>();
+    public void Die()
+    {
+        Debug.Log("Dying!");
+        state = PlayerState.Dead;
+        renderer.enabled = false;
+        myCollider.enabled = false;
     }
 
     void Update()
     {
+        if (state == PlayerState.Dead)
+        {
+            return;
+        }
+
         CheckLaserFire();
         CheckOrbitalFire();
         CheckOrbitQueue();
@@ -40,6 +66,11 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (state == PlayerState.Dead)
+        {
+            return;
+        }
+
         SetShipDirection();
         SetShipRotation();
 
@@ -56,10 +87,15 @@ public class ShipController : MonoBehaviour
         if (body != null)
         {
             currentHealth -= body.damageToPlayerOnCollision;
+
+            if (currentHealth < 0)
+            {
+                currentHealth = 0;
+            }
+
             Debug.Log("Health: " + currentHealth);
             body.HandlePlayerCollision();
         }
-
     }
 
     void SetShipDirection()
@@ -105,5 +141,10 @@ public class ShipController : MonoBehaviour
     void CheckOrbitQueue()
     {
         orbit.CollectOrbiters(laser.GetColliders());
+    }
+
+    public int CurrentHealth()
+    {
+        return currentHealth;
     }
 }
