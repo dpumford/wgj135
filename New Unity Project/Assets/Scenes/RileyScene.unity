@@ -777,6 +777,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7567829744488338449, guid: e8676ba1d7e37e749b7c379fe2889172,
+        type: 3}
+      propertyPath: state
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7567829744488338450, guid: e8676ba1d7e37e749b7c379fe2889172,
         type: 3}
       propertyPath: m_Name
@@ -800,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 7567829744488338463, guid: e8676ba1d7e37e749b7c379fe2889172,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.69
+      value: -6.89
       objectReference: {fileID: 0}
     - target: {fileID: 7567829744488338463, guid: e8676ba1d7e37e749b7c379fe2889172,
         type: 3}

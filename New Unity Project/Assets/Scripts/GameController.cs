@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public float asteroidSpawnSeconds = 10;
     public int maxNumberOfAsteroids = 4;
+    public float AsteroidSpawnFuzz = .5f;
     public GameObject asteroidPrefab;
     public GameObject[] possiblePositions;
 
@@ -16,6 +17,7 @@ public class GameController : MonoBehaviour
     public GameObject blackHolePrefab;
 
     public Sprite LossSprite;
+
 
     ShipController player;
     SpriteRenderer spriteRenderer;
@@ -134,6 +136,7 @@ public class GameController : MonoBehaviour
 
         var bodies = (from star in FindObjectsOfType<StarController>() select star.gameObject)
             .Concat(from asteroid in FindObjectsOfType<AsteroidController>() select asteroid.gameObject)
+            .Concat(from blackHole in FindObjectsOfType<BlackHoleController>() select blackHole.gameObject)
             .ToList();
 
         var maxDistance = 0f;
@@ -155,6 +158,11 @@ public class GameController : MonoBehaviour
             }
         }
 
-        return bestSpawnPoint.transform.position;
+        Vector2 fuzzedPosition = bestSpawnPoint.transform.position;
+
+        fuzzedPosition.x += Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz);
+        fuzzedPosition.y += Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz);
+
+        return fuzzedPosition;
     }
 }

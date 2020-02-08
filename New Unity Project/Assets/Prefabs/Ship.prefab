@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c1029a7bd15c444857e6c9a2394d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  shootSpeed: 5
+  speed: 25
+  shootSpeed: 50
   maxHealth: 3
 --- !u!50 &3700080873159685995
 Rigidbody2D:
