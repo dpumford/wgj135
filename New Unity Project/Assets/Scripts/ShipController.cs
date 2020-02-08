@@ -6,12 +6,13 @@ public class ShipController : MonoBehaviour
 {
     Vector2 direction;
     Vector2 rotation;
-    Rigidbody2D myBody;
 
+    Rigidbody2D myBody;
     Laser laser;
     OrbitQueue orbit;
 
     public int speed = 10;
+    public float shootSpeed = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         CheckLaserFire();
+        CheckOrbitalFire();
         CheckOrbitQueue();
     }
 
@@ -63,6 +65,14 @@ public class ShipController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             laser.Fire();
+        }
+    }
+
+    void CheckOrbitalFire()
+    {
+        if (Input.GetMouseButtonUp(1))
+        {
+            orbit.Fire(rotation * shootSpeed);
         }
     }
 

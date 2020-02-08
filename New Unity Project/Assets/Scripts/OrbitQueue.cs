@@ -54,4 +54,15 @@ public class OrbitQueue : MonoBehaviour
             newOrbiters.RemoveLast();
         }
     }
+
+    public void Fire(Vector2 velocity)
+    {
+        if (bodies.Count > 0)
+        {
+            var first = bodies.First;
+            bodies.RemoveFirst();
+
+            first.Value.Fire(velocity);
+        }
+    }
 }

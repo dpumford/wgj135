@@ -9,7 +9,7 @@ public class CelestialBody : MonoBehaviour
 
     private Rigidbody2D myBody;
 
-    public bool collectible = true;
+    public CelestialState state = CelestialState.Collectible;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class CelestialBody : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (collectible)
+        if (state == CelestialState.Collectible)
         {
             RunGravity();
         }
@@ -46,7 +46,7 @@ public class CelestialBody : MonoBehaviour
 
     public void SetOrbitingPosition(Vector2 newPosition)
     {
-        if (!collectible)
+        if (state != CelestialState.Collectible)
         {
             //TODO: Lerp into position?
             myBody.position = newPosition;
@@ -55,13 +55,18 @@ public class CelestialBody : MonoBehaviour
 
     public void Collect()
     {
-        Debug.Log("I've been collected");
-        collectible = false;
+        state = CelestialState.Collected;
         myBody.velocity = Vector2.zero;
+    }
+
+    public void Fire(Vector2 velocity)
+    {
+        state = CelestialState.Collectible;
+        myBody.velocity = velocity;
     }
 
     public bool IsCollectible()
     {
-        return collectible;
+        return state == CelestialState.Collectible;
     }
 }
