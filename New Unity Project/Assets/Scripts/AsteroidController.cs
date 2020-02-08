@@ -8,11 +8,13 @@ public class AsteroidController : CelestialBody
 
     private void Start()
     {
+        ParentStart();
         damageToPlayerOnCollision = 1;
     }
 
     void FixedUpdate()
     {
+        ParentFixedUpdate();
         halo.enabled = state == CelestialState.Selected;
     }
 

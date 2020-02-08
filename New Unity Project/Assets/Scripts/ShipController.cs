@@ -24,6 +24,8 @@ public class ShipController : MonoBehaviour
         rotation = Vector2.zero;
         currentHealth = maxHealth;
 
+        Debug.Log("Health: " + currentHealth);
+
         myBody = GetComponent<Rigidbody2D>();
         laser = GetComponentInChildren<Laser>();
         orbit = GetComponent<OrbitQueue>();
@@ -44,14 +46,20 @@ public class ShipController : MonoBehaviour
         myBody.AddForce(direction * speed);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        CelestialBody body = collision.gameObject.GetComponent<CelestialBody>();
+        AsteroidController asteroid = collision.gameObject.GetComponent<AsteroidController>();
+        StarController star = collision.gameObject.GetComponent<StarController>();
+
+        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star;
+
         if (body != null)
         {
             currentHealth -= body.damageToPlayerOnCollision;
+            Debug.Log("Health: " + currentHealth);
             body.HandlePlayerCollision();
         }
+
     }
 
     void SetShipDirection()

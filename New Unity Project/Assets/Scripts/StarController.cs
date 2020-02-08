@@ -13,12 +13,14 @@ public class StarController : CelestialBody
 
     void Start()
     {
+        ParentStart();
         segmentTimer = 0;
         damageToPlayerOnCollision = 999;
     }
 
     void FixedUpdate()
     {
+        ParentFixedUpdate();
         UpdateSegments();
     }
 

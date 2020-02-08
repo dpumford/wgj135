@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2555384990317843632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.005, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 3427561956176874276}
@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3427561956176874276}
   - component: {fileID: 3427561956176874277}
-  - component: {fileID: 3427561956176874274}
   - component: {fileID: 3427561956176874275}
   - component: {fileID: 3427561956176874272}
   - component: {fileID: 3427561956176874273}
@@ -111,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 3427561956176874286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 8655221209868160585}
   m_Father: {fileID: 0}
@@ -167,21 +166,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3427561956176874274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3427561956176874286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 659889c02d4ae8146afc5b09cfd8b063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialSpeed: 0
-  initialAngle: 0
-  state: 0
 --- !u!50 &3427561956176874275
 Rigidbody2D:
   serializedVersion: 4
@@ -231,4 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008b74efd47d348479ebd4267357bcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialSpeed: 0
+  initialAngle: 0
+  state: 0
+  damageToPlayerOnCollision: 0
+  safeFireDistance: 1
   halo: {fileID: 7586646606411016816}

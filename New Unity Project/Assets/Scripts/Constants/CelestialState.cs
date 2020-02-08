@@ -5,5 +5,6 @@
     Free,
     Selected,
     PrepareFire,
+    Firing,
     Fired,
 }
