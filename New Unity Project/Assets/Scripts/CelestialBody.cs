@@ -8,12 +8,14 @@ public class CelestialBody : MonoBehaviour
     public float initialAngle;
 
     private Rigidbody2D myBody;
+    private CircleCollider2D myCollider;
 
     public CelestialState state = CelestialState.Collectible;
 
     void Start()
     {
         myBody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<CircleCollider2D>();
 
         initialAngle = Random.Range(0, Mathf.PI * 2);
         myBody.velocity = initialSpeed * new Vector2(Mathf.Cos(initialAngle), Mathf.Sin(initialAngle));
@@ -45,7 +47,7 @@ public class CelestialBody : MonoBehaviour
     {
         if (state != CelestialState.Collectible)
         {
-            myBody.position = newPosition;
+            myBody.position = Vector2.Lerp(myBody.position, newPosition, 0.2f);
         }
     }
 
@@ -55,6 +57,7 @@ public class CelestialBody : MonoBehaviour
         {
             state = CelestialState.Collected;
             myBody.velocity = Vector2.zero;
+            myCollider.enabled = false;
         }
     }
 
@@ -78,6 +81,7 @@ public class CelestialBody : MonoBehaviour
     {
         state = CelestialState.Fired;
         myBody.velocity = velocity;
+        myCollider.enabled = true;
     }
 
     public bool IsCollectible()
