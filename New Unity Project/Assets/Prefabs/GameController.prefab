@@ -282,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidSpawnSeconds: 3
   maxNumberOfAsteroids: 4
+  AsteroidSpawnFuzz: 0.5
   asteroidPrefab: {fileID: 3427561956176874286, guid: e891913f89ec61a47bf585ddb46a29e4,
     type: 3}
   possiblePositions:
@@ -294,4 +295,5 @@ MonoBehaviour:
     type: 3}
   blackHolePrefab: {fileID: 7567829744488338450, guid: e8676ba1d7e37e749b7c379fe2889172,
     type: 3}
-  LossSprite: {fileID: 21300000, guid: 0e23bd0a7bce81c4099d50bce2026017, type: 3}
+  lossSprite: {fileID: 21300000, guid: 0e23bd0a7bce81c4099d50bce2026017, type: 3}
+  winSprite: {fileID: 21300000, guid: 0979195f58bf58043b38436697052dd6, type: 3}

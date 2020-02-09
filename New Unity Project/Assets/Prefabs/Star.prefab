@@ -141,7 +141,7 @@ MonoBehaviour:
   damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
   destination: {x: 0, y: 0}
-  destinationForce: 200000
+  destinationForce: 100000
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +167,6 @@ MonoBehaviour:
   timePerDecay: 10
   incorrectMaterialTimePenalty: 3
   decayTimer: 0
-  complete: 0
 --- !u!1 &5548096022167896861
 GameObject:
   m_ObjectHideFlags: 0

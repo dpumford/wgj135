@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
     public GameObject starPrefab;
     public GameObject blackHolePrefab;
 
-    public Sprite LossSprite;
+    public Sprite lossSprite;
+    public Sprite winSprite;
 
     ShipController player;
     SpriteRenderer spriteRenderer;
@@ -50,7 +51,15 @@ public class GameController : MonoBehaviour
                 UpdatePlayState();
                 break;
             case GameState.Dead:
-                spriteRenderer.sprite = LossSprite;
+                spriteRenderer.sprite = lossSprite;
+
+                if (Input.anyKey)
+                {
+                    state = GameState.MainMenu;
+                }
+                break;
+            case GameState.Win:
+                spriteRenderer.sprite = winSprite;
 
                 if (Input.anyKey)
                 {
@@ -71,32 +80,46 @@ public class GameController : MonoBehaviour
         int starPosition2 = (playerPosition + 4) % possiblePositions.Length;
         int blackHolePosition = (playerPosition + 3) % possiblePositions.Length;
 
-        Instantiate(starPrefab, possiblePositions[starPosition1].transform.position, Quaternion.identity)
-            .GetComponent<StarController>().Reset(possiblePositions[playerPosition].transform.position);
-        Instantiate(starPrefab, possiblePositions[starPosition2].transform.position, Quaternion.identity)
-            .GetComponent<StarController>().Reset(possiblePositions[playerPosition].transform.position);
+        Instantiate(starPrefab, possiblePositions[starPosition1].transform.position, Quaternion.identity);
+        Instantiate(starPrefab, possiblePositions[starPosition2].transform.position, Quaternion.identity);
 
         Instantiate(blackHolePrefab, possiblePositions[blackHolePosition].transform.position, Quaternion.identity);
     }
 
     void UpdatePlayState()
     {
+        HandleWinCondition();
         HandleLossCondition();
         HandleAsteroidSpawning();
+    }
+
+    private void HandleWinCondition()
+    {
+        var needers = FindObjectsOfType<NeederController>();
+
+        if (needers.Length > 0 && (from needer in needers where needer.complete select needer).Count() == needers.Length)
+        {
+            Cleanup();
+            state = GameState.Win;
+        }
     }
 
     private void HandleLossCondition()
     {
         if (FindObjectsOfType<StarController>().Length == 0 || player.CurrentHealth() == 0)
         {
-            player.Die();
-
-            foreach (var body in FindObjectsOfType<CelestialBody>())
-            {
-                Destroy(body.gameObject);
-            }
-
+            Cleanup();
             state = GameState.Dead;
+        }
+    }
+
+    private void Cleanup()
+    {
+        player.Die();
+
+        foreach (var body in FindObjectsOfType<CelestialBody>())
+        {
+            Destroy(body.gameObject);
         }
     }
 

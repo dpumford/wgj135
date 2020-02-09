@@ -3,4 +3,5 @@
     MainMenu,
     Playing,
     Dead,
+    Win,
 }

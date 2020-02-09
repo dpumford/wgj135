@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StarController : CelestialBody
 {
-    public Vector2 destination;
     public float destinationForce = 1000000;
 
     private NeederController needer;
@@ -29,15 +28,20 @@ public class StarController : CelestialBody
         UpdatePosition();
     }
 
-    public void Reset(Vector2 destination)
-    {
-        this.destination = destination;
-    }
-
     private void UpdatePosition()
     {
         if (!needer.complete)
         {
+            var destination = Vector2.zero;
+
+            foreach (var star in FindObjectsOfType<StarController>())
+            {
+                if (star != this)
+                {
+                    destination += (Vector2)star.transform.position;
+                }
+            }
+
             myBody.AddForce((destination - (Vector2)transform.position).normalized * destinationForce);
         }
     }
