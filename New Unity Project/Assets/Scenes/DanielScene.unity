@@ -451,6 +451,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
+        type: 3}
+      propertyPath: maxNumberOfAsteroids
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
+        type: 3}
+      propertyPath: asteroidSpawnSeconds
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b30e6c4d176e3441b53aa3360d9768a, type: 3}
 --- !u!1001 &6363179811524927295

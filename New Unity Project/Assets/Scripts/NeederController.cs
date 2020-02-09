@@ -59,7 +59,10 @@ public class NeederController : MonoBehaviour
     public void Reset(int materialNumber, int minRequired, int maxRequired, float startingPercent)
     {
         var availableMaterials = Enum.GetValues(typeof(Material)).Cast<Material>().ToList();
+        availableMaterials.Shuffle();
+
         materialNumber = Math.Min(materialNumber, availableMaterials.Count);
+
         needs = new Needs
         {
             neededMaterials = new Need[materialNumber],
