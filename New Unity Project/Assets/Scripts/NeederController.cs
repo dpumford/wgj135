@@ -25,6 +25,14 @@ public class NeederController : MonoBehaviour
     public float incorrectMaterialTimePenalty = 3;
     public float decayTimer;
 
+    public bool complete
+    {
+        get
+        {
+            return (from need in needs where need.count < need.max select need).Count() == 0;
+        }
+    }
+
     void Start()
     {
         decayTimer = 0;
@@ -66,6 +74,11 @@ public class NeederController : MonoBehaviour
 
     private void UpdateSegments()
     {
+        if (complete)
+        {
+            return;
+        }
+
         decayTimer += Time.deltaTime;
 
         if (decayTimer > timePerDecay)
@@ -91,27 +104,30 @@ public class NeederController : MonoBehaviour
 
         if (asteroid != null)
         {
-            var fulfilled = false;
-
-            foreach (var need in needs)
+            if (!complete)
             {
-                if (need.material == asteroid.material)
+                var fulfilled = false;
+
+                foreach (var need in needs)
                 {
-                    if (need.count < need.max)
+                    if (need.material == asteroid.material)
                     {
-                        need.count++;
+                        if (need.count < need.max)
+                        {
+                            need.count++;
+                        }
+
+                        decayTimer = 0;
+                        fulfilled = true;
+
+                        break;
                     }
-
-                    decayTimer = 0;
-                    fulfilled = true;
-
-                    break;
                 }
-            }
 
-            if (!fulfilled)
-            {
-                decayTimer -= incorrectMaterialTimePenalty;
+                if (!fulfilled)
+                {
+                    decayTimer -= incorrectMaterialTimePenalty;
+                }
             }
 
             Destroy(collision.gameObject);

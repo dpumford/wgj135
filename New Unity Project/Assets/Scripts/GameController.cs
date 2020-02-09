@@ -13,11 +13,9 @@ public class GameController : MonoBehaviour
     public GameObject[] possiblePositions;
 
     public GameObject starPrefab;
-
     public GameObject blackHolePrefab;
 
     public Sprite LossSprite;
-
 
     ShipController player;
     SpriteRenderer spriteRenderer;
@@ -66,10 +64,18 @@ public class GameController : MonoBehaviour
 
     void StartGame()
     {
-        player.Spawn(Vector2.zero);
-        int starPosition = Random.Range(0, possiblePositions.Length);
-        int blackHolePosition = (starPosition + 2) % possiblePositions.Length;
-        Instantiate(starPrefab, possiblePositions[starPosition].transform.position, Quaternion.identity);
+        int playerPosition = Random.Range(0, possiblePositions.Length);
+        player.Spawn(possiblePositions[playerPosition].transform.position);
+
+        int starPosition1 = (playerPosition + 2) % possiblePositions.Length;
+        int starPosition2 = (playerPosition + 4) % possiblePositions.Length;
+        int blackHolePosition = (playerPosition + 3) % possiblePositions.Length;
+
+        Instantiate(starPrefab, possiblePositions[starPosition1].transform.position, Quaternion.identity)
+            .GetComponent<StarController>().Reset(possiblePositions[playerPosition].transform.position);
+        Instantiate(starPrefab, possiblePositions[starPosition2].transform.position, Quaternion.identity)
+            .GetComponent<StarController>().Reset(possiblePositions[playerPosition].transform.position);
+
         Instantiate(blackHolePrefab, possiblePositions[blackHolePosition].transform.position, Quaternion.identity);
     }
 

@@ -99,14 +99,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10000
-  m_LinearDrag: 1000000
+  m_LinearDrag: 100
   m_AngularDrag: 1000000
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 9381fc817e2c0f444bc479dfef457749, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1445310760035435618
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -140,6 +140,8 @@ MonoBehaviour:
   state: 2
   damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
+  destination: {x: 0, y: 0}
+  destinationForce: 200000
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   timePerDecay: 10
   incorrectMaterialTimePenalty: 3
   decayTimer: 0
+  complete: 0
 --- !u!1 &5548096022167896861
 GameObject:
   m_ObjectHideFlags: 0
