@@ -20,7 +20,7 @@ public class Need
 public class Needs
 {
     public Need[] neededMaterials;
-    public LinkedList<Material> gatheredMaterials;
+    public LinkedList<Material> gatheredMaterials = new LinkedList<Material>();
 
     public List<float> percentages{
         get {
@@ -53,7 +53,6 @@ public class NeederController : MonoBehaviour
     void Start()
     {
         decayTimer = 0;
-        Reset(3, 2, 5, 0.5f);
     }
 
     public void Reset(int materialNumber, int minRequired, int maxRequired, float startingPercent)
@@ -95,11 +94,6 @@ public class NeederController : MonoBehaviour
         UpdateSegments();
     }
 
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         HandleAsteroids(collision);
@@ -118,11 +112,7 @@ public class NeederController : MonoBehaviour
         {
             decayTimer = 0;
 
-            if (needs.gatheredMaterials.Count == 0)
-            {
-                Die();
-            }
-            else
+            if (needs.gatheredMaterials.Count > 0)
             {
                 needs.gatheredMaterials.RemoveLast();
             }

@@ -16,6 +16,16 @@ public class StarController : CelestialBody
     private NeederController needer;
     private OrbitQueue orbiter;
 
+    private Vector2 initialPosition;
+
+    public bool Alive
+    {
+        get
+        {
+            return gameObject.activeSelf;
+        }
+    }
+
     void Start()
     {
         ParentStart();
@@ -24,10 +34,7 @@ public class StarController : CelestialBody
         needer = GetComponent<NeederController>();
         orbiter = GetComponent<OrbitQueue>();
 
-        for (int i = 0; i < initialNumberOfPlanets; i++)
-        {
-            orbiter.AddOrbiter(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
-        }
+        initialPosition = transform.position;
     }
 
     void FixedUpdate()
@@ -37,6 +44,7 @@ public class StarController : CelestialBody
 
     void Update()
     {
+        UpdateHealth();
         UpdatePosition();
         UpdateWidth();
     }
@@ -59,9 +67,42 @@ public class StarController : CelestialBody
         }
     }
 
+    private void UpdateHealth()
+    {
+        if (needer.needs.gatheredMaterials.Count == 0)
+        {
+            Die();
+        }
+    }
+
     private void UpdateWidth()
     {
         var scale = baseScale + (needer.needs.gatheredMaterials.Count / ringSegmentSize) * scalePerRing;
         transform.localScale = new Vector3(scale, scale, transform.localScale.z);
+    }
+
+    public void Spawn()
+    {
+        transform.position = initialPosition;
+
+        for (int i = 0; i < initialNumberOfPlanets; i++)
+        {
+            orbiter.AddOrbiter(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
+        }
+
+        needer.Reset(3, 2, 5, 0.5f);
+        gameObject.SetActive(true);
+    }
+
+    public override void Die()
+    {
+        foreach (var planet in orbiter.orbiters)
+        {
+            planet.Die();
+        }
+
+        orbiter.Clear();
+
+        gameObject.SetActive(false);
     }
 }

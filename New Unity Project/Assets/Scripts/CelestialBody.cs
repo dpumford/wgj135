@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,12 +65,7 @@ public class CelestialBody : MonoBehaviour
 
     public void SetOrbitingPosition(Vector2 newPosition)
     {
-        if (state != CelestialState.Collectible)
-        {
-            myBody.position = Vector2.Lerp(myBody.position, newPosition, 0.2f);
-        }
-
-        if (state != CelestialState.PrepareFire)
+        if (state != CelestialState.Collectible || state != CelestialState.PrepareFire)
         {
             myBody.position = Vector2.Lerp(myBody.position, newPosition, 0.2f);
         }
@@ -114,8 +109,8 @@ public class CelestialBody : MonoBehaviour
         return state == CelestialState.Collectible;
     }
 
-    public void RegisterPlayerCollision()
+    public virtual void Die()
     {
-        GameObject.Destroy(this);
+        
     }
 }

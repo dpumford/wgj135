@@ -30,7 +30,7 @@ public class AsteroidController : CelestialBody
         Die();
     }
 
-    public void Die()
+    public override void Die()
     {
         Destroy(gameObject);
     }

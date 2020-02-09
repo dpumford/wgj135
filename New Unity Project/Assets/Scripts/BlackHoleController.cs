@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class BlackHoleController : CelestialBody
 {
+    private Vector2 initialPosition;
+
     void Start()
     {
         damageToPlayerOnCollision = 999;
         ParentStart();
+
+        initialPosition = transform.position;
     }
 
     void FixedUpdate()
@@ -27,6 +31,17 @@ public class BlackHoleController : CelestialBody
 
     private void HandleAsteroids(AsteroidController asteroid)
     {
-        Destroy(asteroid.gameObject);
+        asteroid.Die();
+    }
+
+    public void Spawn()
+    {
+        gameObject.SetActive(true);
+        transform.position = initialPosition;
+    }
+
+    public override void Die()
+    {
+        gameObject.SetActive(false);
     }
 }

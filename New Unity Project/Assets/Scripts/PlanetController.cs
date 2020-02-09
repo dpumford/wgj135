@@ -23,4 +23,9 @@ public class PlanetController : CelestialBody
             asteroid.Die();
         }
     }
+
+    public override void Die()
+    {
+        Destroy(gameObject);
+    }
 }

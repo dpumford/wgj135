@@ -10,15 +10,16 @@ public class GameController : MonoBehaviour
     public int maxNumberOfAsteroids = 4;
     public float AsteroidSpawnFuzz = .5f;
     public GameObject asteroidPrefab;
-    public GameObject[] possiblePositions;
+    public Transform[] possiblePositions;
 
-    public GameObject starPrefab;
-    public GameObject blackHolePrefab;
+    public Transform[] playerSpawnPoints;
 
     public Sprite lossSprite;
     public Sprite winSprite;
 
     ShipController player;
+    BlackHoleController[] holes;
+    StarController[] stars;
     SpriteRenderer spriteRenderer;
 
     GameState state;
@@ -27,13 +28,17 @@ public class GameController : MonoBehaviour
     void Start()
     {
         state = GameState.MainMenu;
-        player = FindObjectOfType<ShipController>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        player = FindObjectOfType<ShipController>();
         
         if (player == null)
         {
             Debug.LogError("Missing a player!!");
         }
+
+        holes = FindObjectsOfType<BlackHoleController>();
+        stars = FindObjectsOfType<StarController>();
     }
 
     // Update is called once per frame
@@ -71,17 +76,17 @@ public class GameController : MonoBehaviour
 
     void StartGame()
     {
-        int playerPosition = Random.Range(0, possiblePositions.Length);
-        player.Spawn(possiblePositions[playerPosition].transform.position);
+        player.Spawn(playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)].position);
 
-        int starPosition1 = (playerPosition + 2) % possiblePositions.Length;
-        int starPosition2 = (playerPosition + 4) % possiblePositions.Length;
-        int blackHolePosition = (playerPosition + 3) % possiblePositions.Length;
+        foreach (var blackHole in holes)
+        {
+            blackHole.Spawn();
+        }
 
-        Instantiate(starPrefab, possiblePositions[starPosition1].transform.position, Quaternion.identity);
-        Instantiate(starPrefab, possiblePositions[starPosition2].transform.position, Quaternion.identity);
-
-        Instantiate(blackHolePrefab, possiblePositions[blackHolePosition].transform.position, Quaternion.identity);
+        foreach (var star in stars)
+        {
+            star.Spawn();
+        }
     }
 
     void UpdatePlayState()
@@ -104,7 +109,7 @@ public class GameController : MonoBehaviour
 
     private void HandleLossCondition()
     {
-        if (FindObjectsOfType<StarController>().Length == 0 || player.CurrentHealth() == 0)
+        if ((from star in stars where star.Alive select star).Count() == 0 || player.CurrentHealth() == 0)
         {
             Cleanup();
             state = GameState.Dead;
@@ -115,9 +120,19 @@ public class GameController : MonoBehaviour
     {
         player.Die();
 
-        foreach (var body in FindObjectsOfType<CelestialBody>())
+        foreach (var asteroid in FindObjectsOfType<AsteroidController>())
         {
-            Destroy(body.gameObject);
+            asteroid.Die();
+        }
+
+        foreach (var blackHole in FindObjectsOfType<BlackHoleController>())
+        {
+            blackHole.Die();
+        }
+
+        foreach (var star in FindObjectsOfType<StarController>())
+        {
+            star.Die();
         }
     }
 
@@ -167,7 +182,7 @@ public class GameController : MonoBehaviour
             .ToList();
 
         var maxDistance = 0f;
-        GameObject bestSpawnPoint = null;
+        Transform bestSpawnPoint = null;
 
         foreach (var point in possiblePositions)
         {
