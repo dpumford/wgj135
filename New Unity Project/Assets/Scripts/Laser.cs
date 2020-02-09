@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    public OrbitQueue destinationQueue;
+
     LineRenderer line;
-    List<CelestialBody> colliders;
     BoxCollider2D myCollider;
 
     public int duration_frames = 10;
@@ -15,8 +16,6 @@ public class Laser : MonoBehaviour
     {
         line = GetComponent<LineRenderer>();
         line.enabled = false;
-
-        colliders = new List<CelestialBody>();
 
         myCollider = GetComponent<BoxCollider2D>();
         myCollider.enabled = false;
@@ -28,13 +27,8 @@ public class Laser : MonoBehaviour
 
         if (body != null && body.IsCollectible())
         {
-            colliders.Add(body);
+            destinationQueue.AddOrbiter(body);
         }
-    }
-
-    public List<CelestialBody> GetColliders()
-    {
-        return colliders;
     }
 
     public void Fire()

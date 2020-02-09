@@ -215,9 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008b74efd47d348479ebd4267357bcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 0
-  initialAngle: 0
+  initialSpeed: 4
   state: 0
   damageToPlayerOnCollision: 0
   safeFireDistance: 1
   halo: {fileID: 7586646606411016816}
+  material: 0

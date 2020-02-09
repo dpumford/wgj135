@@ -24,14 +24,10 @@ public class StarController : CelestialBody
         needer = GetComponent<NeederController>();
         orbiter = GetComponent<OrbitQueue>();
 
-        var planets = new List<CelestialBody>();
-
         for (int i = 0; i < initialNumberOfPlanets; i++)
         {
-            planets.Add(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
+            orbiter.AddOrbiter(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
         }
-
-        orbiter.CollectOrbiters(planets);
     }
 
     void FixedUpdate()

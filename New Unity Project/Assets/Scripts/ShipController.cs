@@ -65,7 +65,6 @@ public class ShipController : MonoBehaviour
 
         CheckLaserFire();
         CheckOrbitalFire();
-        CheckOrbitQueue();
     }
 
     void FixedUpdate()
@@ -92,14 +91,10 @@ public class ShipController : MonoBehaviour
 
         CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star ?? (CelestialBody)blackHole;
 
-        if (body != null)
+        if (body != null && (body.state == CelestialState.Free || body.state == CelestialState.Collectible))
         {
             currentHealth -= body.damageToPlayerOnCollision;
-
-            if (currentHealth < 0)
-            {
-                currentHealth = 0;
-            }
+            currentHealth = Mathf.Max(0, currentHealth);
 
             Debug.Log("Health: " + currentHealth);
             body.HandlePlayerCollision();
@@ -146,11 +141,6 @@ public class ShipController : MonoBehaviour
             state = PlayerState.Alive;
             shooter.Fire(rotation.normalized * shootSpeed);
         }
-    }
-
-    void CheckOrbitQueue()
-    {
-        orbit.CollectOrbiters(laser.GetColliders());
     }
 
     public int CurrentHealth()

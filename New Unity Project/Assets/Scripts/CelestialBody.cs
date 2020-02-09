@@ -5,7 +5,6 @@ using UnityEngine;
 public class CelestialBody : MonoBehaviour
 {
     public float initialSpeed;
-    public float initialAngle;
 
     protected Rigidbody2D myBody;
     private CircleCollider2D myCollider;
@@ -21,13 +20,13 @@ public class CelestialBody : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<CircleCollider2D>();
 
-        initialAngle = Random.Range(0, Mathf.PI * 2);
+        var initialAngle = Random.Range(0, Mathf.PI * 2);
         myBody.velocity = initialSpeed * new Vector2(Mathf.Cos(initialAngle), Mathf.Sin(initialAngle));
     }
 
     protected void ParentFixedUpdate()
     {
-        if (state == CelestialState.Collectible)
+        if (state == CelestialState.Collectible || state == CelestialState.Free)
         {
             RunGravity();
         }

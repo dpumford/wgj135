@@ -41,13 +41,11 @@ public class GameController : MonoBehaviour
     {
         switch (state) {
             case GameState.MainMenu:
-                Debug.Log("At menu!");
                 StartGame();
                 state = GameState.Playing;
                 break;
             case GameState.Playing:
                 spriteRenderer.sprite = null;
-                Debug.Log("Playing game!");
                 UpdatePlayState();
                 break;
             case GameState.Dead:
@@ -141,7 +139,7 @@ public class GameController : MonoBehaviour
     
     Material RandomMaterial()
     {
-        switch (Mathf.Floor(Random.value * 4))
+        switch (Random.Range(0, 4))
         {
             case 0:
                 return Material.Hydrogen;
@@ -187,11 +185,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        Vector2 fuzzedPosition = bestSpawnPoint.transform.position;
-
-        fuzzedPosition.x += Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz);
-        fuzzedPosition.y += Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz);
-
-        return fuzzedPosition;
+        return (Vector2)bestSpawnPoint.transform.position + 
+            new Vector2(Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz), Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz));
     }
 }

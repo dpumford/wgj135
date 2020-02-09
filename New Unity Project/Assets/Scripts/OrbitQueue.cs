@@ -62,14 +62,12 @@ public class OrbitQueue : MonoBehaviour
         currentFrame %= spinFrames;
     }
 
-    public void CollectOrbiters(List<CelestialBody> newOrbiters)
+    public void AddOrbiter(CelestialBody body)
     {
-        while (newOrbiters.Count > 0 && orbiters.Count < capacity)
+        if (orbiters.Count < capacity)
         {
-            CelestialBody orbiter = newOrbiters[0];
-            orbiter.Collect();
-            orbiters.Add(orbiter);
-            newOrbiters.RemoveAt(0);
+            body.Collect();
+            orbiters.Add(body);
         }
     }
 
