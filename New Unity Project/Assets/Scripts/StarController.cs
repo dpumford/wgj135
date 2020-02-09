@@ -10,7 +10,11 @@ public class StarController : CelestialBody
     public float baseScale = 20;
     public float scalePerRing = 10;
 
+    public int initialNumberOfPlanets = 2;
+    public CelestialBody planetPrefab;
+
     private NeederController needer;
+    private OrbitQueue orbiter;
 
     void Start()
     {
@@ -18,6 +22,16 @@ public class StarController : CelestialBody
         damageToPlayerOnCollision = 999;
 
         needer = GetComponent<NeederController>();
+        orbiter = GetComponent<OrbitQueue>();
+
+        var planets = new List<CelestialBody>();
+
+        for (int i = 0; i < initialNumberOfPlanets; i++)
+        {
+            planets.Add(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
+        }
+
+        orbiter.CollectOrbiters(planets);
     }
 
     void FixedUpdate()

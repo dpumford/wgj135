@@ -158,7 +158,7 @@ public class NeederController : MonoBehaviour
                 }
             }
 
-            Destroy(collision.gameObject);
+            asteroid.Die();
         }
     }
 }

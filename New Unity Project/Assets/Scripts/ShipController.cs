@@ -12,6 +12,7 @@ public class ShipController : MonoBehaviour
     SpriteRenderer renderer;
     Laser laser;
     OrbitQueue orbit;
+    ShootController shooter;
 
     public int speed = 10;
     public float shootSpeed = 5;
@@ -26,6 +27,7 @@ public class ShipController : MonoBehaviour
         myCollider = GetComponent<PolygonCollider2D>();
         laser = GetComponentInChildren<Laser>();
         orbit = GetComponent<OrbitQueue>();
+        shooter = GetComponent<ShootController>();
         renderer = GetComponent<SpriteRenderer>();
     }
 
@@ -137,12 +139,12 @@ public class ShipController : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             state = PlayerState.Aiming;
-            orbit.PrepareFire();
+            shooter.PrepareFire();
         } 
         else if (Input.GetMouseButtonUp(1))
         {
             state = PlayerState.Alive;
-            orbit.Fire(rotation.normalized * shootSpeed);
+            shooter.Fire(rotation.normalized * shootSpeed);
         }
     }
 

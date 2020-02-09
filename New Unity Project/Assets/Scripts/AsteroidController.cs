@@ -27,6 +27,11 @@ public class AsteroidController : CelestialBody
 
     public override void HandlePlayerCollision()
     {
-        GameObject.Destroy(gameObject);
+        Die();
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
