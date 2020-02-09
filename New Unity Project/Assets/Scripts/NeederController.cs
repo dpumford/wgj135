@@ -8,18 +8,35 @@ using UnityEngine;
 public class Need
 {
     public Material material;
-    public int count;
     public int max;
+
+    public float Percent(LinkedList<Material> gatheredMaterials)
+    {
+        return (from material in gatheredMaterials where material == this.material select material).Count() / (float)max;
+    }
+}
+
+[Serializable]
+public class Needs
+{
+    public Need[] neededMaterials;
+    public LinkedList<Material> gatheredMaterials;
+
+    public List<float> percentages{
+        get {
+            return (from need in neededMaterials select need.Percent(gatheredMaterials)).ToList();
+        }
+    }
 
     public override string ToString()
     {
-        return $"{material}: {count} / {max}";
+        return string.Join(", ", from need in neededMaterials select $"{need.material}: {String.Format("{0:P2}", need.Percent(gatheredMaterials))}");
     }
 }
 
 public class NeederController : MonoBehaviour
 {
-    public Need[] needs;
+    public Needs needs;
 
     public float timePerDecay = 10;
     public float incorrectMaterialTimePenalty = 3;
@@ -29,7 +46,7 @@ public class NeederController : MonoBehaviour
     {
         get
         {
-            return (from need in needs where need.count < need.max select need).Count() == 0;
+            return (from percent in needs.percentages where percent < 1f select percent).Count() == 0;
         }
     }
 
@@ -43,18 +60,31 @@ public class NeederController : MonoBehaviour
     {
         var availableMaterials = Enum.GetValues(typeof(Material)).Cast<Material>().ToList();
         materialNumber = Math.Min(materialNumber, availableMaterials.Count);
-        needs = new Need[materialNumber];
+        needs = new Needs
+        {
+            neededMaterials = new Need[materialNumber],
+        };
+
+        var gatheredMaterials = new List<Material>();
 
         for (int i = 0; i < materialNumber; i++)
         {
-            needs[i] = new Need
+            needs.neededMaterials[i] = new Need
             {
                 material = availableMaterials[i],
                 max = UnityEngine.Random.Range(minRequired, maxRequired)
             };
 
-            needs[i].count = (int)(needs[i].max * startingPercent);
+            var numberOfMaterial = (int)(needs.neededMaterials[i].max * startingPercent);
+
+            for (int m = 0; m < numberOfMaterial; m++)
+            {
+                gatheredMaterials.Add(availableMaterials[i]);
+            }
         }
+
+        gatheredMaterials.Shuffle();
+        needs.gatheredMaterials = new LinkedList<Material>(gatheredMaterials);
     }
 
     void FixedUpdate()
@@ -85,15 +115,13 @@ public class NeederController : MonoBehaviour
         {
             decayTimer = 0;
 
-            var availableNeeds = (from need in needs where need.count > 0 select need).ToList();
-
-            if (availableNeeds.Count == 0 || (availableNeeds.Count == 1 && availableNeeds[0].count <= 1))
+            if (needs.gatheredMaterials.Count == 0)
             {
                 Die();
             }
             else
             {
-                availableNeeds[UnityEngine.Random.Range(0, availableNeeds.Count)].count--;
+                needs.gatheredMaterials.RemoveLast();
             }
         }
     }
@@ -108,13 +136,13 @@ public class NeederController : MonoBehaviour
             {
                 var fulfilled = false;
 
-                foreach (var need in needs)
+                foreach (var need in needs.neededMaterials)
                 {
                     if (need.material == asteroid.material)
                     {
-                        if (need.count < need.max)
+                        if (need.Percent(needs.gatheredMaterials) < 1f)
                         {
-                            need.count++;
+                            needs.gatheredMaterials.AddLast(asteroid.material);
                         }
 
                         decayTimer = 0;

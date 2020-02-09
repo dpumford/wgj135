@@ -7,7 +7,7 @@ public class CelestialBody : MonoBehaviour
     public float initialSpeed;
     public float initialAngle;
 
-    private Rigidbody2D myBody;
+    protected Rigidbody2D myBody;
     private CircleCollider2D myCollider;
 
     public CelestialState state = CelestialState.Collectible;

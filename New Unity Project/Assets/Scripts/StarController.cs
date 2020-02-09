@@ -6,8 +6,11 @@ public class StarController : CelestialBody
 {
     public float destinationForce = 1000000;
 
+    public int ringSegmentSize = 3;
+    public float baseScale = 20;
+    public float scalePerRing = 10;
+
     private NeederController needer;
-    private Rigidbody2D myBody;
 
     void Start()
     {
@@ -15,7 +18,6 @@ public class StarController : CelestialBody
         damageToPlayerOnCollision = 999;
 
         needer = GetComponent<NeederController>();
-        myBody = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -26,6 +28,7 @@ public class StarController : CelestialBody
     void Update()
     {
         UpdatePosition();
+        UpdateWidth();
     }
 
     private void UpdatePosition()
@@ -44,5 +47,11 @@ public class StarController : CelestialBody
 
             myBody.AddForce((destination - (Vector2)transform.position).normalized * destinationForce);
         }
+    }
+
+    private void UpdateWidth()
+    {
+        var scale = baseScale + (needer.needs.gatheredMaterials.Count / ringSegmentSize) * scalePerRing;
+        transform.localScale = new Vector3(scale, scale, transform.localScale.z);
     }
 }

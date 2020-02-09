@@ -17,6 +17,6 @@ public class StarStatusController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textMesh.text = $"{string.Join(", ", from need in star.needs select need.ToString())}, Decay: {star.timePerDecay - star.decayTimer}s";
+        textMesh.text = $"{star.needs}, Decay: {star.timePerDecay - star.decayTimer}s";
     }
 }
