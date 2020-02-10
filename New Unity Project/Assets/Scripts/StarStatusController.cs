@@ -11,7 +11,7 @@ public class StarStatusController : MonoBehaviour
     public float textScale;
 
     NeederController star;
-    List<StatusController> statusList;
+    List<StatusController> statusList = new List<StatusController>();
 
     public void Spawn()
     {
@@ -54,6 +54,11 @@ public class StarStatusController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (star == null)
+        {
+            return;
+        }
+
         if (star.IsComplete())
         {
             statusList[0].SetText("Fulfilled!");

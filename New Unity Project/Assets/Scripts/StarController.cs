@@ -22,26 +22,10 @@ public class StarController : CelestialBody
 
     private OrbitGroup orbits;
 
-    private Vector2 initialPosition;
-
-    public bool Alive
-    {
-        get
-        {
-            return gameObject.activeSelf;
-        }
-    }
-
     void Start()
     {
         ParentStart();
         damageToPlayerOnCollision = 999;
-
-        needer = GetComponent<NeederController>();
-        orbits = GetComponent<OrbitGroup>();
-        statusController = GetComponent<StarStatusController>();
-
-        initialPosition = transform.position;
     }
 
     void FixedUpdate()
@@ -90,7 +74,9 @@ public class StarController : CelestialBody
 
     public void Spawn()
     {
-        transform.position = initialPosition;
+        needer = GetComponent<NeederController>();
+        orbits = GetComponent<OrbitGroup>();
+        statusController = GetComponent<StarStatusController>();
 
         for (int i = 0; i < initialOrbits; i++)
         {
@@ -105,8 +91,6 @@ public class StarController : CelestialBody
         needer.Reset(3, 2, 5, 0.5f);
 
         statusController.Spawn();
-
-        gameObject.SetActive(true);
     }
 
     public override void Die()
@@ -115,6 +99,6 @@ public class StarController : CelestialBody
 
         statusController.Die();
 
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

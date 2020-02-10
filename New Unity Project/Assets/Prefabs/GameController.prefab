@@ -131,8 +131,14 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 3427561956176874286, guid: e891913f89ec61a47bf585ddb46a29e4,
     type: 3}
   asteroidSpawnPoints: {fileID: 0}
+  shipPrefab: {fileID: 3700080873159685994, guid: 85e03dae7ef9cb94d837ff3bf54901ac,
+    type: 3}
   playerSpawnPoints: {fileID: 0}
+  starPrefab: {fileID: 1445310760035435629, guid: 27b47e1c42b9c744c98091a551fd3f80,
+    type: 3}
+  starSpawnPoints: {fileID: 0}
+  blackHolePrefab: {fileID: 7567829744488338449, guid: e8676ba1d7e37e749b7c379fe2889172,
+    type: 3}
+  holeSpawnPoints: {fileID: 0}
   lossSprite: {fileID: 21300000, guid: 0e23bd0a7bce81c4099d50bce2026017, type: 3}
   winSprite: {fileID: 21300000, guid: 0979195f58bf58043b38436697052dd6, type: 3}
-  playerPrefab: {fileID: 3700080873159685994, guid: 85e03dae7ef9cb94d837ff3bf54901ac,
-    type: 3}

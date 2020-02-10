@@ -6,11 +6,12 @@ public class OrbitGroup : MonoBehaviour
 {
     public Orbit orbitPrefab;
     public CelestialBody planetPrefab;
-    List<Orbit> orbits;
+
+    List<Orbit> orbits = new List<Orbit>();
+
     // Start is called before the first frame update
     void Start()
     {
-        orbits = new List<Orbit>();
     }
 
     // Update is called once per frame

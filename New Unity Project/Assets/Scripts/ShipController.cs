@@ -23,9 +23,13 @@ public class ShipController : MonoBehaviour
     public float orbitDistance = 2.0f;
 
     int currentHealth;
-    PlayerState state;
+    bool aiming;
 
     void Start()
+    {
+    }
+
+    public void Spawn(Vector2 spawnPoint)
     {
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<PolygonCollider2D>();
@@ -33,15 +37,9 @@ public class ShipController : MonoBehaviour
         orbit = GetComponent<Orbit>();
         shooter = GetComponent<ShootController>();
         renderer = GetComponent<SpriteRenderer>();
-    }
 
-    public void Spawn(Vector2 spawnPoint)
-    {
         Debug.Log("Spawning!");
         orbit.Init(transform, orbitCapacity, orbitFrames, orbitDistance);
-        state = PlayerState.Alive;
-        renderer.enabled = true;
-        myCollider.enabled = true;
 
         transform.position = spawnPoint;
         direction = Vector2.zero;
@@ -54,38 +52,23 @@ public class ShipController : MonoBehaviour
     public void Die()
     {
         Debug.Log("Dying!");
-        state = PlayerState.Dead;
-        renderer.enabled = false;
-        myCollider.enabled = false;
-        myBody.velocity = Vector2.zero;
         orbit.Clear();
+        Destroy(gameObject);
     }
 
     void Update()
     {
-        if (state == PlayerState.Dead)
-        {
-            return;
-        }
-
+        CheckHealth();
         CheckLaserFire();
         CheckOrbitalFire();
     }
 
     void FixedUpdate()
     {
-        if (state == PlayerState.Dead)
-        {
-            return;
-        }
-
         SetShipDirection();
         SetShipRotation();
 
-        if (state == PlayerState.Alive)
-        {
-            myBody.AddForce(direction * speed);
-        }
+        myBody.AddForce(direction * speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -103,6 +86,14 @@ public class ShipController : MonoBehaviour
 
             Debug.Log("Health: " + currentHealth);
             body.HandlePlayerCollision();
+        }
+    }
+
+    void CheckHealth()
+    {
+        if (currentHealth <= 0)
+        {
+            Die();
         }
     }
 
@@ -138,12 +129,12 @@ public class ShipController : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            state = PlayerState.Aiming;
+            aiming = true;
             shooter.PrepareFire();
         } 
         else if (Input.GetMouseButtonUp(1))
         {
-            state = PlayerState.Alive;
+            aiming = false;
             shooter.Fire(rotation.normalized * shootSpeed);
         }
     }

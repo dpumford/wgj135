@@ -13,20 +13,12 @@ public class Need
 
     public void Gather(int amount)
     {
-        current += amount;
-        if (current > max)
-        {
-            current = max;
-        }
+        current = Mathf.Min(max, current + amount);
     }
 
     public void Decay(int amount)
     {
-        current -= amount;
-        if (current < 0)
-        {
-            current = 0;
-        }
+        current = Mathf.Max(0, current - amount);
     }
 
     public bool Complete()
@@ -40,18 +32,10 @@ public class Need
     }
 }
 
-[Serializable]
-public class Needs
-{
-    public Dictionary<Material, Need> needs;
-    public Need[] neededMaterials;
-    public LinkedList<Material> gatheredMaterials = new LinkedList<Material>();
-}
-
 public class NeederController : MonoBehaviour
 {
-    public Dictionary<Material, Need> needs;
-    List<Material> gatherOrder;
+    public Dictionary<Material, Need> needs = new Dictionary<Material, Need>();
+    List<Material> gatherOrder = new List<Material>();
 
     public float timePerDecay = 10;
     public float incorrectMaterialTimePenalty = 3;
@@ -71,7 +55,7 @@ public class NeederController : MonoBehaviour
 
     public bool IsDead()
     {
-        return gatherOrder.Count == 0;
+        return GatheredCount() == 0;
     }
 
     public int GatheredCount()
