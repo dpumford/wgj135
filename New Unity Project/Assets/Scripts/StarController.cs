@@ -91,13 +91,11 @@ public class StarController : CelestialBody
 
         for (int i = 0; i < initialOrbits; i++)
         {
-            Debug.Log("Adding Orbit " + i);
             orbits.AddOrbit(transform, orbitCapacity[i], orbitFrames[i], orbitDistance[i]);
         }
 
         for (int i = 0; i < initialNumberOfPlanets; i++)
         {
-            Debug.Log("Adding orbiter " + i);
             orbits.AddOrbiter();
         }
 

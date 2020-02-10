@@ -97,8 +97,14 @@ public class CelestialBody : MonoBehaviour
         state = CelestialState.PrepareFire;
     }
 
+    public virtual void OnFire()
+    {
+
+    }
+
     public void Fire(Vector2 velocity)
     {
+        OnFire();
         state = CelestialState.Firing;
         myBody.velocity = velocity;
         firedPosition = transform.position;

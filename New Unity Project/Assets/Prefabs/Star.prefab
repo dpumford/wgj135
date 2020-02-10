@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbitPrefab: {fileID: -8914626955394465641, guid: 4322cb1676de1424289cc2b08cfb0f9e,
     type: 3}
-  planetPrefab: {fileID: 2627805072083266287, guid: e51e1bbbf7d46b942afd9b63765154da,
+  planetPrefab: {fileID: 5194073684077267229, guid: e51e1bbbf7d46b942afd9b63765154da,
     type: 3}
 --- !u!1 &5548096022167896861
 GameObject:

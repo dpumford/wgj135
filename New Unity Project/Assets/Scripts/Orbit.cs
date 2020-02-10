@@ -81,7 +81,6 @@ public class Orbit : MonoBehaviour
 
     public bool IsFull()
     {
-        Debug.Log("Orbiters " + orbiters.Count + " Max " + capacity);
         return orbiters.Count == capacity;
     }
 
