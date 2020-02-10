@@ -8,7 +8,7 @@ public class PlanetController : CelestialBody
     public int maxHealth = 3;
     int currentHealth = 0;
 
-    public int lifePercentage = 40;
+    public int lifePercentage = 90;
 
     public int heatHealthLossFrames = 60;
     int currentHealthLossFrame = 0;
@@ -48,7 +48,7 @@ public class PlanetController : CelestialBody
 
             planetState = currentHealth == 0 ? PlanetState.Dead : planetState;
 
-            statusField.text = "Health: " + currentHealth + " Losing in " + ((float)currentHealthLossFrame / (float)heatHealthLossFrames * 100);
+            statusField.text = "Health: " + currentHealth + " Losing in " + (int)((float)currentHealthLossFrame / (float)heatHealthLossFrames * 100);
         }
         else if (planetState == PlanetState.Alive)
         {
@@ -87,7 +87,7 @@ public class PlanetController : CelestialBody
 
     public bool IsAlive()
     {
-        return planetState == PlanetState.Dead;
+        return planetState != PlanetState.Dead && planetState != PlanetState.Fallow;
     }
 
     public override void Die()

@@ -140,6 +140,7 @@ MonoBehaviour:
   damageToPlayerOnCollision: 0
   safeFireDistance: 0.5
   maxHealth: 3
+  lifePercentage: 90
   heatHealthLossFrames: 60
   statusField: {fileID: 0}
 --- !u!1 &7060988253014586935

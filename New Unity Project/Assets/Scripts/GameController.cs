@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     BlackHoleController[] holes;
     StarController[] stars;
     SpriteRenderer spriteRenderer;
+    PlanetController[] planets;
 
     GameState state;
     float asteroidSpawnTimer;
@@ -87,6 +88,8 @@ public class GameController : MonoBehaviour
         {
             star.Spawn();
         }
+
+        planets = FindObjectsOfType<PlanetController>();
     }
 
     void UpdatePlayState()
@@ -109,7 +112,7 @@ public class GameController : MonoBehaviour
 
     private void HandleLossCondition()
     {
-        if ((from star in stars where star.Alive select star).Count() == 0 || player.CurrentHealth() == 0)
+        if ((from planet in planets where planet.IsAlive() select planet).Count() == 0 || player.CurrentHealth() == 0)
         {
             Cleanup();
             state = GameState.Dead;
