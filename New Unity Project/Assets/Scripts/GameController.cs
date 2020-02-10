@@ -134,6 +134,11 @@ public class GameController : MonoBehaviour
         {
             star.Die();
         }
+
+        foreach (var planet in FindObjectsOfType<PlanetController>())
+        {
+            planet.Die();
+        }
     }
 
     private void HandleAsteroidSpawning()

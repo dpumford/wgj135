@@ -54,5 +54,7 @@ public class OrbitGroup : MonoBehaviour
         {
             orbit.Die();
         }
+
+        orbits.Clear();
     }
 }

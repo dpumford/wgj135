@@ -103,5 +103,7 @@ public class Orbit : MonoBehaviour
 
             orbiter.Fire(normalToCenter.normalized * orbitalVelocity);
         }
+
+        Destroy(gameObject);
     }
 }
