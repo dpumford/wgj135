@@ -10,11 +10,15 @@ public class StarController : CelestialBody
     public float baseScale = 20;
     public float scalePerRing = 10;
 
-    public int initialNumberOfPlanets = 2;
-    public CelestialBody planetPrefab;
+    public int initialOrbits = 2;
+    public int[] orbitCapacity = new[] { 2, 4 };
+    public float[] orbitDistance = new float[] { 5, 10 };
+    public int[] orbitFrames = new[] { 600, 900 };
+
+    public int initialNumberOfPlanets = 5;
 
     private NeederController needer;
-    private OrbitQueue orbiter;
+    private OrbitGroup orbits;
 
     private Vector2 initialPosition;
 
@@ -32,7 +36,7 @@ public class StarController : CelestialBody
         damageToPlayerOnCollision = 999;
 
         needer = GetComponent<NeederController>();
-        orbiter = GetComponent<OrbitQueue>();
+        orbits = GetComponent<OrbitGroup>();
 
         initialPosition = transform.position;
     }
@@ -78,16 +82,23 @@ public class StarController : CelestialBody
     private void UpdateWidth()
     {
         var scale = baseScale + (needer.needs.gatheredMaterials.Count / ringSegmentSize) * scalePerRing;
-        transform.localScale = new Vector3(scale, scale, transform.localScale.z);
+        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
     public void Spawn()
     {
         transform.position = initialPosition;
 
+        for (int i = 0; i < initialOrbits; i++)
+        {
+            Debug.Log("Adding Orbit " + i);
+            orbits.AddOrbit(transform, orbitCapacity[i], orbitFrames[i], orbitDistance[i]);
+        }
+
         for (int i = 0; i < initialNumberOfPlanets; i++)
         {
-            orbiter.AddOrbiter(Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbiter.spinDistance, Quaternion.identity).GetComponent<CelestialBody>());
+            Debug.Log("Adding orbiter " + i);
+            orbits.AddOrbiter();
         }
 
         needer.Reset(3, 2, 5, 0.5f);
@@ -96,12 +107,7 @@ public class StarController : CelestialBody
 
     public override void Die()
     {
-        foreach (var planet in orbiter.orbiters)
-        {
-            planet.Die();
-        }
-
-        orbiter.Clear();
+        orbits.Die();
 
         gameObject.SetActive(false);
     }

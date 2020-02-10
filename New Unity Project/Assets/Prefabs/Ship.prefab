@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 3700080873159686005}
   - component: {fileID: 3700080873159685994}
   - component: {fileID: 3700080873159685995}
-  - component: {fileID: 3700080873159685993}
   - component: {fileID: 2207752081699053145}
   - component: {fileID: 7892698285082259090}
+  - component: {fileID: 429553121771830478}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -154,21 +154,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3700080873159685993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3700080873159686006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a5fc76f5f1b42f47b8a765b038138ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 10
-  spinFrames: 240
-  spinDistance: 1
 --- !u!60 &2207752081699053145
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -215,6 +200,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2496638fe5500b848b050b1b654d50f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &429553121771830478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700080873159686006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659c9d15eb278604591aa51f5f2c0c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 10
+  spinFrames: 240
+  spinDistance: 1
 --- !u!1 &3700080874085974547
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ba9b5356c736942950b96a1de16414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationQueue: {fileID: 3700080873159685993}
+  destinationQueue: {fileID: 429553121771830478}
   duration_frames: 10
 --- !u!61 &3700080874085974551
 BoxCollider2D:

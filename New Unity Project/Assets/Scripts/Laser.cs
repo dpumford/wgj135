@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    public OrbitQueue destinationQueue;
+    public Orbit destinationQueue;
 
     LineRenderer line;
     BoxCollider2D myCollider;

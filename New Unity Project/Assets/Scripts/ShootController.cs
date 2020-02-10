@@ -8,7 +8,7 @@ public class ShootController : MonoBehaviour
     private Transform shootPosition;
     private CelestialBody orbiterToFire = null;
 
-    private OrbitQueue orbiter;
+    private Orbit orbiter;
 
     private List<CelestialBody> orbiters
     {
@@ -22,7 +22,7 @@ public class ShootController : MonoBehaviour
     void Start()
     {
         shootPosition = GameObject.Find("ShootPoint").GetComponent<Transform>();
-        orbiter = GetComponent<OrbitQueue>();
+        orbiter = GetComponent<Orbit>();
     }
 
     // Update is called once per frame

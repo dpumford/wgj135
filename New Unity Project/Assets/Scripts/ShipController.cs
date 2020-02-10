@@ -11,12 +11,16 @@ public class ShipController : MonoBehaviour
     PolygonCollider2D myCollider;
     SpriteRenderer renderer;
     Laser laser;
-    OrbitQueue orbit;
+    Orbit orbit;
     ShootController shooter;
 
     public int speed = 10;
     public float shootSpeed = 5;
     public int maxHealth = 3;
+
+    public int orbitCapacity = 10;
+    public int orbitFrames = 240;
+    public float orbitDistance = 2.0f;
 
     int currentHealth;
     PlayerState state;
@@ -26,7 +30,7 @@ public class ShipController : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<PolygonCollider2D>();
         laser = GetComponentInChildren<Laser>();
-        orbit = GetComponent<OrbitQueue>();
+        orbit = GetComponent<Orbit>();
         shooter = GetComponent<ShootController>();
         renderer = GetComponent<SpriteRenderer>();
     }
@@ -34,6 +38,7 @@ public class ShipController : MonoBehaviour
     public void Spawn(Vector2 spawnPoint)
     {
         Debug.Log("Spawning!");
+        orbit.Init(transform, orbitCapacity, orbitFrames, orbitDistance);
         state = PlayerState.Alive;
         renderer.enabled = true;
         myCollider.enabled = true;

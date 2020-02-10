@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1445310760035435618}
   - component: {fileID: 1445310760035435629}
   - component: {fileID: 5568368487704802377}
-  - component: {fileID: 2598692748332614852}
+  - component: {fileID: -2981874055986097817}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -137,7 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 0
-  initialAngle: 0
   state: 2
   damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
@@ -145,9 +144,13 @@ MonoBehaviour:
   ringSegmentSize: 3
   baseScale: 20
   scalePerRing: 10
-  initialNumberOfPlanets: 2
-  planetPrefab: {fileID: 2627805072083266287, guid: e51e1bbbf7d46b942afd9b63765154da,
-    type: 3}
+  initialOrbits: 2
+  orbitCapacity: 0200000004000000
+  orbitDistance:
+  - 5
+  - 10
+  orbitFrames: 5802000084030000
+  initialNumberOfPlanets: 5
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +168,7 @@ MonoBehaviour:
   timePerDecay: 8
   incorrectMaterialTimePenalty: 3
   decayTimer: 0
---- !u!114 &2598692748332614852
+--- !u!114 &-2981874055986097817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,12 +177,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1445310760035435628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a5fc76f5f1b42f47b8a765b038138ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc6b75d1738a1246ae4496ce065b3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 3
-  spinFrames: 600
-  spinDistance: 5
+  orbitPrefab: {fileID: -8914626955394465641, guid: 4322cb1676de1424289cc2b08cfb0f9e,
+    type: 3}
+  planetPrefab: {fileID: 2627805072083266287, guid: e51e1bbbf7d46b942afd9b63765154da,
+    type: 3}
 --- !u!1 &5548096022167896861
 GameObject:
   m_ObjectHideFlags: 0

@@ -391,15 +391,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1445310760035435617, guid: 27b47e1c42b9c744c98091a551fd3f80,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30
+      value: -20.08
       objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15
+      value: -9.9
       objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
@@ -563,7 +568,7 @@ PrefabInstance:
     - target: {fileID: 3700080873159685994, guid: 85e03dae7ef9cb94d837ff3bf54901ac,
         type: 3}
       propertyPath: shootSpeed
-      value: 10
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3700080873159685994, guid: 85e03dae7ef9cb94d837ff3bf54901ac,
         type: 3}
@@ -679,15 +684,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1445310760035435617, guid: 27b47e1c42b9c744c98091a551fd3f80,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30
+      value: 20.03
       objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15
+      value: 10.18
       objectReference: {fileID: 0}
     - target: {fileID: 1445310760035435622, guid: 27b47e1c42b9c744c98091a551fd3f80,
         type: 3}
@@ -911,12 +921,12 @@ PrefabInstance:
     - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
         type: 3}
       propertyPath: maxNumberOfAsteroids
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
         type: 3}
       propertyPath: asteroidSpawnSeconds
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
         type: 3}
