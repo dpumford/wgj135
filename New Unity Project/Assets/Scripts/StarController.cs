@@ -18,6 +18,8 @@ public class StarController : CelestialBody
     public int initialNumberOfPlanets = 5;
 
     private NeederController needer;
+    private StarStatusController statusController;
+
     private OrbitGroup orbits;
 
     private Vector2 initialPosition;
@@ -37,6 +39,7 @@ public class StarController : CelestialBody
 
         needer = GetComponent<NeederController>();
         orbits = GetComponent<OrbitGroup>();
+        statusController = GetComponent<StarStatusController>();
 
         initialPosition = transform.position;
     }
@@ -55,7 +58,7 @@ public class StarController : CelestialBody
 
     private void UpdatePosition()
     {
-        if (!needer.complete)
+        if (!needer.IsComplete())
         {
             var destination = Vector2.zero;
 
@@ -73,7 +76,7 @@ public class StarController : CelestialBody
 
     private void UpdateHealth()
     {
-        if (needer.needs.gatheredMaterials.Count == 0)
+        if (needer.IsDead())
         {
             Die();
         }
@@ -81,7 +84,7 @@ public class StarController : CelestialBody
 
     private void UpdateWidth()
     {
-        var scale = baseScale + (needer.needs.gatheredMaterials.Count / ringSegmentSize) * scalePerRing;
+        var scale = baseScale + (needer.GatheredCount() / ringSegmentSize) * scalePerRing;
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
@@ -100,12 +103,17 @@ public class StarController : CelestialBody
         }
 
         needer.Reset(3, 2, 5, 0.5f);
+
+        statusController.Spawn();
+
         gameObject.SetActive(true);
     }
 
     public override void Die()
     {
         orbits.Die();
+
+        statusController.Die();
 
         gameObject.SetActive(false);
     }

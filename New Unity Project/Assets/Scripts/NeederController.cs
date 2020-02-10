@@ -7,47 +7,76 @@ using UnityEngine;
 [Serializable]
 public class Need
 {
-    public Material material;
+    public Material name;
     public int max;
+    public int current;
 
-    public float Percent(LinkedList<Material> gatheredMaterials)
+    public void Gather(int amount)
     {
-        return (from material in gatheredMaterials where material == this.material select material).Count() / (float)max;
+        current += amount;
+        if (current > max)
+        {
+            current = max;
+        }
+    }
+
+    public void Decay(int amount)
+    {
+        current -= amount;
+        if (current < 0)
+        {
+            current = 0;
+        }
+    }
+
+    public bool Complete()
+    {
+        return current == max;
+    }
+
+    public float Percent()
+    {
+        return (float)current / (float)max;
     }
 }
 
 [Serializable]
 public class Needs
 {
+    public Dictionary<Material, Need> needs;
     public Need[] neededMaterials;
     public LinkedList<Material> gatheredMaterials = new LinkedList<Material>();
-
-    public List<float> percentages{
-        get {
-            return (from need in neededMaterials select need.Percent(gatheredMaterials)).ToList();
-        }
-    }
-
-    public override string ToString()
-    {
-        return string.Join(", ", from need in neededMaterials select $"{need.material}: {String.Format("{0:P2}", need.Percent(gatheredMaterials))}");
-    }
 }
 
 public class NeederController : MonoBehaviour
 {
-    public Needs needs;
+    public Dictionary<Material, Need> needs;
+    List<Material> gatherOrder;
 
     public float timePerDecay = 10;
     public float incorrectMaterialTimePenalty = 3;
     public float decayTimer;
 
-    public bool complete
+    public bool IsComplete()
     {
-        get
-        {
-            return (from percent in needs.percentages where percent < 1f select percent).Count() == 0;
+        foreach (var need in needs.Values) {
+            if (!need.Complete())
+            {
+                return false;
+            }
         }
+
+        return true;
+    }
+
+    public bool IsDead()
+    {
+        return gatherOrder.Count == 0;
+    }
+
+    public int GatheredCount()
+    {
+        return gatherOrder.Count;
     }
 
     void Start()
@@ -62,31 +91,30 @@ public class NeederController : MonoBehaviour
 
         materialNumber = Math.Min(materialNumber, availableMaterials.Count);
 
-        needs = new Needs
-        {
-            neededMaterials = new Need[materialNumber],
-        };
+        needs = new Dictionary<Material, Need>();
 
-        var gatheredMaterials = new List<Material>();
+        gatherOrder = new List<Material>();
 
         for (int i = 0; i < materialNumber; i++)
         {
-            needs.neededMaterials[i] = new Need
+            var need = new Need
             {
-                material = availableMaterials[i],
-                max = UnityEngine.Random.Range(minRequired, maxRequired)
+                name = availableMaterials[i],
+                max = UnityEngine.Random.Range(minRequired, maxRequired),
+                current = 0
             };
 
-            var numberOfMaterial = (int)(needs.neededMaterials[i].max * startingPercent);
+            need.current = (int)(need.max * startingPercent);
 
-            for (int m = 0; m < numberOfMaterial; m++)
+            for (int j = 0; j < need.current; j++)
             {
-                gatheredMaterials.Add(availableMaterials[i]);
+                gatherOrder.Add(availableMaterials[i]);
             }
+
+            needs.Add(availableMaterials[i], need);
         }
 
-        gatheredMaterials.Shuffle();
-        needs.gatheredMaterials = new LinkedList<Material>(gatheredMaterials);
+        gatherOrder.Shuffle();
     }
 
     void FixedUpdate()
@@ -101,7 +129,7 @@ public class NeederController : MonoBehaviour
 
     private void UpdateSegments()
     {
-        if (complete)
+        if (IsComplete())
         {
             return;
         }
@@ -112,9 +140,11 @@ public class NeederController : MonoBehaviour
         {
             decayTimer = 0;
 
-            if (needs.gatheredMaterials.Count > 0)
+            if (gatherOrder.Count > 0)
             {
-                needs.gatheredMaterials.RemoveLast();
+                int lastGatherIndex = gatherOrder.Count - 1;
+                needs[gatherOrder[lastGatherIndex]].Decay(1);
+                gatherOrder.RemoveAt(lastGatherIndex);
             }
         }
     }
@@ -125,24 +155,17 @@ public class NeederController : MonoBehaviour
 
         if (asteroid != null)
         {
-            if (!complete)
+            if (!IsComplete())
             {
                 var fulfilled = false;
 
-                foreach (var need in needs.neededMaterials)
+                if (needs.ContainsKey(asteroid.material))
                 {
-                    if (need.material == asteroid.material)
-                    {
-                        if (need.Percent(needs.gatheredMaterials) < 1f)
-                        {
-                            needs.gatheredMaterials.AddLast(asteroid.material);
-                        }
+                    needs[asteroid.material].Gather(1);
+                    gatherOrder.Add(asteroid.material);
 
-                        decayTimer = 0;
-                        fulfilled = true;
-
-                        break;
-                    }
+                    decayTimer = 0;
+                    fulfilled = true;
                 }
 
                 if (!fulfilled)

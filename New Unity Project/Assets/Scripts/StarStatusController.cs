@@ -5,18 +5,71 @@ using UnityEngine;
 
 public class StarStatusController : MonoBehaviour
 {
-    TextMesh textMesh;
-    NeederController star;
+    public StatusController statusControllerPrefab;
+    public Transform statusStartPosition;
+    public float statusOffset;
+    public float textScale;
 
-    void Start()
+    NeederController star;
+    List<StatusController> statusList;
+
+    public void Spawn()
     {
-        textMesh = GetComponent<TextMesh>();
-        star = GetComponentInParent<NeederController>();
+        star = GetComponent<NeederController>();
+
+        Debug.Log("Got " + star + " for star");
+
+        statusList = new List<StatusController>();
+
+        // setup the main fulfilled/decay timer text
+        StatusController starStatusController = Instantiate(statusControllerPrefab.gameObject, statusStartPosition).GetComponent<StatusController>();
+        starStatusController.transform.localScale = new Vector3(textScale, textScale, textScale);
+        starStatusController.SetAlignment(TextAnchor.MiddleLeft, TextAlignment.Left);
+        statusList.Add(starStatusController);
+        
+        // start this offset at 1 so we move the text down
+        int statuses = 1;
+
+        foreach (var need in star.needs.Values)
+        {
+            statuses++;
+            GameObject statusController = Instantiate(statusControllerPrefab.gameObject, statusStartPosition);
+            statusController.transform.localScale = new Vector3(textScale, textScale, textScale);
+            statusController.transform.Translate(Vector2.down * (statusOffset * statuses));
+
+            StatusController status = statusController.GetComponent<StatusController>();
+            status.SetAlignment(TextAnchor.MiddleLeft, TextAlignment.Left);
+            statusList.Add(status);
+        }
+    }
+
+    public void Die()
+    {
+        foreach(var status in statusList)
+        {
+            status.Die();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        textMesh.text = star.complete ? "Fulfilled!" : $"{star.needs}, Decay: {(int)(star.timePerDecay - star.decayTimer)}s";
+        if (star.IsComplete())
+        {
+            statusList[0].SetText("Fulfilled!");
+        } 
+        else
+        {
+            statusList[0].SetText($"Decay: {(int)(star.timePerDecay - star.decayTimer)}s");
+        }
+
+        int i = 1;
+        foreach (var need in star.needs.Values)
+        {
+            StatusController status = statusList[i];
+            status.SetColor(need.name.MaterialColor());
+            status.SetText($"{need.name}: {string.Format("{0:P2}", need.Percent())}");
+            i++;
+        }
     }
 }

@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
     {
         var needers = FindObjectsOfType<NeederController>();
 
-        if (needers.Length > 0 && (from needer in needers where needer.complete select needer).Count() == needers.Length)
+        if (needers.Length > 0 && (from needer in needers where needer.IsComplete() select needer).Count() == needers.Length)
         {
             Cleanup();
             state = GameState.Win;
