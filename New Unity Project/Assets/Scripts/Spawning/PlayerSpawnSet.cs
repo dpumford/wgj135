@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpawnSet : SpawnSet
+public class PlayerSpawnSet : SpawnSet<SpawnPoint>
 {
 }

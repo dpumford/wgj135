@@ -89,18 +89,18 @@ public class GameController : MonoBehaviour
         starSpawnPoints.Setup();
         holeSpawnPoints.Setup();
 
-        player.Spawn(playerSpawnPoints.spawnPoints[0].position);
+        player.Spawn(playerSpawnPoints.spawnPoints[0].transform.position);
 
         foreach (var point in holeSpawnPoints.spawnPoints)
         {
-            var blackHole = Instantiate(blackHolePrefab, point.position, Quaternion.identity).GetComponent<BlackHoleController>();
+            var blackHole = Instantiate(blackHolePrefab, point.transform.position, Quaternion.identity).GetComponent<BlackHoleController>();
             blackHole.Spawn();
         }
 
         foreach (var point in starSpawnPoints.spawnPoints)
         {
-            var star = Instantiate(starPrefab, point.position, Quaternion.identity).GetComponent<StarController>();
-            star.Spawn();
+            var star = Instantiate(starPrefab, point.transform.position, Quaternion.identity).GetComponent<StarController>();
+            star.Spawn(point.options);
         }
     }
 
@@ -197,7 +197,7 @@ public class GameController : MonoBehaviour
 
     Vector2 PickAsteroidSpawnPoint()
     {
-        if (asteroidSpawnPoints.spawnPoints.Count == 0)
+        if (asteroidSpawnPoints.spawnPoints.Length == 0)
         {
             return Vector2.zero;
         }
@@ -222,11 +222,11 @@ public class GameController : MonoBehaviour
             if (totalDistance > maxDistance)
             {
                 maxDistance = totalDistance;
-                bestSpawnPoint = point;
+                bestSpawnPoint = point.transform;
             }
         }
 
-        return (Vector2)bestSpawnPoint.transform.position + 
+        return (Vector2)bestSpawnPoint.position + 
             new Vector2(Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz), Random.Range(-AsteroidSpawnFuzz, AsteroidSpawnFuzz));
     }
 }

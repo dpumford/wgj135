@@ -72,7 +72,7 @@ public class StarController : CelestialBody
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
-    public void Spawn()
+    public void Spawn(NeederOptions options)
     {
         needer = GetComponent<NeederController>();
         orbits = GetComponent<OrbitGroup>();
@@ -88,7 +88,7 @@ public class StarController : CelestialBody
             orbits.AddOrbiter();
         }
 
-        needer.Reset(3, 2, 5, 0.5f);
+        needer.Reset(options);
 
         statusController.Spawn();
     }

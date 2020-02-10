@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-public class BlackHoleSpawnSet: SpawnSet
+public class BlackHoleSpawnSet: SpawnSet<SpawnPoint>
 {
 }

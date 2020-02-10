@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-public class StarSpawnSet: SpawnSet
+public class StarSpawnSet: SpawnSet<StarSpawnPoint>
 {
 }

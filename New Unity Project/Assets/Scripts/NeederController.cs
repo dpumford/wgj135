@@ -32,6 +32,15 @@ public class Need
     }
 }
 
+[Serializable]
+public class NeederOptions
+{
+    public int materialNumber, minRequired, maxRequired;
+
+    [Range(0, 1)]
+    public float startingPercent;
+}
+
 public class NeederController : MonoBehaviour
 {
     public Dictionary<Material, Need> needs = new Dictionary<Material, Need>();
@@ -68,27 +77,27 @@ public class NeederController : MonoBehaviour
         decayTimer = 0;
     }
 
-    public void Reset(int materialNumber, int minRequired, int maxRequired, float startingPercent)
+    public void Reset(NeederOptions options)
     {
         var availableMaterials = Enum.GetValues(typeof(Material)).Cast<Material>().ToList();
         availableMaterials.Shuffle();
 
-        materialNumber = Math.Min(materialNumber, availableMaterials.Count);
+        options.materialNumber = Math.Min(options.materialNumber, availableMaterials.Count);
 
         needs = new Dictionary<Material, Need>();
 
         gatherOrder = new List<Material>();
 
-        for (int i = 0; i < materialNumber; i++)
+        for (int i = 0; i < options.materialNumber; i++)
         {
             var need = new Need
             {
                 name = availableMaterials[i],
-                max = UnityEngine.Random.Range(minRequired, maxRequired),
+                max = UnityEngine.Random.Range(options.minRequired, options.maxRequired),
                 current = 0
             };
 
-            need.current = (int)(need.max * startingPercent);
+            need.current = (int)(need.max * options.startingPercent);
 
             for (int j = 0; j < need.current; j++)
             {

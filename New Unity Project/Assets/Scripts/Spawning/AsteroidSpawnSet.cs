@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidSpawnSet : SpawnSet
+public class AsteroidSpawnSet : SpawnSet<SpawnPoint>
 {
 }

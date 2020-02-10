@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1844774228200813392
+--- !u!1 &1174706546090676991
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6053694973924168631}
-  - component: {fileID: 1566554874584386127}
+  - component: {fileID: 1174706546090676984}
+  - component: {fileID: 584023681460853718}
   m_Layer: 0
-  m_Name: StarSpawnSet
+  m_Name: StarSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6053694973924168631
+--- !u!4 &1174706546090676984
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844774228200813392}
+  m_GameObject: {fileID: 1174706546090676991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1566554874584386127
+--- !u!114 &584023681460853718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844774228200813392}
+  m_GameObject: {fileID: 1174706546090676991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3b6fbd537085514c84ec6206583da52, type: 3}
+  m_Script: {fileID: 11500000, guid: fee0b5d05c3dc0241856d6f59514f86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
+  options:
+    materialNumber: 0
+    minRequired: 0
+    maxRequired: 0
+    startingPercent: 0
