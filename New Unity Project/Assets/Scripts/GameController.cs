@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
 
     public Sprite lossSprite;
     public Sprite winSprite;
+    public string nextLevel;
     
     SpriteRenderer spriteRenderer;
 
@@ -31,7 +32,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        state = GameState.MainMenu;
+        state = GameState.New;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
@@ -39,7 +40,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         switch (state) {
-            case GameState.MainMenu:
+            case GameState.New:
                 StartGame();
                 state = GameState.Playing;
                 Debug.Log("Game started!");
@@ -51,17 +52,21 @@ public class GameController : MonoBehaviour
             case GameState.Dead:
                 spriteRenderer.sprite = lossSprite;
 
-                if (Input.anyKey)
+                if (Input.GetKeyUp(KeyCode.Space))
                 {
-                    state = GameState.MainMenu;
+                    state = GameState.New;
                 }
                 break;
             case GameState.Win:
                 spriteRenderer.sprite = winSprite;
 
-                if (Input.anyKey)
+                if (Input.GetKeyUp(KeyCode.Space))
                 {
-                    state = GameState.MainMenu;
+                    state = GameState.New;
+                }
+                else if (Input.GetKeyUp(KeyCode.Return))
+                {
+                    SceneManager.LoadScene(nextLevel);
                 }
                 break;
             default:

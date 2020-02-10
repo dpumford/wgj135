@@ -1,6 +1,6 @@
 ﻿public enum GameState
 {
-    MainMenu,
+    New,
     Playing,
     Dead,
     Win,
