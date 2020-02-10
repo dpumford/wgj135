@@ -10,13 +10,15 @@ public class GameController : MonoBehaviour
     public int maxNumberOfAsteroids = 4;
     public float AsteroidSpawnFuzz = .5f;
     public GameObject asteroidPrefab;
-    public Transform[] possiblePositions;
+    public AsteroidSpawnSet asteroidSpawnPoints;
 
-    public Transform[] playerSpawnPoints;
+    public PlayerSpawnSet playerSpawnPoints;
 
     public Sprite lossSprite;
     public Sprite winSprite;
 
+    public ShipController playerPrefab;
+    
     ShipController player;
     BlackHoleController[] holes;
     StarController[] stars;
@@ -30,16 +32,6 @@ public class GameController : MonoBehaviour
     {
         state = GameState.MainMenu;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        player = FindObjectOfType<ShipController>();
-        
-        if (player == null)
-        {
-            Debug.LogError("Missing a player!!");
-        }
-
-        holes = FindObjectsOfType<BlackHoleController>();
-        stars = FindObjectsOfType<StarController>();
     }
 
     // Update is called once per frame
@@ -49,12 +41,14 @@ public class GameController : MonoBehaviour
             case GameState.MainMenu:
                 StartGame();
                 state = GameState.Playing;
+                Debug.Log("Game started!");
                 break;
             case GameState.Playing:
                 spriteRenderer.sprite = null;
                 UpdatePlayState();
                 break;
             case GameState.Dead:
+                Debug.Log("Game dead");
                 spriteRenderer.sprite = lossSprite;
 
                 if (Input.anyKey)
@@ -63,6 +57,7 @@ public class GameController : MonoBehaviour
                 }
                 break;
             case GameState.Win:
+                Debug.Log("Game won");
                 spriteRenderer.sprite = winSprite;
 
                 if (Input.anyKey)
@@ -77,7 +72,29 @@ public class GameController : MonoBehaviour
 
     void StartGame()
     {
-        player.Spawn(playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)].position);
+        Debug.Log("Starting game");
+        player = Instantiate(playerPrefab.gameObject, transform).GetComponent<ShipController>();
+
+        if (player == null)
+        {
+            Debug.LogError("Missing a player!!");
+        }
+
+        holes = FindObjectsOfType<BlackHoleController>();
+        stars = FindObjectsOfType<StarController>();
+
+        playerSpawnPoints.Setup();
+        asteroidSpawnPoints.Setup();
+
+        var chosenPlayerSpawn = playerSpawnPoints.spawnPoints[0];
+
+        foreach (var point in playerSpawnPoints.spawnPoints)
+        {
+            Debug.Log("Printing spawns " + point.position);
+        }
+
+
+        player.Spawn(chosenPlayerSpawn.position);
 
         foreach (var blackHole in holes)
         {
@@ -179,7 +196,7 @@ public class GameController : MonoBehaviour
 
     Vector2 PickAsteroidSpawnPoint()
     {
-        if (possiblePositions.Length == 0)
+        if (asteroidSpawnPoints.spawnPoints.Count == 0)
         {
             return Vector2.zero;
         }
@@ -192,7 +209,7 @@ public class GameController : MonoBehaviour
         var maxDistance = 0f;
         Transform bestSpawnPoint = null;
 
-        foreach (var point in possiblePositions)
+        foreach (var point in asteroidSpawnPoints.spawnPoints)
         {
             var totalDistance = 0f;
 
