@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  shootSpeed: 26
+  shootSpeed: 30
   maxHealth: 3
   orbitCapacity: 10
   orbitFrames: 240

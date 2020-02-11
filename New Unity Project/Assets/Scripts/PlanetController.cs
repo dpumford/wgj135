@@ -13,10 +13,18 @@ public class PlanetController : CelestialBody
     public int heatHealthLossFrames = 60;
     int currentHealthLossFrame = 0;
 
+    public float explosionSpawnDistance = 3;
+    public float explosionForceScale = 2;
+    public int explosionSpreadMaxDeg = 120;
+    public int explosionParticles = 3;
+    public AsteroidController exploderPrefab;
+
     public TextMesh statusField;
 
     void Start()
     {
+        damageToPlayerOnCollision = 3;
+
         if (Random.Range(0, 100) < lifePercentage)
         {
             planetState = PlanetState.Alive;
@@ -28,6 +36,8 @@ public class PlanetController : CelestialBody
         }
 
         statusField = GetComponentInChildren<TextMesh>();
+
+        state = CelestialState.Free;
 
         ParentStart();
     }
@@ -73,6 +83,11 @@ public class PlanetController : CelestialBody
                 currentHealth = currentHealth > 0 ? currentHealth : 0;
             }
 
+            if (currentHealth == 0)
+            {
+                Explode((collision.collider.transform.position - transform.position).normalized);
+            }
+
             asteroid.Die();
         }
     }
@@ -98,5 +113,28 @@ public class PlanetController : CelestialBody
     public override void OnFire()
     {
         planetState = PlanetState.LosingHeat;
+    }
+
+    public void Explode(Vector2 direction)
+    {
+        GetComponent<CircleCollider2D>().enabled = false;
+        state = CelestialState.Collected;
+
+        for (int i = 0; i < explosionParticles; i++)
+        {
+            float rotAngle = Random.Range(-explosionSpreadMaxDeg / 2, explosionSpreadMaxDeg / 2) * Mathf.Deg2Rad;
+
+            direction.x = Mathf.Cos(direction.x * rotAngle);
+            direction.y = Mathf.Sin(direction.y * rotAngle);
+
+            AsteroidController asteroid = Instantiate(exploderPrefab.gameObject, transform.position + (Vector3)(direction * 3), Quaternion.identity).GetComponent<AsteroidController>();
+
+            asteroid.Init(GameController.RandomMaterial());
+
+            direction *= explosionForceScale;
+            asteroid.GetComponent<Rigidbody2D>().AddForce(direction);
+        }
+
+        gameObject.SetActive(false);
     }
 }

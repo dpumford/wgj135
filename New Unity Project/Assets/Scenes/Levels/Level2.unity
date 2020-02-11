@@ -600,10 +600,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6363179812039471315, guid: 07696b0b5cbef4d42bef3df6a2967617,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.08375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363179812039471315, guid: 07696b0b5cbef4d42bef3df6a2967617,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6363179812039471318, guid: 07696b0b5cbef4d42bef3df6a2967617,
         type: 3}
       propertyPath: m_Name
       value: Galaxy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363179812039471318, guid: 07696b0b5cbef4d42bef3df6a2967617,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07696b0b5cbef4d42bef3df6a2967617, type: 3}

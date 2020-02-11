@@ -178,7 +178,7 @@ public class GameController : MonoBehaviour
         }
     }
     
-    Material RandomMaterial()
+    public static Material RandomMaterial()
     {
         switch (Random.Range(0, 4))
         {

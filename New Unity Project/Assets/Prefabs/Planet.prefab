@@ -140,9 +140,15 @@ MonoBehaviour:
   damageToPlayerOnCollision: 0
   safeFireDistance: 0.5
   gravityMultiplier: 0.5
-  maxHealth: 3
+  maxHealth: 2
   lifePercentage: 90
   heatHealthLossFrames: 60
+  explosionSpawnDistance: 3
+  explosionForceScale: 2
+  explosionSpreadMaxDeg: 40
+  explosionParticles: 3
+  exploderPrefab: {fileID: 3427561956176874273, guid: e891913f89ec61a47bf585ddb46a29e4,
+    type: 3}
   statusField: {fileID: 0}
 --- !u!1 &8241777425315411273
 GameObject:

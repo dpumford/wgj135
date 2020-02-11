@@ -38,6 +38,11 @@ public class ShootController : MonoBehaviour
 
     void UpdateSelectedOrbiter()
     {
+        if (orbiterToFire != null)
+        {
+            return;
+        }
+
         int oldSelection = selectedOrbiter;
 
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
@@ -92,6 +97,15 @@ public class ShootController : MonoBehaviour
             orbiters.RemoveAt(selectedOrbiter);
 
             orbiterToFire.PrepareFire();
+        }
+    }
+
+    public void Fire(Vector2 velocity)
+    {
+        if (orbiterToFire != null)
+        {
+            orbiterToFire.Fire(velocity);
+            orbiterToFire = null;
 
             selectedOrbiter--;
 
@@ -104,15 +118,6 @@ public class ShootController : MonoBehaviour
             {
                 orbiters[selectedOrbiter].Select();
             }
-        }
-    }
-
-    public void Fire(Vector2 velocity)
-    {
-        if (orbiterToFire != null)
-        {
-            orbiterToFire.Fire(velocity);
-            orbiterToFire = null;
         }
     }
 }

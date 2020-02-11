@@ -24,6 +24,11 @@ public class AsteroidController : CelestialBody
 
     void FixedUpdate()
     {
+        if (Mathf.Abs(transform.position.x) > 100 || Mathf.Abs(transform.position.y) > 100)
+        {
+            Die();
+        }
+
         ParentFixedUpdate();
         halo.enabled = state == CelestialState.Selected;
     }

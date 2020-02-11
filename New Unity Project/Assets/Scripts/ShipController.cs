@@ -79,8 +79,9 @@ public class ShipController : MonoBehaviour
         AsteroidController asteroid = collision.gameObject.GetComponent<AsteroidController>();
         StarController star = collision.gameObject.GetComponent<StarController>();
         BlackHoleController blackHole = collision.gameObject.GetComponent<BlackHoleController>();
+        PlanetController planet = collision.gameObject.GetComponent<PlanetController>();
 
-        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star ?? (CelestialBody)blackHole;
+        CelestialBody body = (CelestialBody)asteroid ?? (CelestialBody)star ?? (CelestialBody)blackHole ?? (CelestialBody)planet;
 
         if (body != null && (body.state == CelestialState.Free || body.state == CelestialState.Collectible))
         {
