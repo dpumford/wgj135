@@ -100,8 +100,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
-  m_LinearDrag: 100
+  m_Mass: 1000
+  m_LinearDrag: 10000
   m_AngularDrag: 1000000
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 9381fc817e2c0f444bc479dfef457749, type: 2}
@@ -141,17 +141,18 @@ MonoBehaviour:
   state: 2
   damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
+  gravityFudge: 1
   destinationForce: 100000
   ringSegmentSize: 3
   baseScale: 20
   scalePerRing: 10
   initialOrbits: 2
-  orbitCapacity: 0200000004000000
+  orbitCapacity: 0100000003000000
   orbitDistance:
-  - 5
-  - 10
-  orbitFrames: 5802000084030000
-  initialNumberOfPlanets: 5
+  - 7
+  - 13
+  orbitFrames: 08070000800c0000
+  initialNumberOfPlanets: 3
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62d335a7528a0b409d511ee2724712e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timePerDecay: 8
+  timePerDecay: 15
   incorrectMaterialTimePenalty: 3
   decayTimer: 0
 --- !u!114 &-2981874055986097817

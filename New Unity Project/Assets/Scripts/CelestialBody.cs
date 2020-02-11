@@ -13,6 +13,7 @@ public class CelestialBody : MonoBehaviour
     public int damageToPlayerOnCollision;
 
     public float safeFireDistance = .5f;
+    public float gravityMultiplier = 0.5f;
     Vector2 firedPosition = Vector2.zero;
 
     protected void ParentStart()
@@ -41,7 +42,7 @@ public class CelestialBody : MonoBehaviour
         }
     }
 
-    void RunGravity()
+    protected virtual void RunGravity()
     {
         var others = FindObjectsOfType<CelestialBody>();
 
@@ -53,7 +54,7 @@ public class CelestialBody : MonoBehaviour
             {
                 var directionToOther = other.transform.position - transform.position;
 
-                myBody.AddForce(directionToOther.normalized * body.mass / directionToOther.sqrMagnitude);
+                myBody.AddForce(directionToOther.normalized * gravityMultiplier * myBody.mass * body.mass / directionToOther.sqrMagnitude);
             }
         }
     }

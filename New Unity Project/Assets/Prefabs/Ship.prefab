@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 3700080873159686006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.653, y: -0.437, z: 0}
-  m_LocalScale: {x: 0.33, y: 0.33, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3700080874085974546}
   - {fileID: 8544933809316726473}
@@ -131,8 +131,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  shootSpeed: 50
+  shootSpeed: 26
   maxHealth: 3
+  orbitCapacity: 10
+  orbitFrames: 240
+  orbitDistance: 1.73
 --- !u!50 &3700080873159685995
 Rigidbody2D:
   serializedVersion: 4

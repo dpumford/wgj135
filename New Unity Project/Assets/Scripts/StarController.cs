@@ -101,4 +101,12 @@ public class StarController : CelestialBody
 
         Destroy(gameObject);
     }
+
+    protected override void RunGravity()
+    {
+        if (state == CelestialState.Free)
+        {
+            base.RunGravity();
+        }
+    }
 }

@@ -68,7 +68,10 @@ public class ShipController : MonoBehaviour
         SetShipDirection();
         SetShipRotation();
 
-        myBody.AddForce(direction * speed);
+        if (!aiming)
+        {
+            myBody.AddForce(direction * speed);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
