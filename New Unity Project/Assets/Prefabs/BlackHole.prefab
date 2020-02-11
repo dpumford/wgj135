@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 0
-  initialAngle: 0
   state: 2
   damageToPlayerOnCollision: 999
   safeFireDistance: 0.5
+  gravityMultiplier: 0.5
 --- !u!50 &7567829744488338448
 Rigidbody2D:
   serializedVersion: 4
@@ -113,15 +113,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_Mass: 7000
+  m_LinearDrag: 100
+  m_AngularDrag: 1000
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &7567829744488338451
 CircleCollider2D:
   m_ObjectHideFlags: 0

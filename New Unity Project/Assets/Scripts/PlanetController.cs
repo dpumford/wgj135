@@ -90,6 +90,20 @@ public class PlanetController : CelestialBody
 
             asteroid.Die();
         }
+
+        var star = collision.gameObject.GetComponent<StarController>();
+
+        if (star != null)
+        {
+            Explode((collision.collider.transform.position - transform.position).normalized);
+        }
+
+        var planet = collision.gameObject.GetComponent<PlanetController>();
+
+        if (planet != null)
+        {
+            Explode((collision.collider.transform.position - transform.position).normalized);
+        }
     }
 
     public void StartHeatHealthLoss()

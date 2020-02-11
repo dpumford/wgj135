@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483674576215957421}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.052, y: -0.005, z: -0.020141602}
+  m_LocalPosition: {x: 1.583, y: -0.005, z: -0.020141602}
   m_LocalScale: {x: 3.030303, y: 3.030303, z: 1}
   m_Children: []
   m_Father: {fileID: 3700080873159686004}
@@ -135,7 +135,7 @@ MonoBehaviour:
   maxHealth: 3
   orbitCapacity: 10
   orbitFrames: 240
-  orbitDistance: 1.73
+  orbitDistance: 2
 --- !u!50 &3700080873159685995
 Rigidbody2D:
   serializedVersion: 4
