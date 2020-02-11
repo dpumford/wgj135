@@ -8,9 +8,12 @@ public class Laser : MonoBehaviour
 
     LineRenderer line;
     BoxCollider2D myCollider;
+    ConsumableController consumer;
 
     public int duration_frames = 10;
     int frames_remaining = 0;
+
+    Vector3 originalScale;
     
     void Start()
     {
@@ -19,6 +22,9 @@ public class Laser : MonoBehaviour
 
         myCollider = GetComponent<BoxCollider2D>();
         myCollider.enabled = false;
+        originalScale = transform.localScale;
+
+        consumer = GetComponentInParent<ConsumableController>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -43,6 +49,15 @@ public class Laser : MonoBehaviour
     {
         if (frames_remaining > 0)
         {
+            if (consumer.Current != null)
+            {
+                transform.localScale = new Vector3(originalScale.x + originalScale.x * consumer.Current.PercentLazerRangeIncrease, originalScale.y, originalScale.z);
+            }
+            else
+            {
+                transform.localScale = originalScale;
+            }
+
             myCollider.enabled = true;
             line.enabled = true;
             frames_remaining -= 1;

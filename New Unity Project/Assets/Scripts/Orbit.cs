@@ -29,7 +29,6 @@ public class Orbit : MonoBehaviour
 
     void Start()
     {
-        //parentTransform = GetComponentInParent<Transform>();
     }
 
     void FixedUpdate()
@@ -45,6 +44,8 @@ public class Orbit : MonoBehaviour
         {
             orbiter.state = CelestialState.Free;
         }
+
+        Clear();
     }
 
     void UpdateOrbiterPositions()

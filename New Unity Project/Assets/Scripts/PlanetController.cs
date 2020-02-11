@@ -161,6 +161,7 @@ public class PlanetController : CelestialBody
             asteroid.GetComponent<Rigidbody2D>().AddForce(direction);
         }
 
-        Die();
+        //TODO: Make this so that Die() can be called
+        gameObject.SetActive(false);
     }
 }
