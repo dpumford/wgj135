@@ -779,23 +779,88 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.materialNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
-        type: 3}
-      propertyPath: options.minRequired
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
-        type: 3}
-      propertyPath: options.maxRequired
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: options.minRequired
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: options.maxRequired
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.startingPercent
-      value: 0.5
+      value: 0.515
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.initialNumberOfPlanets
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.minimumLiveOrbiters
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterLifeChance
+      value: 0.551
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[0]
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[1]
+      value: 1400
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[1]
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1174706546090676984, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
@@ -986,23 +1051,88 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.materialNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
-        type: 3}
-      propertyPath: options.minRequired
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
-        type: 3}
-      propertyPath: options.maxRequired
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: options.minRequired
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: options.maxRequired
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.startingPercent
-      value: 0.5
+      value: 0.515
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.initialNumberOfPlanets
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.minimumLiveOrbiters
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterLifeChance
+      value: 0.551
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[0]
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[1]
+      value: 1400
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[1]
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1174706546090676984, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}

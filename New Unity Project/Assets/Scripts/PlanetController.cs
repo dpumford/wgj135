@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlanetController : CelestialBody
 {
     PlanetState planetState;
-    public int maxHealth = 3;
+    int spawnSafetyFrames = 10;
+
+    public int maxHealth = 0;
     int currentHealth = 0;
 
     public int lifePercentage = 90;
@@ -25,26 +27,32 @@ public class PlanetController : CelestialBody
     {
         damageToPlayerOnCollision = 3;
 
-        if (Random.Range(0, 100) < lifePercentage)
-        {
-            planetState = PlanetState.Alive;
-            currentHealth = maxHealth;
-        } 
-        else
-        {
-            planetState = PlanetState.Fallow;
-        }
-
         statusField = GetComponentInChildren<TextMesh>();
 
-        state = CelestialState.Free;
-
         ParentStart();
+    }
+
+    public void Init(PlanetState state, int health)
+    {
+        planetState = state;
+        maxHealth = health;
+        currentHealth = health;
     }
 
     void FixedUpdate()
     {
         ParentFixedUpdate();
+
+        if (spawnSafetyFrames > 0)
+        {
+            spawnSafetyFrames--;
+            return;
+        }
+
+        if (planetState == PlanetState.Fallow)
+        {
+            return;
+        }
 
         if (planetState == PlanetState.LosingHeat)
         {
@@ -73,6 +81,11 @@ public class PlanetController : CelestialBody
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (spawnSafetyFrames > 0)
+        {
+            return;
+        }
+
         var asteroid = collision.gameObject.GetComponent<AsteroidController>();
 
         if (asteroid != null)

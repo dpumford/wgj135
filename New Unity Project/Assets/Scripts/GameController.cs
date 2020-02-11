@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
         foreach (var point in starSpawnPoints.spawnPoints)
         {
             var star = Instantiate(starPrefab, point.transform.position, Quaternion.identity).GetComponent<StarController>();
-            star.Spawn(point.options);
+            star.Spawn(point.options, point.starOptions);
         }
     }
 

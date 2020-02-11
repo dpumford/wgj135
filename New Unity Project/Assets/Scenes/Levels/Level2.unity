@@ -700,6 +700,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.materialNumber
       value: 2
       objectReference: {fileID: 0}
@@ -717,6 +732,56 @@ PrefabInstance:
         type: 3}
       propertyPath: options.startingPercent
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.initialNumberOfPlanets
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.minimumLiveOrbiters
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterLifeChance
+      value: 0.551
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[0]
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[1]
+      value: 1800
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[1]
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1174706546090676984, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
@@ -838,6 +903,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
       propertyPath: options.materialNumber
       value: 2
       objectReference: {fileID: 0}
@@ -855,6 +935,56 @@ PrefabInstance:
         type: 3}
       propertyPath: options.startingPercent
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitCapacity.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[0]
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitFrames.Array.data[1]
+      value: 1800
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbitDistance.Array.data[1]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.initialNumberOfPlanets
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterHealth
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.minimumLiveOrbiters
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 584023681460853718, guid: 79af6edf67219f2448425ee5d89530b3,
+        type: 3}
+      propertyPath: starOptions.orbiterLifeChance
+      value: 0.551
       objectReference: {fileID: 0}
     - target: {fileID: 1174706546090676984, guid: 79af6edf67219f2448425ee5d89530b3,
         type: 3}

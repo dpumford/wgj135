@@ -1,6 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class StarOptions
+{
+    public int[] orbitCapacity, orbitFrames;
+    public float[] orbitDistance;
+
+    public int initialNumberOfPlanets;
+
+    public int orbiterHealth;
+
+    public int minimumLiveOrbiters;
+    
+    [Range(0, 1)]
+    public float orbiterLifeChance;
+}
 
 public class StarController : CelestialBody
 {
@@ -9,13 +26,6 @@ public class StarController : CelestialBody
     public int ringSegmentSize = 3;
     public float baseScale = 20;
     public float scalePerRing = 10;
-
-    public int initialOrbits = 2;
-    public int[] orbitCapacity = new[] { 2, 4 };
-    public float[] orbitDistance = new float[] { 5, 10 };
-    public int[] orbitFrames = new[] { 600, 900 };
-
-    public int initialNumberOfPlanets = 5;
 
     private NeederController needer;
     private StarStatusController statusController;
@@ -68,24 +78,41 @@ public class StarController : CelestialBody
 
     private void UpdateWidth()
     {
+        // TODO: Make this based on needs filled rather than materials held -- possible to make star huge with only one material
         var scale = baseScale + (needer.GatheredCount() / ringSegmentSize) * scalePerRing;
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
-    public void Spawn(NeederOptions options)
+    public void Spawn(NeederOptions options, StarOptions starOptions)
     {
         needer = GetComponent<NeederController>();
         orbits = GetComponent<OrbitGroup>();
         statusController = GetComponent<StarStatusController>();
 
-        for (int i = 0; i < initialOrbits; i++)
+        for (int i = 0; i < starOptions.orbitDistance.Length; i++)
         {
-            orbits.AddOrbit(transform, orbitCapacity[i], orbitFrames[i], orbitDistance[i]);
+            orbits.AddOrbit(transform, starOptions.orbitCapacity[i], starOptions.orbitFrames[i], starOptions.orbitDistance[i]);
         }
 
-        for (int i = 0; i < initialNumberOfPlanets; i++)
+        var liveOrbitersRemaining = starOptions.minimumLiveOrbiters;
+
+        for (int i = 0; i < starOptions.initialNumberOfPlanets; i++)
         {
-            orbits.AddOrbiter();
+            var state = PlanetState.Fallow;
+            var health = 0;
+            
+            if (liveOrbitersRemaining > 0)
+            {
+                state = PlanetState.Alive;
+                health = starOptions.orbiterHealth;
+            }
+            else if (UnityEngine.Random.Range(0, 100) < starOptions.orbiterLifeChance)
+            {
+                state = PlanetState.Alive;
+                health = starOptions.orbiterHealth;
+            }
+
+            orbits.AddOrbiter(state, health);
         }
 
         needer.Reset(options);

@@ -27,14 +27,15 @@ public class OrbitGroup : MonoBehaviour
         orbits.Add(o);
     }
 
-    public void AddOrbiter()
+    public void AddOrbiter(PlanetState state, int health)
     {
         foreach (var orbit in orbits)
         {
             if (!orbit.IsFull())
             {
                 // TODO: Change this if we want to use an orbit group for the player's asteroids at any point
-                CelestialBody body = Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbit.spinDistance, Quaternion.identity).GetComponent<CelestialBody>();
+                PlanetController body = Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbit.spinDistance, Quaternion.identity).GetComponent<PlanetController>();
+                body.Init(state, health);
                 orbit.AddOrbiter(body);
                 break;
             }
