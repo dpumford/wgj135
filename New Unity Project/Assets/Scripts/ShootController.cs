@@ -100,6 +100,21 @@ public class ShootController : MonoBehaviour
         }
     }
 
+    private void resetSelectedOrbiter()
+    {
+        selectedOrbiter--;
+
+        if (selectedOrbiter < 0)
+        {
+            selectedOrbiter = 0;
+        }
+
+        if (orbiters.Count > 0)
+        {
+            orbiters[selectedOrbiter].Select();
+        }
+    }
+
     public void Fire(Vector2 velocity)
     {
         if (orbiterToFire != null)
@@ -107,17 +122,22 @@ public class ShootController : MonoBehaviour
             orbiterToFire.Fire(velocity);
             orbiterToFire = null;
 
-            selectedOrbiter--;
-
-            if (selectedOrbiter < 0)
-            {
-                selectedOrbiter = 0;
-            }
-
-            if (orbiters.Count > 0)
-            {
-                orbiters[selectedOrbiter].Select();
-            }
+            resetSelectedOrbiter();
         }
+    }
+
+    public CelestialBody ReleaseSelectedBody()
+    {
+        if (orbiterToFire != null || orbiters.Count == 0)
+        {
+            return null;
+        }
+
+        var selected = orbiters[selectedOrbiter];
+        orbiters.RemoveAt(selectedOrbiter);
+
+        resetSelectedOrbiter();
+
+        return selected;
     }
 }

@@ -19,7 +19,7 @@ public class PlanetController : CelestialBody
     public float explosionForceScale = 2;
     public int explosionSpreadMaxDeg = 120;
     public int explosionParticles = 3;
-    public AsteroidController exploderPrefab;
+    public AsteroidController[] exploderPrefabs;
 
     public TextMesh statusField;
 
@@ -154,14 +154,13 @@ public class PlanetController : CelestialBody
             direction.x = Mathf.Cos(direction.x * rotAngle);
             direction.y = Mathf.Sin(direction.y * rotAngle);
 
-            AsteroidController asteroid = Instantiate(exploderPrefab.gameObject, transform.position + (Vector3)(direction * 3), Quaternion.identity).GetComponent<AsteroidController>();
-
-            asteroid.Init(GameController.RandomMaterial());
+            AsteroidController asteroid = Instantiate(exploderPrefabs[Random.Range(0, exploderPrefabs.Length)].gameObject, transform.position + (Vector3)(direction * 3), Quaternion.identity)
+                .GetComponent<AsteroidController>();
 
             direction *= explosionForceScale;
             asteroid.GetComponent<Rigidbody2D>().AddForce(direction);
         }
 
-        gameObject.SetActive(false);
+        Die();
     }
 }

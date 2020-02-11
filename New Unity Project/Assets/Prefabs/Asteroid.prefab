@@ -223,3 +223,6 @@ MonoBehaviour:
   halo: {fileID: 7586646606411016816}
   material: 0
   closestFudge: 0.5
+  shieldOptions:
+    duration: 0
+    numberOfHits: 0

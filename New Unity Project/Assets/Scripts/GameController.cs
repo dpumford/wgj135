@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public float asteroidSpawnSeconds = 10;
     public int maxNumberOfAsteroids = 4;
     public float AsteroidSpawnFuzz = .5f;
-    public GameObject asteroidPrefab;
+    public AsteroidController[] asteroidPrefabs;
     public AsteroidSpawnSet asteroidSpawnPoints;
 
     public ShipController shipPrefab;
@@ -172,26 +172,7 @@ public class GameController : MonoBehaviour
         if (asteroidSpawnTimer > asteroidSpawnSeconds)
         {
             asteroidSpawnTimer = 0;
-            var asteroid = Instantiate(asteroidPrefab, PickAsteroidSpawnPoint(), Quaternion.identity);
-            AsteroidController aController = asteroid.GetComponent<AsteroidController>();
-            aController.Init(RandomMaterial());
-        }
-    }
-    
-    public static Material RandomMaterial()
-    {
-        switch (Random.Range(0, 4))
-        {
-            case 0:
-                return Material.Hydrogen;
-            case 1:
-                return Material.Helium;
-            case 2:
-                return Material.Lithium;
-            case 3:
-                return Material.Boron;
-            default:
-                return Material.Hydrogen;
+            var asteroid = Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)].gameObject, PickAsteroidSpawnPoint(), Quaternion.identity);
         }
     }
 

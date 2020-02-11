@@ -8,11 +8,10 @@ public class ShipController : MonoBehaviour
     Vector2 rotation;
 
     Rigidbody2D myBody;
-    PolygonCollider2D myCollider;
-    SpriteRenderer renderer;
     Laser laser;
     Orbit orbit;
     ShootController shooter;
+    ConsumableController consumer;
 
     public int speed = 10;
     public float shootSpeed = 5;
@@ -32,11 +31,10 @@ public class ShipController : MonoBehaviour
     public void Spawn(Vector2 spawnPoint)
     {
         myBody = GetComponent<Rigidbody2D>();
-        myCollider = GetComponent<PolygonCollider2D>();
         laser = GetComponentInChildren<Laser>();
         orbit = GetComponent<Orbit>();
         shooter = GetComponent<ShootController>();
-        renderer = GetComponent<SpriteRenderer>();
+        consumer = GetComponent<ConsumableController>();
 
         Debug.Log("Spawning!");
         orbit.Init(transform, orbitCapacity, orbitFrames, orbitDistance);
@@ -61,6 +59,7 @@ public class ShipController : MonoBehaviour
         CheckHealth();
         CheckLaserFire();
         CheckOrbitalFire();
+        CheckOrbitalConsumption();
     }
 
     void FixedUpdate()
@@ -70,7 +69,14 @@ public class ShipController : MonoBehaviour
 
         if (!aiming)
         {
-            myBody.AddForce(direction * speed);
+            var bonusSpeed = 0f;
+
+            if (consumer.Current != null)
+            {
+                bonusSpeed = speed * consumer.Current.PercentSpeedBoost;
+            }
+
+            myBody.AddForce(direction * (speed + bonusSpeed));
         }
     }
 
@@ -85,10 +91,13 @@ public class ShipController : MonoBehaviour
 
         if (body != null && (body.state == CelestialState.Free || body.state == CelestialState.Collectible))
         {
-            currentHealth -= body.damageToPlayerOnCollision;
-            currentHealth = Mathf.Max(0, currentHealth);
+            if (!(consumer.Current != null && consumer.Current.Invincible))
+            {
+                currentHealth -= body.damageToPlayerOnCollision;
+                currentHealth = Mathf.Max(0, currentHealth);
+                Debug.Log("Health: " + currentHealth);
+            }
 
-            Debug.Log("Health: " + currentHealth);
             body.HandlePlayerCollision();
         }
     }
@@ -140,6 +149,14 @@ public class ShipController : MonoBehaviour
         {
             aiming = false;
             shooter.Fire(rotation.normalized * shootSpeed);
+        }
+    }
+
+    void CheckOrbitalConsumption()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            consumer.ConsumeAsteroid(shooter.ReleaseSelectedBody() as AsteroidController);
         }
     }
 

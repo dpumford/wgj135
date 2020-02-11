@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
+using MyBox;
 
 public class AsteroidController : CelestialBody
 {
@@ -10,16 +9,33 @@ public class AsteroidController : CelestialBody
 
     public float closestFudge = .5f;
 
+    [ConditionalField("material", false, Material.Helium)]
+    public PowerUpShield shieldOptions;
+
+    [ConditionalField("material", false, Material.Hydrogen)]
+    public PowerUpSpeed speedOptions;
+
+    public PowerUp SelectedPowerUp
+    {
+        get
+        {
+            switch (material)
+            {
+                case Material.Hydrogen:
+                    return speedOptions;
+                case Material.Helium:
+                    return shieldOptions;
+                default:
+                    return null;
+            }
+        }
+    }
+
     private void Start()
     {
         ParentStart();
         damageToPlayerOnCollision = 1;
-    }
-
-    public void Init(Material m)
-    {
-        material = m;
-        GetComponent<SpriteRenderer>().color = m.MaterialColor();
+        GetComponent<SpriteRenderer>().color = material.MaterialColor();
     }
 
     void FixedUpdate()
