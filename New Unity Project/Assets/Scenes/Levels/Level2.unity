@@ -570,6 +570,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: background
       objectReference: {fileID: 0}
+    - target: {fileID: 1953370847319854042, guid: 15854b378176e7044b5e34d1dfa3f6f6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6353384fe04923e42ab15bd2b0bf3cb5,
+        type: 3}
     - target: {fileID: 1953370847319854043, guid: 15854b378176e7044b5e34d1dfa3f6f6,
         type: 3}
       propertyPath: m_LocalPosition.x
