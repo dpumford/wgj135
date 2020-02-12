@@ -36,11 +36,17 @@ public class PlanetController : CelestialBody
         ParentStart();
     }
 
-    public void Init(PlanetState state, int health)
+    public void Init(PlanetState state, int health, bool spawnsWithTurret)
     {
         planetState = state;
         maxHealth = health;
         currentHealth = health;
+
+        if (spawnsWithTurret)
+        {
+            turret = Instantiate(turretPrefab.gameObject, transform).GetComponent<TurretController>();
+            hasTurret = true;
+        }
     }
 
     void FixedUpdate()
@@ -118,6 +124,28 @@ public class PlanetController : CelestialBody
             }
 
             asteroid.Die();
+            return;
+        }
+
+        MissileController missile = collision.gameObject.GetComponent<MissileController>();
+
+        if (missile != null && missile.DamagesPlanets())
+        {
+            if (planetState == PlanetState.Alive)
+            {
+                currentHealth -= missile.damage;
+                currentHealth = currentHealth > 0 ? currentHealth : 0;
+
+                if (currentHealth == 0)
+                {
+                    Explode((collision.collider.transform.position - transform.position).normalized);
+                }
+            } 
+            else
+            {
+                Explode((collision.collider.transform.position - transform.position).normalized);
+            }
+            return;
         }
 
         var star = collision.gameObject.GetComponent<StarController>();
@@ -125,6 +153,7 @@ public class PlanetController : CelestialBody
         if (star != null)
         {
             Explode((collision.collider.transform.position - transform.position).normalized);
+            return;
         }
 
         var planet = collision.gameObject.GetComponent<PlanetController>();
@@ -132,6 +161,7 @@ public class PlanetController : CelestialBody
         if (planet != null)
         {
             Explode((collision.collider.transform.position - transform.position).normalized);
+            return;
         }
     }
 

@@ -94,6 +94,13 @@ public class ShipController : MonoBehaviour
 
             body.HandlePlayerCollision();
         }
+
+        MissileController missile = collision.gameObject.GetComponent<MissileController>();
+
+        if (missile != null)
+        {
+            currentHealth -= missile.damage;
+        }
     }
 
     void CheckHealth()

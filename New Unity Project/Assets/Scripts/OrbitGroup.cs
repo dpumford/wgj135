@@ -35,7 +35,7 @@ public class OrbitGroup : MonoBehaviour
             {
                 // TODO: Change this if we want to use an orbit group for the player's asteroids at any point
                 PlanetController body = Instantiate(planetPrefab.gameObject, transform.position + Vector3.one * orbit.spinDistance, Quaternion.identity).GetComponent<PlanetController>();
-                body.Init(state, health);
+                body.Init(state, health, false);
                 orbit.AddOrbiter(body);
                 break;
             }

@@ -115,6 +115,8 @@ MonoBehaviour:
   MaxTurretShots: 2
   turretShots: 2
   aoe: {fileID: 2673198183330551617}
+  missilePrefab: {fileID: 1632208962866538769, guid: d837607f015242c44838c90b731bdc16,
+    type: 3}
 --- !u!1 &391573355789954115
 GameObject:
   m_ObjectHideFlags: 0

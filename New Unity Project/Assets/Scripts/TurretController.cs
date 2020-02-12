@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class TurretController : MonoBehaviour
 {
-    public int MaxTurretShots = 2;
+    public int maxTurretShots = 2;
     public int turretShots = 2;
 
     CircleCollider2D shootRadius;
 
     public SpriteRenderer aoe;
+    public MissileController missilePrefab;
+
+    HashSet<AsteroidController> targetedAsteroids;
 
     private void Start()
     {
         shootRadius = GetComponent<CircleCollider2D>();
+        targetedAsteroids = new HashSet<AsteroidController>();
     }
 
     private void FixedUpdate()
@@ -29,16 +33,28 @@ public class TurretController : MonoBehaviour
     {
         AsteroidController asteroid = other.gameObject.GetComponent<AsteroidController>();
 
-        if (asteroid != null)
+        if (asteroid != null && !targetedAsteroids.Contains(asteroid))
         {
-            asteroid.Die();
+            targetedAsteroids.Add(asteroid);
+            var missile = Instantiate(missilePrefab.gameObject, transform.position, Quaternion.identity);
+            missile.GetComponent<MissileController>().SetTarget(asteroid);
             turretShots--;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        AsteroidController asteroid = other.gameObject.GetComponent<AsteroidController>();
+
+        if (asteroid != null && targetedAsteroids.Contains(asteroid))
+        {
+            targetedAsteroids.Remove(asteroid);
         }
     }
 
     public void Reload()
     {
-        turretShots = MaxTurretShots;
+        turretShots = maxTurretShots;
         aoe.enabled = true;
         shootRadius.enabled = true;
     }
