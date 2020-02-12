@@ -7,14 +7,13 @@ public class CelestialBody : MonoBehaviour
     public float initialSpeed;
 
     protected Rigidbody2D myBody;
-    private CircleCollider2D myCollider;
+    protected CircleCollider2D myCollider;
 
     public CelestialState state = CelestialState.Collectible;
     public int damageToPlayerOnCollision;
 
-    public float safeFireDistance = .5f;
     public float gravityMultiplier = 0.5f;
-    Vector2 firedPosition = Vector2.zero;
+    protected Vector2 firedPosition = Vector2.zero;
 
     protected void ParentStart()
     {
@@ -30,15 +29,6 @@ public class CelestialBody : MonoBehaviour
         if (state == CelestialState.Collectible || state == CelestialState.Free)
         {
             RunGravity();
-        }
-
-        if (state == CelestialState.Firing)
-        {
-            if (Vector2.Distance(firedPosition, transform.position) > safeFireDistance)
-            {
-                myCollider.enabled = true;
-                state = CelestialState.Collectible;
-            }
         }
     }
 
@@ -74,7 +64,7 @@ public class CelestialBody : MonoBehaviour
 
     public void Collect()
     {
-        if (state == CelestialState.Collectible)
+        if (state == CelestialState.Mined)
         {
             state = CelestialState.Collected;
             myBody.velocity = Vector2.zero;
@@ -113,7 +103,7 @@ public class CelestialBody : MonoBehaviour
 
     public bool IsCollectible()
     {
-        return state == CelestialState.Collectible;
+        return state == CelestialState.Collectible || state == CelestialState.MinedFired;
     }
 
     public virtual void Die()

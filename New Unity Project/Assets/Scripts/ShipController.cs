@@ -57,7 +57,6 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         CheckHealth();
-        CheckLaserFire();
         CheckOrbitalFire();
         CheckOrbitalConsumption();
     }
@@ -67,7 +66,7 @@ public class ShipController : MonoBehaviour
         SetShipDirection();
         SetShipRotation();
 
-        if (!aiming)
+        if (!aiming && laser.state == LaserState.Free)
         {
             myBody.AddForce(direction * (speed + speed * consumer.CurrentShipModifications.percentSpeedBoost));
         }
@@ -121,14 +120,6 @@ public class ShipController : MonoBehaviour
         float rotationAngle = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         myBody.MoveRotation(rotationAngle);
-    }
-
-    void CheckLaserFire()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            laser.Fire();
-        }
     }
 
     void CheckOrbitalFire()

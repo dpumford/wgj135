@@ -5,18 +5,19 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     public Orbit destinationQueue;
+    public LaserState state;
+
+    AsteroidController minedBody = null;
 
     LineRenderer line;
     BoxCollider2D myCollider;
     ConsumableController consumer;
 
-    public int duration_frames = 10;
-    int frames_remaining = 0;
-
     Vector3 originalScale;
     
     void Start()
     {
+        state = LaserState.Free;
         line = GetComponent<LineRenderer>();
         line.enabled = false;
 
@@ -29,36 +30,62 @@ public class Laser : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        CelestialBody body = other.gameObject.GetComponent<CelestialBody>();
+        AsteroidController body = other.gameObject.GetComponent<AsteroidController>();
 
         if (body != null && body.IsCollectible())
         {
-            destinationQueue.AddOrbiter(body);
+            body.StartMining();
+            state = LaserState.Mining;
+            minedBody = body;
         }
     }
 
-    public void Fire()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (!line.enabled)
+        AsteroidController body = other.gameObject.GetComponent<AsteroidController>();
+
+        if (body != null && body == minedBody && !body.IsMinedOut())
         {
-            frames_remaining = duration_frames;
+            Debug.Log("Laser dropping body");
+            body.StopMining();
+            minedBody = null;
         }
     }
 
     void FixedUpdate()
     {
-        if (frames_remaining > 0)
+        if (Input.GetMouseButton(0) && state == LaserState.Mining)
+        {
+            if (minedBody != null)
+            {
+                if (minedBody.IsMinedOut())
+                {
+                    destinationQueue.AddOrbiter(minedBody);
+                }
+            }
+        }
+        else if (Input.GetMouseButton(0) && state == LaserState.Free)
         {
             transform.localScale = originalScale + consumer.CurrentShipModifications.percentLazerRangeIncrease * originalScale;
 
             myCollider.enabled = true;
             line.enabled = true;
-            frames_remaining -= 1;
+
+            state = LaserState.Mining;
         }
-        else if (frames_remaining == 0)
+        else
         {
             myCollider.enabled = false;
             line.enabled = false;
+
+            if (minedBody != null)
+            {
+                Debug.Log("Player stopped mining");
+                minedBody.StopMining();
+                minedBody = null;
+            }
+
+            state = LaserState.Free;
         }
     }
 }

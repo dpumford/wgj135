@@ -152,7 +152,7 @@ public class NeederController : MonoBehaviour
             {
                 var fulfilled = false;
 
-                if (needs.ContainsKey(asteroid.material))
+                if (needs.ContainsKey(asteroid.material) && asteroid.GivesMaterial())
                 {
                     needs[asteroid.material].Gather(1);
                     gatherOrder.Add(asteroid.material);
@@ -163,7 +163,7 @@ public class NeederController : MonoBehaviour
 
                 if (!fulfilled)
                 {
-                    decayTimer -= incorrectMaterialTimePenalty;
+                    decayTimer += incorrectMaterialTimePenalty;
                 }
             }
 

@@ -9,6 +9,11 @@ public class AsteroidController : CelestialBody
 
     public float closestFudge = .5f;
 
+    public int miningFrames = 60;
+    int currentMiningFrame = 0;
+
+    public int safeFireFrames = 5;
+
     [ConditionalField("material", false, Material.Helium)]
     public PowerUpShield shieldOptions;
 
@@ -45,18 +50,66 @@ public class AsteroidController : CelestialBody
     {
         ParentStart();
         damageToPlayerOnCollision = 1;
-        GetComponent<SpriteRenderer>().color = material.MaterialColor();
+
+        halo.enabled = false;
     }
 
     void FixedUpdate()
     {
+        if (state == CelestialState.Mining || state == CelestialState.Mined)
+        {
+            myBody.velocity = Vector2.zero;
+            currentMiningFrame--;
+
+            if (currentMiningFrame < 0)
+            {
+                currentMiningFrame = 0;
+                state = CelestialState.Mined;
+                GetComponent<SpriteRenderer>().color = material.MaterialColor();
+            }
+        }
+        else
+        {
+            ParentFixedUpdate();
+        }
+
         if (Mathf.Abs(transform.position.x) > 100 || Mathf.Abs(transform.position.y) > 100)
         {
             Die();
         }
 
-        ParentFixedUpdate();
+        if (state == CelestialState.Firing)
+        {
+            if (safeFireFrames == 0)
+            {
+                myCollider.enabled = true;
+                state = CelestialState.MinedFired;
+            }
+            safeFireFrames--;
+        }
+
         halo.enabled = state == CelestialState.Selected;
+    }
+
+    public void StartMining()
+    {
+        currentMiningFrame = miningFrames;
+        state = CelestialState.Mining;
+    }
+
+    public void StopMining()
+    {
+        state = CelestialState.Collectible;
+    }
+
+    public bool IsMinedOut()
+    {
+        return state == CelestialState.Mined;
+    }
+
+    public bool GivesMaterial()
+    {
+        return state == CelestialState.MinedFired;
     }
 
     protected override void RunGravity()
