@@ -76,6 +76,8 @@ public class AsteroidController : CelestialBody
 
     void FixedUpdate()
     {
+        halo.enabled = state == CelestialState.Selected;
+
         if (state == CelestialState.Collected)
         {
             myParticles.Pause();
@@ -129,7 +131,6 @@ public class AsteroidController : CelestialBody
             currentFireFrames--;
         }
 
-        halo.enabled = state == CelestialState.Selected;
         ParentFixedUpdate();
     }
 
