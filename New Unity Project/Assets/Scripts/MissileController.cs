@@ -10,6 +10,8 @@ public class MissileController : MonoBehaviour
     public int damage = 1;
     public int planetSafetyFrames = 8;
 
+    public ExplosionController explosionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,7 @@ public class MissileController : MonoBehaviour
     
     public void Die()
     {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
