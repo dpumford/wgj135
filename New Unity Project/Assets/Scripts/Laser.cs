@@ -12,6 +12,7 @@ public class Laser : MonoBehaviour
     SpriteRenderer line;
     BoxCollider2D myCollider;
     ConsumableController consumer;
+    ParticleSystem particles;
 
     Vector3 originalScale;
     
@@ -26,6 +27,7 @@ public class Laser : MonoBehaviour
         originalScale = transform.localScale;
 
         consumer = GetComponentInParent<ConsumableController>();
+        particles = GetComponentInChildren<ParticleSystem>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -87,5 +89,7 @@ public class Laser : MonoBehaviour
 
             state = LaserState.Free;
         }
+
+        particles.gameObject.SetActive(minedBody != null);
     }
 }
