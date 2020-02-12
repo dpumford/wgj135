@@ -4,8 +4,11 @@ using MyBox;
 
 public class AsteroidController : CelestialBody
 {
+    public Sprite[] asteroidImages;
     public SpriteRenderer halo;
     public Material material;
+
+    ParticleSystem myParticles;
 
     public float closestFudge = .5f;
     public float startTorqueMin = -.5f;
@@ -54,12 +57,26 @@ public class AsteroidController : CelestialBody
         damageToPlayerOnCollision = 1;
 
         halo.enabled = false;
+
+        if (asteroidImages != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = asteroidImages[Random.Range(0, asteroidImages.Length)];
+        }
+
+        myParticles = GetComponentInChildren<ParticleSystem>();
+        var main = myParticles.main;
+        main.startColor = material.MaterialColor();
         
         myBody.AddTorque(Random.Range(startTorqueMin, startTorqueMax));
     }
 
     void FixedUpdate()
     {
+        if (state == CelestialState.Collected)
+        {
+            myParticles.Pause();
+        }
+
         if (state == CelestialState.Mining || state == CelestialState.Mined)
         {
             myBody.velocity = Vector2.zero;
@@ -86,6 +103,7 @@ public class AsteroidController : CelestialBody
         {
             if (safeFireFrames == 0)
             {
+                myParticles.Play();
                 myCollider.enabled = true;
                 state = CelestialState.MinedFired;
             }

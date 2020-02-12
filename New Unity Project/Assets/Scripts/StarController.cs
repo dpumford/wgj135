@@ -35,6 +35,7 @@ public class StarController : CelestialBody
     void Start()
     {
         ParentStart();
+        state = CelestialState.Free;
         damageToPlayerOnCollision = 999;
     }
 
