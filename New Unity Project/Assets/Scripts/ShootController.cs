@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ShootController : MonoBehaviour
 {
+    public Transform shootPosition;
+
     private int selectedOrbiter;
-    private Transform shootPosition;
     private CelestialBody orbiterToFire = null;
 
     private Orbit orbiter;
@@ -21,7 +22,6 @@ public class ShootController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shootPosition = GameObject.Find("ShootPoint").GetComponent<Transform>();
         orbiter = GetComponent<Orbit>();
     }
 

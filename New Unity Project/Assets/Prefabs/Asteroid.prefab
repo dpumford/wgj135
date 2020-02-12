@@ -156,7 +156,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ee8261317c1ff734daa9da91d24312b3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.6469452, b: 0.3234247, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -218,13 +218,14 @@ MonoBehaviour:
   initialSpeed: 6
   state: 0
   damageToPlayerOnCollision: 0
-  safeFireDistance: 1
   gravityMultiplier: 0.5
   halo: {fileID: 7586646606411016816}
   material: 0
   closestFudge: 0.5
   startTorqueMin: -1
   startTorqueMax: 1
+  miningFrames: 60
+  safeFireFrames: 5
   shieldOptions:
     duration: 0
   speedOptions:
