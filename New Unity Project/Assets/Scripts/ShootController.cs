@@ -10,6 +10,7 @@ public class ShootController : MonoBehaviour
     private CelestialBody orbiterToFire = null;
 
     private Orbit orbiter;
+    private AudioSource audioSource;
 
     private List<CelestialBody> orbiters
     {
@@ -23,6 +24,7 @@ public class ShootController : MonoBehaviour
     void Start()
     {
         orbiter = GetComponent<Orbit>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -131,6 +133,8 @@ public class ShootController : MonoBehaviour
             orbiterToFire = null;
 
             resetSelectedOrbiter();
+
+            audioSource.Play();
         }
     }
 
