@@ -24,6 +24,8 @@ public class PlanetController : CelestialBody
     public int explosionSpreadMaxDeg = 120;
     public int explosionParticles = 3;
     public AsteroidController[] exploderPrefabs;
+    public ExplosionController explosionPrefab;
+    public ExplosionController asteroidExplosionPrefab;
 
     public TextMesh statusField;
 
@@ -135,6 +137,8 @@ public class PlanetController : CelestialBody
             {
                 currentHealth -= asteroid.damageToPlayerOnCollision;
                 currentHealth = currentHealth > 0 ? currentHealth : 0;
+
+                Instantiate(asteroidExplosionPrefab, asteroid.transform.position, Quaternion.identity);
             }
 
             if (currentHealth == 0)
@@ -201,6 +205,8 @@ public class PlanetController : CelestialBody
 
     public void Explode(Vector2 direction)
     {
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
         GetComponent<CircleCollider2D>().enabled = false;
         state = CelestialState.Collected;
 

@@ -159,6 +159,10 @@ MonoBehaviour:
   - {fileID: 4877085972912670699, guid: dc24d6ca7a7b14247b3ad96cc2d7f013, type: 3}
   - {fileID: 9035976689347479422, guid: e9617708803cfe644acb773be29f9662, type: 3}
   - {fileID: 5915342447302374635, guid: 40627e4fd839c254bac95f28b27584a7, type: 3}
+  explosionPrefab: {fileID: 7004412108518828287, guid: 0ebb7a4c1c48df34e9bf00e36c49b124,
+    type: 3}
+  asteroidExplosionPrefab: {fileID: 4466536790686462242, guid: 98911374a52091d48a33cd891de5f340,
+    type: 3}
   statusField: {fileID: 0}
   turretPrefab: {fileID: 416608851499181844, guid: 97da07ede6ac23546a9bc2e7364970ef,
     type: 3}
