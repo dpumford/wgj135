@@ -18,6 +18,7 @@ public class AsteroidController : CelestialBody
     int currentMiningFrame = 0;
 
     public int safeFireFrames = 5;
+    int currentFireFrames = 0;
 
     [ConditionalField("material", false, Material.Helium)]
     public PowerUpShield shieldOptions;
@@ -101,13 +102,13 @@ public class AsteroidController : CelestialBody
 
         if (state == CelestialState.Firing)
         {
-            if (safeFireFrames == 0)
+            if (currentFireFrames == 0)
             {
                 myParticles.Play();
                 myCollider.enabled = true;
                 state = CelestialState.MinedFired;
             }
-            safeFireFrames--;
+            currentFireFrames--;
         }
 
         halo.enabled = state == CelestialState.Selected;
@@ -165,6 +166,11 @@ public class AsteroidController : CelestialBody
                 myBody.AddForce(force);
             }
         }
+    }
+
+    public override void OnFire()
+    {
+        currentFireFrames = safeFireFrames;
     }
 
     public override void HandlePlayerCollision()

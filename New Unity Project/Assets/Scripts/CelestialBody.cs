@@ -26,7 +26,7 @@ public class CelestialBody : MonoBehaviour
 
     protected void ParentFixedUpdate()
     {
-        if (state == CelestialState.Collectible || state == CelestialState.Free)
+        if (state == CelestialState.Collectible || state == CelestialState.Free || state == CelestialState.MinedFired)
         {
             RunGravity();
         }
