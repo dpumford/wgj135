@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 683083458899673424}
   - component: {fileID: 683083458899673425}
   - component: {fileID: 683083458899673438}
+  - component: {fileID: 2693451318538810844}
+  - component: {fileID: 8312066322845756939}
   m_Layer: 5
   m_Name: RadialProgress
   m_TagString: Untagged
@@ -88,4 +90,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentFilled: 0.5
   image: {fileID: 683083458899673425}
+--- !u!114 &2693451318538810844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683083458899673436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63d16ba98587df0459395e70f8e3ddc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8312066322845756939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683083458899673436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7554e462383e1b94aa0d12eb01ddb32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   rectTransform: {fileID: 683083458899673439}

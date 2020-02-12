@@ -21,17 +21,31 @@ public class UIController : MonoBehaviour
         
     }
 
-    public RadialProgress CreateRadialProgress(Transform follow, Vector2 size, float startingPercent, float deathPercent)
+    public RadialProgress CreateRadialProgress(Transform follow, Vector2 offset, Vector2 scale, float startingPercent, float deathPercent)
     {
         if (follow == null)
         {
             Debug.LogError("Can't create at null transform!!");
         }
 
-        RadialProgress r = Instantiate(radialProgressPrototype.gameObject, new Vector3(100,100,1), Quaternion.identity, myCanvas.transform).GetComponent<RadialProgress>();
+        var rGameObject = Instantiate(radialProgressPrototype.gameObject, new Vector3(100,100,1), Quaternion.identity, myCanvas.transform).GetComponent<RadialProgress>();
 
-        r.Init(myCamera, follow, size, startingPercent, deathPercent);
+        rGameObject.GetComponent<WorldSpaceFollower>().Init(myCamera, follow, offset);
+        rGameObject.GetComponent<UIScaler>().Init(scale);
+        
+        var r = rGameObject.GetComponent<RadialProgress>();
+        r.Init(startingPercent, deathPercent);
 
         return r;
+    }
+
+    public static Vector2 WorldPositionToCanvasAnchor(Camera c, RectTransform canvasRect, Vector2 position)
+    {
+        Vector2 viewportPosition = c.WorldToViewportPoint(position);
+        Vector2 screenPosition = new Vector2(
+        ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
+        ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f)));
+
+        return screenPosition;
     }
 }
