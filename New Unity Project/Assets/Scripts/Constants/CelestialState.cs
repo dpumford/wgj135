@@ -1,6 +1,7 @@
 ﻿public enum CelestialState
 {
     Collectible,
+    StartingMining,
     Mining,
     Mined,
     Collected,

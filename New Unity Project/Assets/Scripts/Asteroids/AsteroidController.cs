@@ -7,6 +7,9 @@ public class AsteroidController : CelestialBody
     public Sprite[] asteroidImages;
     public SpriteRenderer halo;
     public Material material;
+    public Transform miningProgressPosition;
+
+    RadialProgress miningProgress;
 
     ParticleSystem myParticles;
 
@@ -76,23 +79,38 @@ public class AsteroidController : CelestialBody
         if (state == CelestialState.Collected)
         {
             myParticles.Pause();
+            return;
         }
 
-        if (state == CelestialState.Mining || state == CelestialState.Mined)
+        if (state == CelestialState.StartingMining)
         {
             myBody.velocity = Vector2.zero;
-            currentMiningFrame--;
+            
+            miningProgress = uiControl.CreateRadialProgress(transform, new Vector2(.3f, .3f), 0f, 1f);
+            state = CelestialState.Mining;
+            return;
+        }
 
-            if (currentMiningFrame < 0)
+        if (state == CelestialState.Mining)
+        {
+            myBody.velocity = Vector2.zero;
+            currentMiningFrame++;
+
+            miningProgress.PercentOfFrames(currentMiningFrame, miningFrames);
+
+            if (currentMiningFrame > miningFrames)
             {
-                currentMiningFrame = 0;
+                currentMiningFrame = miningFrames;
                 state = CelestialState.Mined;
                 GetComponent<SpriteRenderer>().color = material.MaterialColor();
             }
+            return;
         }
-        else
+
+        if (state == CelestialState.Mined)
         {
-            ParentFixedUpdate();
+            miningProgress = null;
+            return;
         }
 
         if (Mathf.Abs(transform.position.x) > 100 || Mathf.Abs(transform.position.y) > 100)
@@ -112,12 +130,13 @@ public class AsteroidController : CelestialBody
         }
 
         halo.enabled = state == CelestialState.Selected;
+        ParentFixedUpdate();
     }
 
     public void StartMining()
     {
-        currentMiningFrame = miningFrames;
-        state = CelestialState.Mining;
+        currentMiningFrame = 0;
+        state = CelestialState.StartingMining;
     }
 
     public void StopMining()

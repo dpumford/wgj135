@@ -15,8 +15,11 @@ public class CelestialBody : MonoBehaviour
     public float gravityMultiplier = 0.5f;
     protected Vector2 firedPosition = Vector2.zero;
 
+    protected UIController uiControl;
+
     protected void ParentStart()
     {
+        uiControl = FindObjectOfType<UIController>();
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<CircleCollider2D>();
 
