@@ -113,7 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxTurretShots: 2
-  turretShots: 5
+  turretShots: 2
+  aoe: {fileID: 2673198183330551617}
 --- !u!1 &391573355789954115
 GameObject:
   m_ObjectHideFlags: 0

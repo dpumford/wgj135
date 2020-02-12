@@ -9,6 +9,8 @@ public class TurretController : MonoBehaviour
 
     CircleCollider2D shootRadius;
 
+    public SpriteRenderer aoe;
+
     private void Start()
     {
         shootRadius = GetComponent<CircleCollider2D>();
@@ -18,7 +20,8 @@ public class TurretController : MonoBehaviour
     {
         if (turretShots == 0)
         {
-            GetComponentInChildren<SpriteRenderer>().enabled = false;
+            aoe.enabled = false;
+            shootRadius.enabled = false;
         }
     }
 
@@ -36,7 +39,8 @@ public class TurretController : MonoBehaviour
     public void Reload()
     {
         turretShots = MaxTurretShots;
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
+        aoe.enabled = true;
+        shootRadius.enabled = true;
     }
 
     public void Die()
