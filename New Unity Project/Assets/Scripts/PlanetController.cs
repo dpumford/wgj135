@@ -7,6 +7,10 @@ public class PlanetController : CelestialBody
     PlanetState planetState;
     int spawnSafetyFrames = 10;
 
+    public Sprite[] liveSprites;
+    public Sprite[] deadSprites;
+    SpriteRenderer spriteRenderer;
+
     public int maxHealth = 0;
     int currentHealth = 0;
 
@@ -38,9 +42,13 @@ public class PlanetController : CelestialBody
 
     public void Init(PlanetState state, int health, bool spawnsWithTurret)
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         planetState = state;
         maxHealth = health;
         currentHealth = health;
+
+        ChangeSprite();
 
         if (spawnsWithTurret)
         {
@@ -76,11 +84,22 @@ public class PlanetController : CelestialBody
 
             planetState = currentHealth == 0 ? PlanetState.Dead : planetState;
 
+            if (planetState == PlanetState.Dead)
+            {
+                ChangeSprite();
+            }
+
             statusField.text = "Health: " + currentHealth + " Losing in " + (int)((float)currentHealthLossFrame / (float)heatHealthLossFrames * 100);
         }
         else if (planetState == PlanetState.Alive)
         {
             planetState = currentHealth == 0 ? PlanetState.Dead : planetState;
+
+            if (planetState == PlanetState.Dead)
+            {
+                ChangeSprite();
+            }
+
             statusField.text = "Health: " + currentHealth;
         }
         else if (planetState == PlanetState.Dead)
@@ -165,14 +184,6 @@ public class PlanetController : CelestialBody
         }
     }
 
-    public void StartHeatHealthLoss()
-    {
-        if (planetState == PlanetState.Alive)
-        {
-            planetState = PlanetState.LosingHeat;
-        }
-    }
-
     public bool IsAlive()
     {
         return planetState != PlanetState.Dead && planetState != PlanetState.Fallow;
@@ -209,5 +220,17 @@ public class PlanetController : CelestialBody
 
         //TODO: Make this so that Die() can be called
         gameObject.SetActive(false);
+    }
+
+    private void ChangeSprite()
+    {
+        if (planetState == PlanetState.Dead || planetState == PlanetState.Fallow)
+        {
+            spriteRenderer.sprite = deadSprites[Random.Range(0, deadSprites.Length)];
+        }
+        else
+        {
+            spriteRenderer.sprite = liveSprites[Random.Range(0, liveSprites.Length)];
+        }
     }
 }
