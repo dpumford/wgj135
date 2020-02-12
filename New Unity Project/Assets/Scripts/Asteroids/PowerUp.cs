@@ -8,9 +8,7 @@ public class PowerUp
     private float lifetimeTimer;
 
     public virtual bool ShouldApply => lifetimeTimer < duration;
-    public virtual float PercentSpeedBoost => 0;
-    public virtual float PercentLazerRangeIncrease => 0;
-    public virtual bool Invincible => false;
+    public virtual ShipModifications Modifications => new ShipModifications();
 
     public void UpdateLifetimeTimer(float deltaTime)
     {

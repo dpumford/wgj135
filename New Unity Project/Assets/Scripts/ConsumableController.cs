@@ -2,12 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct ShipModifications
+{
+    public float percentSpeedBoost;
+    public float percentLazerRangeIncrease;
+    public bool invincible;
+    public float percentageAsteroidSpeedIncrease;
+}
+
 public class ConsumableController : MonoBehaviour
 {
-    public PowerUp Current
+    private PowerUp currentPowerup;
+    public ShipModifications CurrentShipModifications
     {
-        get;
-        private set;
+        get
+        {
+            if (currentPowerup == null)
+            {
+                return new ShipModifications();
+            }
+            else
+            {
+                return currentPowerup.Modifications;
+            }
+        }
     }
 
     void Start()
@@ -23,20 +41,20 @@ public class ConsumableController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Current != null)
+        if (currentPowerup != null)
         {
-            Current.UpdateLifetimeTimer(Time.deltaTime);
+            currentPowerup.UpdateLifetimeTimer(Time.deltaTime);
 
-            if (!Current.ShouldApply)
+            if (!currentPowerup.ShouldApply)
             {
-                Current = null;
+                currentPowerup = null;
             }
         }
     }
 
     public void ConsumeAsteroid(AsteroidController asteroid)
     {
-        Current = asteroid.SelectedPowerUp;
+        currentPowerup = asteroid.SelectedPowerUp;
 
         if (asteroid != null)
         {

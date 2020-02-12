@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class PowerUpLazer : PowerUp
 {
-    [Range(0, 1)]
+    [Min(0)]
     public float percentLazerRangeIncrease;
 
-    public override float PercentLazerRangeIncrease => percentLazerRangeIncrease;
+    public override ShipModifications Modifications => new ShipModifications() { percentLazerRangeIncrease = percentLazerRangeIncrease };
 }

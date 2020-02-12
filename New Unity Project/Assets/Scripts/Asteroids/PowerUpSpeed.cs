@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class PowerUpSpeed: PowerUp
 {
-    [Range(0, 1)]
+    [Min(0)]
     public float percentSpeedBoost;
+
+    public override ShipModifications Modifications => new ShipModifications() { percentSpeedBoost = percentSpeedBoost };
 }

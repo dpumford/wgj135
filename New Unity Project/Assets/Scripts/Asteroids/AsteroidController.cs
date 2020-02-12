@@ -18,6 +18,9 @@ public class AsteroidController : CelestialBody
     [ConditionalField("material", false, Material.Lithium)]
     public PowerUpLazer lazerOptions;
 
+    [ConditionalField("material", false, Material.Boron)]
+    public PowerUpShootSpeed shootSpeedOptions;
+
     public PowerUp SelectedPowerUp
     {
         get
@@ -30,6 +33,8 @@ public class AsteroidController : CelestialBody
                     return shieldOptions;
                 case Material.Lithium:
                     return lazerOptions;
+                case Material.Boron:
+                    return shootSpeedOptions;
                 default:
                     return null;
             }

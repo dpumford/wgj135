@@ -69,14 +69,7 @@ public class ShipController : MonoBehaviour
 
         if (!aiming)
         {
-            var bonusSpeed = 0f;
-
-            if (consumer.Current != null)
-            {
-                bonusSpeed = speed * consumer.Current.PercentSpeedBoost;
-            }
-
-            myBody.AddForce(direction * (speed + bonusSpeed));
+            myBody.AddForce(direction * (speed + speed * consumer.CurrentShipModifications.percentSpeedBoost));
         }
     }
 
@@ -91,7 +84,7 @@ public class ShipController : MonoBehaviour
 
         if (body != null && (body.state == CelestialState.Free || body.state == CelestialState.Collectible))
         {
-            if (!(consumer.Current != null && consumer.Current.Invincible))
+            if (!consumer.CurrentShipModifications.invincible)
             {
                 currentHealth -= body.damageToPlayerOnCollision;
                 currentHealth = Mathf.Max(0, currentHealth);
@@ -148,7 +141,7 @@ public class ShipController : MonoBehaviour
         else if (Input.GetMouseButtonUp(1))
         {
             aiming = false;
-            shooter.Fire(rotation.normalized * shootSpeed);
+            shooter.Fire(rotation.normalized * (shootSpeed + consumer.CurrentShipModifications.percentageAsteroidSpeedIncrease * shootSpeed));
         }
     }
 

@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: material
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3427561956176874273, guid: e891913f89ec61a47bf585ddb46a29e4,
+        type: 3}
+      propertyPath: shootSpeedOptions.duration
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427561956176874273, guid: e891913f89ec61a47bf585ddb46a29e4,
+        type: 3}
+      propertyPath: shootSpeedOptions.percentageAsteroidSpeedIncrease
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3427561956176874276, guid: e891913f89ec61a47bf585ddb46a29e4,
         type: 3}
       propertyPath: m_LocalPosition.x

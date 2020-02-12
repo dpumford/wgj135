@@ -49,14 +49,7 @@ public class Laser : MonoBehaviour
     {
         if (frames_remaining > 0)
         {
-            if (consumer.Current != null)
-            {
-                transform.localScale = new Vector3(originalScale.x + originalScale.x * consumer.Current.PercentLazerRangeIncrease, originalScale.y, originalScale.z);
-            }
-            else
-            {
-                transform.localScale = originalScale;
-            }
+            transform.localScale = originalScale + consumer.CurrentShipModifications.percentLazerRangeIncrease * originalScale;
 
             myCollider.enabled = true;
             line.enabled = true;

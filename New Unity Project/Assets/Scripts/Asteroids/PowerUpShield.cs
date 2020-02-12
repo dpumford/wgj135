@@ -6,5 +6,5 @@ public class PowerUpShield: PowerUp
 {
     //TODO: Maybe limit the number of free hits
 
-    public override bool Invincible => true;
+    public override ShipModifications Modifications => new ShipModifications() { invincible = true };
 }
