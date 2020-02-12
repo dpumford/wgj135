@@ -141,6 +141,11 @@ public class AsteroidController : CelestialBody
 
     public void StopMining()
     {
+        if (miningProgress != null)
+        {
+            miningProgress.Die();
+            miningProgress = null;
+        }
         state = CelestialState.Collectible;
     }
 
