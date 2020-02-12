@@ -81,6 +81,8 @@ public class NeederController : MonoBehaviour
     {
         var availableMaterials = Enum.GetValues(typeof(Material)).Cast<Material>().ToList();
         availableMaterials.Shuffle();
+        // This isn't a material, duh
+        availableMaterials.Remove(Material.Turret);
 
         options.materialNumber = Math.Min(options.materialNumber, availableMaterials.Count);
 

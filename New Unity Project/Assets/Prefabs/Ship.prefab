@@ -213,6 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c1029a7bd15c444857e6c9a2394d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretPrefab: {fileID: 416608851499181844, guid: 97da07ede6ac23546a9bc2e7364970ef,
+    type: 3}
   speed: 25
   shootSpeed: 30
   maxHealth: 3

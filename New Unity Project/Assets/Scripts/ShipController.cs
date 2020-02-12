@@ -13,6 +13,8 @@ public class ShipController : MonoBehaviour
     ShootController shooter;
     ConsumableController consumer;
 
+    public TurretController turretPrefab;
+
     public int speed = 10;
     public float shootSpeed = 5;
     public int maxHealth = 3;
@@ -140,7 +142,9 @@ public class ShipController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.E))
         {
-            consumer.ConsumeAsteroid(shooter.ReleaseSelectedBody() as AsteroidController);
+            // TODO: Keep this around in case we want to switch back
+            //consumer.ConsumeAsteroid(shooter.ReleaseSelectedBody() as AsteroidController);
+            shooter.SetSelectedAsTurretPackage();
         }
     }
 

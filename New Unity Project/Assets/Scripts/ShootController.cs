@@ -100,6 +100,14 @@ public class ShootController : MonoBehaviour
         }
     }
 
+    public void SetSelectedAsTurretPackage()
+    {
+        if (orbiters.Count > 0 && orbiterToFire == null)
+        {
+            (orbiters[selectedOrbiter] as AsteroidController).SetTurretAsteroid();
+        }
+    }
+
     private void resetSelectedOrbiter()
     {
         selectedOrbiter--;

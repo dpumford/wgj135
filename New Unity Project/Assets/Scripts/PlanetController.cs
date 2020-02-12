@@ -23,6 +23,10 @@ public class PlanetController : CelestialBody
 
     public TextMesh statusField;
 
+    public TurretController turretPrefab;
+    TurretController turret;
+    bool hasTurret = false;
+
     void Start()
     {
         damageToPlayerOnCollision = 3;
@@ -90,7 +94,19 @@ public class PlanetController : CelestialBody
 
         if (asteroid != null)
         {
-            if (planetState == PlanetState.Alive)
+            if (asteroid.GivesMaterial() && asteroid.material == Material.Turret)
+            {
+                if (!hasTurret)
+                {
+                    turret = Instantiate(turretPrefab.gameObject, transform).GetComponent<TurretController>();
+                    hasTurret = true;
+                } 
+                else
+                {
+                    turret.Reload();
+                }
+            }
+            else if (planetState == PlanetState.Alive)
             {
                 currentHealth -= asteroid.damageToPlayerOnCollision;
                 currentHealth = currentHealth > 0 ? currentHealth : 0;

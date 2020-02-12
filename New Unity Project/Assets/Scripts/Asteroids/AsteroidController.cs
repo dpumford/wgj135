@@ -116,6 +116,12 @@ public class AsteroidController : CelestialBody
         return state == CelestialState.MinedFired;
     }
 
+    public void SetTurretAsteroid()
+    {
+        material = Material.Turret;
+        GetComponent<SpriteRenderer>().color = material.MaterialColor();
+    }
+
     protected override void RunGravity()
     {
         // Asteroids run gravity for everything
