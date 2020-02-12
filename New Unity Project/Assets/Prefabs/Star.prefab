@@ -140,7 +140,6 @@ MonoBehaviour:
   initialSpeed: 0
   state: 2
   damageToPlayerOnCollision: 999
-  safeFireDistance: 0.5
   gravityMultiplier: 0.25
   destinationForce: 100000
   ringSegmentSize: 3
@@ -161,6 +160,10 @@ MonoBehaviour:
   timePerDecay: 15
   incorrectMaterialTimePenalty: 3
   decayTimer: 0
+  correctExplosionPrefab: {fileID: 290833117948915603, guid: dd559be8c13ca9c43a36c3f52a6c2397,
+    type: 3}
+  inCorrectExplosionPrefab: {fileID: 4977690453990980634, guid: a7bb82512aa39ba4389a234556384f57,
+    type: 3}
 --- !u!114 &-2981874055986097817
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -50,6 +50,9 @@ public class NeederController : MonoBehaviour
     public float incorrectMaterialTimePenalty = 3;
     public float decayTimer;
 
+    public ExplosionController correctExplosionPrefab;
+    public ExplosionController inCorrectExplosionPrefab;
+
     public bool IsComplete()
     {
         foreach (var need in needs.Values) {
@@ -152,21 +155,27 @@ public class NeederController : MonoBehaviour
         {
             if (!IsComplete())
             {
-                var fulfilled = false;
-
                 if (needs.ContainsKey(asteroid.material) && asteroid.GivesMaterial())
                 {
-                    needs[asteroid.material].Gather(1);
-                    gatherOrder.Add(asteroid.material);
+                    if (!needs[asteroid.material].Complete())
+                    {
+                        needs[asteroid.material].Gather(1);
+                        gatherOrder.Add(asteroid.material);
+                    }
 
                     decayTimer = 0;
-                    fulfilled = true;
-                }
 
-                if (!fulfilled)
+                    Instantiate(correctExplosionPrefab, asteroid.transform.position, Quaternion.identity);
+                }
+                else
                 {
+                    Instantiate(inCorrectExplosionPrefab, asteroid.transform.position, Quaternion.identity);
                     decayTimer += incorrectMaterialTimePenalty;
                 }
+            }
+            else
+            {
+                Instantiate(inCorrectExplosionPrefab, asteroid.transform.position, Quaternion.identity);
             }
 
             asteroid.Die();
