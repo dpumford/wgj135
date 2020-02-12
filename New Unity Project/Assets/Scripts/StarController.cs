@@ -28,7 +28,6 @@ public class StarController : CelestialBody
     public float scalePerRing = 10;
 
     private NeederController needer;
-    private StarStatusController statusController;
 
     private OrbitGroup orbits;
 
@@ -73,6 +72,7 @@ public class StarController : CelestialBody
     {
         if (needer.IsDead())
         {
+            needer.Die();
             Die();
         }
     }
@@ -84,11 +84,10 @@ public class StarController : CelestialBody
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
-    public void Spawn(NeederOptions options, StarOptions starOptions)
+    public void Spawn(NeederOptions options, StarOptions starOptions, UIController uiControl)
     {
         needer = GetComponent<NeederController>();
         orbits = GetComponent<OrbitGroup>();
-        statusController = GetComponent<StarStatusController>();
 
         for (int i = 0; i < starOptions.orbitDistance.Length; i++)
         {
@@ -116,16 +115,14 @@ public class StarController : CelestialBody
             orbits.AddOrbiter(state, health);
         }
 
-        needer.Reset(options);
-
-        statusController.Spawn();
+        needer.Reset(options, uiControl);
     }
 
     public override void Die()
     {
         orbits.Die();
 
-        statusController.Die();
+        needer.Die();
 
         Destroy(gameObject);
     }

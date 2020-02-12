@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UIController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class UIController : MonoBehaviour
         
     }
 
-    public RadialProgress CreateRadialProgress(Transform follow, Vector2 offset, Vector2 scale, float startingPercent, float deathPercent)
+    public RadialProgress CreateRadialProgress(Transform follow, Vector2 offset, Vector2 scale, Nullable<Color> recolor, float startingPercent, float deathPercent, bool active)
     {
         if (follow == null)
         {
@@ -34,7 +35,7 @@ public class UIController : MonoBehaviour
         rGameObject.GetComponent<UIScaler>().Init(scale);
         
         var r = rGameObject.GetComponent<RadialProgress>();
-        r.Init(startingPercent, deathPercent);
+        r.Init(startingPercent, deathPercent, recolor, active);
 
         return r;
     }

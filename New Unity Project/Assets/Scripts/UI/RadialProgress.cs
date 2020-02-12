@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class RadialProgress : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class RadialProgress : MonoBehaviour
     public Image image;
     
     float deathPercent = -1f;
+    bool active;
 
     // Start is called before the first frame update
     void Start()
@@ -16,15 +18,27 @@ public class RadialProgress : MonoBehaviour
         
     }
 
-    public void Init(float startingPercent, float dp)
+    public void Init(float startingPercent, float dp, Nullable<Color> recolor, bool a)
     {
         percentFilled = startingPercent;
         deathPercent = dp;
+        active = a;
+        if (recolor.HasValue)
+        {
+            image.color = recolor.Value;
+        }
+
+        if (!active)
+        {
+            SetInactive();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        image.fillAmount = percentFilled;
+
         if (deathPercent != -1f)
         {
             if (percentFilled == deathPercent)
@@ -32,8 +46,20 @@ public class RadialProgress : MonoBehaviour
                 Die();
             }
         }
+    }
 
-        image.fillAmount = percentFilled;
+    public void SetActive()
+    {
+        active = true;
+        var c = image.color;
+        image.color = new Color(c.r, c.g, c.b, 1f);
+    }
+
+    public void SetInactive()
+    {
+        var c = image.color;
+        image.color = new Color(c.r, c.g, c.b, c.a - 0.35f);
+        active = false;
     }
 
     // convenience method for stuff that measures its duration in frames
@@ -45,6 +71,17 @@ public class RadialProgress : MonoBehaviour
         }
 
         percentFilled = (float)currentFrame / (float)maxFrame;
+    }
+
+    // convenince method for stuff that measures its duration in real time
+    public void PercentOfDuration(float currentTime, float duration)
+    {
+        if (currentTime > duration)
+        {
+            currentTime = duration;
+        }
+
+        percentFilled = currentTime / duration;
     }
 
     public void Die()

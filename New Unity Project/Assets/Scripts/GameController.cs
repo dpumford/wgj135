@@ -30,10 +30,13 @@ public class GameController : MonoBehaviour
     GameState state;
     float asteroidSpawnTimer;
 
+    UIController uiControl;
+
     void Start()
     {
         state = GameState.New;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        uiControl = FindObjectOfType<UIController>();
     }
 
     // Update is called once per frame
@@ -100,7 +103,7 @@ public class GameController : MonoBehaviour
         foreach (var point in starSpawnPoints.spawnPoints)
         {
             var star = Instantiate(starPrefab, point.transform.position, Quaternion.identity).GetComponent<StarController>();
-            star.Spawn(point.options, point.starOptions);
+            star.Spawn(point.options, point.starOptions, uiControl);
         }
     }
 
@@ -159,6 +162,11 @@ public class GameController : MonoBehaviour
         foreach (var planet in FindObjectsOfType<PlanetController>())
         {
             planet.Die();
+        }
+
+        foreach (var radial in FindObjectsOfType<RadialProgress>())
+        {
+            radial.Die();
         }
     }
 

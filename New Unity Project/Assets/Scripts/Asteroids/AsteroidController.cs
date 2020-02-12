@@ -87,8 +87,10 @@ public class AsteroidController : CelestialBody
         if (state == CelestialState.StartingMining)
         {
             myBody.velocity = Vector2.zero;
-            
-            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), 0f, 1f);
+
+            var miningColor = material.MaterialColor();
+            miningColor.a = .5f;
+            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), miningColor, 0f, 1f, true);
             state = CelestialState.Mining;
             return;
         }
