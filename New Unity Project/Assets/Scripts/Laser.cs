@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour
 
     AsteroidController minedBody = null;
 
-    LineRenderer line;
+    SpriteRenderer line;
     BoxCollider2D myCollider;
     ConsumableController consumer;
 
@@ -18,7 +18,7 @@ public class Laser : MonoBehaviour
     void Start()
     {
         state = LaserState.Free;
-        line = GetComponent<LineRenderer>();
+        line = GetComponentInChildren<SpriteRenderer>();
         line.enabled = false;
 
         myCollider = GetComponent<BoxCollider2D>();
