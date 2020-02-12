@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2555384990317843632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children: []
   m_Father: {fileID: 3427561956176874276}
   m_RootOrder: 0
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 3427561956176874286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8655221209868160585}
   m_Father: {fileID: 0}
@@ -155,8 +155,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.4433962, g: 0.32049528, b: 0.18195978, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ee8261317c1ff734daa9da91d24312b3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -180,7 +180,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0.8
-  m_AngularDrag: 4
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: fefeb04498410b045bf1253c313f42ab, type: 2}
   m_Interpolate: 0
@@ -202,7 +202,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.3
 --- !u!114 &3427561956176874273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +223,16 @@ MonoBehaviour:
   halo: {fileID: 7586646606411016816}
   material: 0
   closestFudge: 0.5
+  startTorqueMin: -1
+  startTorqueMax: 1
   shieldOptions:
     duration: 0
-    numberOfHits: 0
+  speedOptions:
+    duration: 0
+    percentSpeedBoost: 0
+  lazerOptions:
+    duration: 0
+    percentLazerRangeIncrease: 0
+  shootSpeedOptions:
+    duration: 0
+    percentageAsteroidSpeedIncrease: 0

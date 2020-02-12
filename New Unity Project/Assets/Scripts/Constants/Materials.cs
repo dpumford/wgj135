@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum Material
 {
@@ -10,20 +11,21 @@ public enum Material
 
 public static class MaterialExtensions
 {
+    private static Dictionary<Material, Color> colorMap = new Dictionary<Material, Color>()
+{
+    { Material.Hydrogen, Color.white },
+    { Material.Helium, new Color(0.3058824f, 0.3058824f, 0.7490196f) },
+    { Material.Lithium, new Color(0.3098039f, 0.7490196f, 0.3803922f) },
+    { Material.Boron, new Color(0.7490196f, 0, 0) }
+};
+
     public static Color MaterialColor(this Material m)
     {
-        switch (m)
+        if (colorMap.ContainsKey(m))
         {
-            case Material.Hydrogen:
-                return Color.white;
-            case Material.Helium:
-                return Color.blue;
-            case Material.Lithium:
-                return Color.green;
-            case Material.Boron:
-                return Color.red;
-            default:
-                return Color.magenta;
+            return colorMap[m];
         }
+
+        return Color.magenta;
     }
 }

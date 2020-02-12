@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1445310760035435628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.07, y: -2.05, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 8837991014655206121}
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 544323b25a430a94983ecb4cfa874b9d, type: 3}
   m_Color: {r: 0.9433962, g: 0.8837611, b: 0.43164828, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,7 +124,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 10
 --- !u!114 &1445310760035435629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,15 +144,8 @@ MonoBehaviour:
   gravityMultiplier: 0.25
   destinationForce: 100000
   ringSegmentSize: 3
-  baseScale: 20
-  scalePerRing: 10
-  initialOrbits: 2
-  orbitCapacity: 0100000003000000
-  orbitDistance:
-  - 7
-  - 13
-  orbitFrames: 58020000b0040000
-  initialNumberOfPlanets: 3
+  baseScale: 0.3
+  scalePerRing: 0.1
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +193,7 @@ MonoBehaviour:
     type: 3}
   statusStartPosition: {fileID: 8837991014655206121}
   statusOffset: 0.54
-  textScale: 0.015
+  textScale: 0.01
 --- !u!1 &6715364178617734798
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,8 +218,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6715364178617734798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0975, y: 0.0687, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 18, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 1445310760035435622}
   m_RootOrder: 0

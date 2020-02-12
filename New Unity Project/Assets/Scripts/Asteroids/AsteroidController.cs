@@ -8,6 +8,8 @@ public class AsteroidController : CelestialBody
     public Material material;
 
     public float closestFudge = .5f;
+    public float startTorqueMin = -.5f;
+    public float startTorqueMax = .5f;
 
     public int miningFrames = 60;
     int currentMiningFrame = 0;
@@ -52,6 +54,8 @@ public class AsteroidController : CelestialBody
         damageToPlayerOnCollision = 1;
 
         halo.enabled = false;
+        
+        myBody.AddTorque(Random.Range(startTorqueMin, startTorqueMax));
     }
 
     void FixedUpdate()
