@@ -27,7 +27,10 @@ public class StarController : CelestialBody
     public float baseScale = 20;
     public float scalePerRing = 10;
 
+    public Sprite[] starSprites;
+
     private NeederController needer;
+    private SpriteRenderer spriteRenderer;
 
     private OrbitGroup orbits;
 
@@ -48,6 +51,7 @@ public class StarController : CelestialBody
         UpdateHealth();
         UpdatePosition();
         UpdateWidth();
+        UpdateSprite();
     }
 
     private void UpdatePosition()
@@ -84,10 +88,16 @@ public class StarController : CelestialBody
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(scale, scale, transform.localScale.z), 0.2f);
     }
 
+    private void UpdateSprite()
+    {
+        spriteRenderer.sprite = starSprites[Mathf.Clamp(needer.GatheredCount() / ringSegmentSize, 0, starSprites.Length)];
+    }
+
     public void Spawn(NeederOptions options, StarOptions starOptions, UIController uiControl)
     {
         needer = GetComponent<NeederController>();
         orbits = GetComponent<OrbitGroup>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         for (int i = 0; i < starOptions.orbitDistance.Length; i++)
         {

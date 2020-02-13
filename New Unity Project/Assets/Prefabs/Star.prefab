@@ -143,6 +143,11 @@ MonoBehaviour:
   ringSegmentSize: 3
   baseScale: 0.3
   scalePerRing: 0.1
+  starSprites:
+  - {fileID: 21300000, guid: 695689048c9d8b5408c8d1b998ab53bb, type: 3}
+  - {fileID: 21300000, guid: b641725fae57b5a45b7dcc72ff9eb6d5, type: 3}
+  - {fileID: 21300000, guid: 544323b25a430a94983ecb4cfa874b9d, type: 3}
+  - {fileID: 21300000, guid: 6b0cd696f55b64e409db945a29d0334d, type: 3}
 --- !u!114 &5568368487704802377
 MonoBehaviour:
   m_ObjectHideFlags: 0
