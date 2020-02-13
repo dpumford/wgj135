@@ -17,8 +17,8 @@ public class AsteroidController : CelestialBody
     public float startTorqueMin = -.5f;
     public float startTorqueMax = .5f;
 
-    public int miningFrames = 60;
-    int currentMiningFrame = 0;
+    public float miningHealth = 60;
+    float currentMiningDamage = 0;
 
     public int safeFireFrames = 5;
     int currentFireFrames = 0;
@@ -90,7 +90,7 @@ public class AsteroidController : CelestialBody
 
             var miningColor = material.MaterialColor();
             miningColor.a = .5f;
-            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), miningColor, 0f, 1f, true, true);
+            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), miningColor, 0f, 1f, true, false);
             state = CelestialState.Mining;
             return;
         }
@@ -98,13 +98,12 @@ public class AsteroidController : CelestialBody
         if (state == CelestialState.Mining)
         {
             myBody.velocity = Vector2.zero;
-            currentMiningFrame++;
 
-            miningProgress.PercentOfFrames(currentMiningFrame, miningFrames);
+            miningProgress.PercentOfDuration(currentMiningDamage, miningHealth);
 
-            if (currentMiningFrame > miningFrames)
+            if (currentMiningDamage == miningHealth)
             {
-                currentMiningFrame = miningFrames;
+                currentMiningDamage = miningHealth;
                 state = CelestialState.Mined;
                 GetComponent<SpriteRenderer>().color = material.MaterialColor();
             }
@@ -138,8 +137,18 @@ public class AsteroidController : CelestialBody
 
     public void StartMining()
     {
-        currentMiningFrame = 0;
+        currentMiningDamage = 0f;
         state = CelestialState.StartingMining;
+    }
+
+    public void DealMiningDamage(float damage)
+    {
+        currentMiningDamage += damage;
+
+        if (currentMiningDamage > miningHealth)
+        {
+            currentMiningDamage = miningHealth;
+        }
     }
 
     public void StopMining()

@@ -7,20 +7,39 @@ public class Laser : MonoBehaviour
     public Orbit destinationQueue;
     public LaserState state;
 
-    AsteroidController minedBody = null;
+    public AsteroidController minedBody = null;
 
-    SpriteRenderer line;
+    public float maxMiningDamagePerFrame = 1f;
+    // mining damage is max / squaredDistance * damageDropoff,
+    // so this number should be the square of the distance you want to be max damage
+    public float damageDropoffModifier = 16f;
+
+    LineRenderer line;
     BoxCollider2D myCollider;
     ConsumableController consumer;
     ParticleSystem particles;
 
     Vector3 originalScale;
-    
+
+    public Transform laserStart;
+    public InterceptionPoint interceptionPoint;
+    InterceptionPoint myPoint;
+
+    public SpriteRenderer mousePointIcon;
+
+    float baseEmissionRate;
+
+    List<RaycastHit2D> results = new List<RaycastHit2D>();
+    ContactFilter2D filter = new ContactFilter2D();
+
     void Start()
     {
+        // we do this so the interception point will be working with world coordinates
+        myPoint = Instantiate(interceptionPoint);
+        myPoint.myLaser = this;
+
         state = LaserState.Free;
-        line = GetComponentInChildren<SpriteRenderer>();
-        line.enabled = false;
+        line = GetComponentInChildren<LineRenderer>();
 
         myCollider = GetComponent<BoxCollider2D>();
         myCollider.enabled = false;
@@ -28,30 +47,46 @@ public class Laser : MonoBehaviour
 
         consumer = GetComponentInParent<ConsumableController>();
         particles = GetComponentInChildren<ParticleSystem>();
+        baseEmissionRate = particles.emission.rateOverTime.constant;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+
+    private void Update()
     {
-        AsteroidController body = other.gameObject.GetComponent<AsteroidController>();
 
-        if (body != null && body.IsCollectible())
+        var mousePoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePointIcon.transform.position = mousePoint;
+
+        var hitThing = false;
+
+        if (state != LaserState.Aiming)
         {
-            body.StartMining();
-            state = LaserState.Mining;
-            minedBody = body;
+            var direction = mousePoint - (Vector2)transform.position;
+            Physics2D.Raycast(laserStart.position, direction.normalized, filter, results);
+
+            foreach (var raycast in results)
+            {
+                if (raycast.collider != null && raycast.collider.tag != "Galaxy" && raycast.collider.tag != "Laser")
+                {
+                    hitThing = true;
+                    myPoint.transform.position = raycast.collider.ClosestPoint(transform.position);
+                    break;
+                }
+            }
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        AsteroidController body = other.gameObject.GetComponent<AsteroidController>();
-
-        if (body != null && body == minedBody && !body.IsMinedOut())
+        if(!hitThing)
         {
-            Debug.Log("Laser dropping body");
-            body.StopMining();
-            minedBody = null;
+            myPoint.transform.position = mousePoint;
         }
+
+        //line.SetPosition(0, transform.position);
+        //line.SetPosition(1, myPoint.transform.position);
+        particles.transform.position = myPoint.transform.position;
+        var particleVelocity = myPoint.transform.position - transform.position;
+
+        var vlt = particles.velocityOverLifetime;
+        vlt.x = -particleVelocity.magnitude / 2;
     }
 
     void FixedUpdate()
@@ -64,25 +99,41 @@ public class Laser : MonoBehaviour
                 {
                     destinationQueue.AddOrbiter(minedBody);
                 }
+                else
+                {
+                    var damage = maxMiningDamagePerFrame / (minedBody.gameObject.transform.position - transform.position).sqrMagnitude * damageDropoffModifier;
+
+                    if (damage > maxMiningDamagePerFrame)
+                    {
+                        damage = maxMiningDamagePerFrame;
+                    }
+
+                    var particleRate = damage / maxMiningDamagePerFrame * baseEmissionRate;
+                    var pr = particles.emission.rateOverTime;
+                    pr.constant = particleRate;
+
+                    minedBody.DealMiningDamage(damage);
+                }
             }
         }
         else if (Input.GetMouseButton(0) && state == LaserState.Free)
         {
             transform.localScale = originalScale + consumer.CurrentShipModifications.percentLazerRangeIncrease * originalScale;
 
-            myCollider.enabled = true;
-            line.enabled = true;
+            myPoint.reticleCollider.enabled = true;
 
             state = LaserState.Mining;
         }
+        else if (Input.GetMouseButton(1))
+        {
+            state = LaserState.Aiming;
+        }
         else
         {
-            myCollider.enabled = false;
-            line.enabled = false;
+            myPoint.reticleCollider.enabled = false;
 
             if (minedBody != null)
             {
-                Debug.Log("Player stopped mining");
                 minedBody.StopMining();
                 minedBody = null;
             }

@@ -2,4 +2,5 @@
 {
     Mining,
     Free,
+    Aiming,
 }

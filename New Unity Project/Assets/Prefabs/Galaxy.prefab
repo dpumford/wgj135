@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6363179811298618669}
   m_Layer: 0
   m_Name: Side (2)
-  m_TagString: Untagged
+  m_TagString: Galaxy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 6363179811394076166}
   m_Layer: 0
   m_Name: Side (1)
-  m_TagString: Untagged
+  m_TagString: Galaxy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 6363179811533022343}
   m_Layer: 0
   m_Name: Side
-  m_TagString: Untagged
+  m_TagString: Galaxy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 6363179812039471315}
   m_Layer: 0
   m_Name: Galaxy
-  m_TagString: Untagged
+  m_TagString: Galaxy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 6363179812540843305}
   m_Layer: 0
   m_Name: Side (3)
-  m_TagString: Untagged
+  m_TagString: Galaxy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
