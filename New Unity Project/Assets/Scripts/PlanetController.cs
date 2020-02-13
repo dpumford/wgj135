@@ -49,7 +49,7 @@ public class PlanetController : CelestialBody
 
         var uiControl = FindObjectOfType<UIController>();
         var color = Color.green;
-        color.a = .25f;
+        color.a = .65f;
         healthProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, Vector2.one * .4f, color, 1f, 0f, true, true);
 
         planetState = state;
@@ -109,14 +109,14 @@ public class PlanetController : CelestialBody
                 if (healthProgress.percentFilled < .33f)
                 {
                     var badColor = Color.red;
-                    badColor.a = 0.35f;
+                    badColor.a = 0.65f;
 
                     healthProgress.Recolor(badColor);
                 }
                 else if (healthProgress.percentFilled < .66f)
                 {
                     var mediumColor = Color.yellow;
-                    mediumColor.a = 0.35f;
+                    mediumColor.a = 0.65f;
 
                     healthProgress.Recolor(mediumColor);
                 }
