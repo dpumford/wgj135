@@ -48,6 +48,11 @@ public class RadialProgress : MonoBehaviour
         }
     }
 
+    public void Recolor(Color c)
+    {
+        image.color = c;
+    }
+
     public void SetActive()
     {
         active = true;

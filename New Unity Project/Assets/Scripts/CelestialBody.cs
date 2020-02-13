@@ -43,9 +43,14 @@ public class CelestialBody : MonoBehaviour
         {
             Rigidbody2D body = other.GetComponent<Rigidbody2D>();
 
-            if (other != this && body != null && (other.state == CelestialState.Collectible || other.state == CelestialState.Free))
+            if (other != this && body != null && myBody != null && (other.state == CelestialState.Collectible || other.state == CelestialState.Free || other.state == CelestialState.MinedFired))
             {
                 var directionToOther = other.transform.position - transform.position;
+
+                if (directionToOther.sqrMagnitude == 0)
+                {
+                    continue;
+                }
 
                 myBody.AddForce(directionToOther.normalized * gravityMultiplier * myBody.mass * body.mass / directionToOther.sqrMagnitude);
             }

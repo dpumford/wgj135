@@ -19,6 +19,8 @@ public class PlanetController : CelestialBody
     public int heatHealthLossFrames = 60;
     int currentHealthLossFrame = 0;
 
+    public int heatHeathLossFuzz = 40;
+
     public float explosionSpawnDistance = 3;
     public float explosionForceScale = 2;
     public int explosionSpreadMaxDeg = 120;
@@ -27,17 +29,16 @@ public class PlanetController : CelestialBody
     public ExplosionController explosionPrefab;
     public ExplosionController asteroidExplosionPrefab;
 
-    public TextMesh statusField;
-
     public TurretController turretPrefab;
     TurretController turret;
     bool hasTurret = false;
 
+    RadialProgress healthProgress;
+
     void Start()
     {
         damageToPlayerOnCollision = 3;
-
-        statusField = GetComponentInChildren<TextMesh>();
+        heatHealthLossFrames += Random.Range(-heatHeathLossFuzz, heatHeathLossFuzz);
 
         ParentStart();
     }
@@ -45,6 +46,11 @@ public class PlanetController : CelestialBody
     public void Init(PlanetState state, int health, bool spawnsWithTurret)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        var uiControl = FindObjectOfType<UIController>();
+        var color = Color.green;
+        color.a = .25f;
+        healthProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, Vector2.one * .3f, color, 1f, 0f, true);
 
         planetState = state;
         maxHealth = health;
@@ -88,25 +94,44 @@ public class PlanetController : CelestialBody
 
             if (planetState == PlanetState.Dead)
             {
+                if (healthProgress != null)
+                {
+                    healthProgress.Die();
+                }
                 ChangeSprite();
             }
-
-            statusField.text = "Health: " + currentHealth + " Losing in " + (int)((float)currentHealthLossFrame / (float)heatHealthLossFrames * 100);
         }
         else if (planetState == PlanetState.Alive)
         {
-            planetState = currentHealth == 0 ? PlanetState.Dead : planetState;
-
-            if (planetState == PlanetState.Dead)
+            if (healthProgress != null)
             {
-                ChangeSprite();
+                healthProgress.PercentOfFrames(currentHealth, maxHealth);
+                if (healthProgress.percentFilled < .33f)
+                {
+                    var badColor = Color.red;
+                    badColor.a = 0.35f;
+
+                    healthProgress.Recolor(badColor);
+                }
+                else if (healthProgress.percentFilled < .66f)
+                {
+                    var mediumColor = Color.yellow;
+                    mediumColor.a = 0.35f;
+
+                    healthProgress.Recolor(mediumColor);
+                }
             }
 
-            statusField.text = "Health: " + currentHealth;
-        }
-        else if (planetState == PlanetState.Dead)
-        {
-            statusField.text = "Dead";
+            planetState = currentHealth == 0 ? PlanetState.Dead : planetState;
+
+            if (planetState == PlanetState.Dead || planetState == PlanetState.LosingHeat)
+            {
+                if (healthProgress != null)
+                {
+                    healthProgress.Die();
+                }
+                ChangeSprite();
+            }
         }
     }
 
@@ -195,6 +220,11 @@ public class PlanetController : CelestialBody
 
     public override void Die()
     {
+        if (healthProgress != null)
+        {
+            healthProgress.Die();
+        }
+
         Destroy(gameObject);
     }
 
@@ -222,6 +252,11 @@ public class PlanetController : CelestialBody
 
             direction *= explosionForceScale;
             asteroid.GetComponent<Rigidbody2D>().AddForce(direction);
+        }
+
+        if (healthProgress != null)
+        {
+            healthProgress.Die();
         }
 
         //TODO: Make this so that Die() can be called

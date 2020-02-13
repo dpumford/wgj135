@@ -46,6 +46,7 @@ public class NeederController : MonoBehaviour
     public Dictionary<Material, Need> needs = new Dictionary<Material, Need>();
     List<Material> gatherOrder = new List<Material>();
     List<RadialProgress> radialProgressTrackers = new List<RadialProgress>();
+    List<RadialProgress> backgroundProgressTrackers = new List<RadialProgress>();
 
     public float timePerDecay = 10;
     public float incorrectMaterialTimePenalty = 3;
@@ -84,6 +85,12 @@ public class NeederController : MonoBehaviour
             tracker.Die();
         }
         radialProgressTrackers.Clear();
+
+        foreach (var tracker in backgroundProgressTrackers)
+        {
+            tracker.Die();
+        }
+        backgroundProgressTrackers.Clear();
     }
 
     public bool IsDead()
@@ -104,6 +111,10 @@ public class NeederController : MonoBehaviour
     public void Reset(NeederOptions options, UIController ui)
     {
         uiControl = ui;
+        
+        radialProgressTrackers = new List<RadialProgress>();
+        backgroundProgressTrackers = new List<RadialProgress>();
+
         var availableMaterials = Enum.GetValues(typeof(Material)).Cast<Material>().ToList();
         availableMaterials.Shuffle();
         // This isn't a material, duh
@@ -149,7 +160,8 @@ public class NeederController : MonoBehaviour
                 var offset = new Vector2(xOffset, yOffset);
                 var scale = new Vector2(trackerScale, trackerScale);
 
-                uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, -1f, false);
+                var tracker = uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, -1f, false);
+                backgroundProgressTrackers.Add(tracker);
             }
 
             needs.Add(availableMaterials[i], need);
