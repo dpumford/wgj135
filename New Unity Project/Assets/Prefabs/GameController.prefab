@@ -144,8 +144,9 @@ MonoBehaviour:
   blackHolePrefab: {fileID: 7567829744488338449, guid: e8676ba1d7e37e749b7c379fe2889172,
     type: 3}
   holeSpawnPoints: {fileID: 0}
-  lossSprite: {fileID: 21300000, guid: 0e23bd0a7bce81c4099d50bce2026017, type: 3}
-  winSprite: {fileID: 21300000, guid: 0979195f58bf58043b38436697052dd6, type: 3}
+  lossText: {fileID: 7615133556915638550, guid: 75df3c28676ce834aa104ae5291837f0,
+    type: 3}
+  winText: {fileID: 7615133556915638550, guid: b3fe8dcc2384f18488c794870d74b287, type: 3}
   nextLevel: 
 --- !u!82 &2805509349192207157
 AudioSource:

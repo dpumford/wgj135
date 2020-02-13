@@ -518,7 +518,12 @@ PrefabInstance:
     - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
         type: 3}
       propertyPath: maxNumberOfAsteroids
-      value: 8
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977467764733622575, guid: 9b30e6c4d176e3441b53aa3360d9768a,
+        type: 3}
+      propertyPath: asteroidSpawnSeconds
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b30e6c4d176e3441b53aa3360d9768a, type: 3}
@@ -603,6 +608,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2910d43336a5b8f4f964e055591aaa07, type: 3}
+--- !u!224 &945941865 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8035053157683661178, guid: 85661dd636c75bb4086e098e303ba422,
+    type: 3}
+  m_PrefabInstance: {fileID: 8035053157277769583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &998503905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,6 +1024,186 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1953421858249259647}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2421347633407298554
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 945941865}
+    m_Modifications:
+    - target: {fileID: 2421347631823550904, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_Name
+      value: TutorialText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 339.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1363
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 227.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550905, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[0]
+      value: Welcome, Shepherd
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[1]
+      value: You must keep the stars alive. Move with WASD.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[2]
+      value: Mine asteroids by holding Left Mouse Button. The closer you are, the
+        faster you mine.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[3]
+      value: Hold and release right mouse button to shoot mined asteroids.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[4]
+      value: Feed the stars what they want to stay alive.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[5]
+      value: '     '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[6]
+      value: Planets need to stay alive too.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[7]
+      value: Repackage your selected asteroid to help by pressing E
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[8]
+      value: Shoot this at a planet - it will set up a turret to defend itself.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550908, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: messages.Array.data[9]
+      value: Good luck, and don't get hit.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421347631823550910, guid: c1841ea949520c34f97d7ada4669fdff,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 58
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1841ea949520c34f97d7ada4669fdff, type: 3}
 --- !u!1001 &6712986139966708468
 PrefabInstance:
   m_ObjectHideFlags: 0

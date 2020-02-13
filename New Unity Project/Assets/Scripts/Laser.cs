@@ -90,6 +90,7 @@ public class Laser : MonoBehaviour
                 if (minedBody.IsMinedOut())
                 {
                     destinationQueue.AddOrbiter(minedBody);
+                    GetComponentInParent<ShootController>().AddedOrbiter();
                 }
                 else
                 {

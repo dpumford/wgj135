@@ -21,8 +21,8 @@ public class GameController : MonoBehaviour
     public BlackHoleController blackHolePrefab;
     public BlackHoleSpawnSet holeSpawnPoints;
 
-    public Sprite lossSprite;
-    public Sprite winSprite;
+    public GameObject lossText;
+    public GameObject winText;
     public string nextLevel;
     
     SpriteRenderer spriteRenderer;
@@ -31,6 +31,9 @@ public class GameController : MonoBehaviour
     float asteroidSpawnTimer;
 
     UIController uiControl;
+
+    GameObject lt = null;
+    GameObject wt = null;
 
     void Start()
     {
@@ -53,19 +56,29 @@ public class GameController : MonoBehaviour
                 UpdatePlayState();
                 break;
             case GameState.Dead:
-                spriteRenderer.sprite = lossSprite;
+                if (lt == null)
+                {
+                    lt = Instantiate(lossText, uiControl.myCanvas.transform);
+                }
 
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
+                    Destroy(lt);
                     state = GameState.New;
+                    lt = null;
                 }
                 break;
             case GameState.Win:
-                spriteRenderer.sprite = winSprite;
+                if (wt == null)
+                {
+                    wt = Instantiate(winText, uiControl.myCanvas.transform);
+                }
 
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
+                    Destroy(wt);
                     state = GameState.New;
+                    wt = null;
                 }
                 else if (Input.GetKeyUp(KeyCode.Return))
                 {
@@ -167,6 +180,11 @@ public class GameController : MonoBehaviour
         foreach (var radial in FindObjectsOfType<RadialProgress>())
         {
             radial.Die();
+        }
+
+        foreach (var disc in FindObjectsOfType<InterceptionPoint>())
+        {
+            Destroy(disc.gameObject);
         }
     }
 

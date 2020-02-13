@@ -125,6 +125,16 @@ public class ShootController : MonoBehaviour
         }
     }
 
+    public void AddedOrbiter()
+    {
+        if (orbiters.Count > 0)
+        {
+            orbiters[selectedOrbiter].Deselect();
+            selectedOrbiter = orbiters.Count - 1;
+            orbiters[selectedOrbiter].Select();
+        }
+    }
+
     public void Fire(Vector2 velocity)
     {
         if (orbiterToFire != null)

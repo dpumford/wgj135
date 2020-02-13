@@ -4,7 +4,7 @@ using System;
 public class UIController : MonoBehaviour
 {
     public RadialProgress radialProgressPrototype;
-    Canvas myCanvas;
+    public Canvas myCanvas;
     Camera myCamera;
     
     // Start is called before the first frame update

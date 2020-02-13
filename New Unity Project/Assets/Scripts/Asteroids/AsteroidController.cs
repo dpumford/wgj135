@@ -58,7 +58,7 @@ public class AsteroidController : CelestialBody
     private void Start()
     {
         ParentStart();
-        damageToPlayerOnCollision = 1;
+        damageToPlayerOnCollision = 3;
 
         halo.enabled = false;
 
