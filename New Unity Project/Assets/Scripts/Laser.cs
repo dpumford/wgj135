@@ -53,7 +53,6 @@ public class Laser : MonoBehaviour
 
     private void Update()
     {
-
         var mousePoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePointIcon.transform.position = mousePoint;
 
@@ -79,14 +78,7 @@ public class Laser : MonoBehaviour
         {
             myPoint.transform.position = mousePoint;
         }
-
-        //line.SetPosition(0, transform.position);
-        //line.SetPosition(1, myPoint.transform.position);
         particles.transform.position = myPoint.transform.position;
-        var particleVelocity = myPoint.transform.position - transform.position;
-
-        var vlt = particles.velocityOverLifetime;
-        vlt.x = -particleVelocity.magnitude / 2;
     }
 
     void FixedUpdate()
@@ -107,6 +99,11 @@ public class Laser : MonoBehaviour
                     {
                         damage = maxMiningDamagePerFrame;
                     }
+
+                    var particleVelocity = myPoint.transform.position - transform.position;
+
+                    var vlt = particles.velocityOverLifetime;
+                    vlt.x = -particleVelocity.magnitude;
 
                     var particleRate = damage / maxMiningDamagePerFrame * baseEmissionRate;
                     var pr = particles.emission.rateOverTime;
