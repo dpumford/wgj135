@@ -50,7 +50,7 @@ public class PlanetController : CelestialBody
         var uiControl = FindObjectOfType<UIController>();
         var color = Color.green;
         color.a = .25f;
-        healthProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, Vector2.one * .3f, color, 1f, 0f, true);
+        healthProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, Vector2.one * .4f, color, 1f, 0f, true, true);
 
         planetState = state;
         maxHealth = health;

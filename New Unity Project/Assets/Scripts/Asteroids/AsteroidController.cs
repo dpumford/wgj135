@@ -90,7 +90,7 @@ public class AsteroidController : CelestialBody
 
             var miningColor = material.MaterialColor();
             miningColor.a = .5f;
-            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), miningColor, 0f, 1f, true);
+            miningProgress = uiControl.CreateRadialProgress(transform, Vector2.zero, new Vector2(.3f, .3f), miningColor, 0f, 1f, true, true);
             state = CelestialState.Mining;
             return;
         }

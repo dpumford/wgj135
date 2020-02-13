@@ -160,7 +160,7 @@ public class NeederController : MonoBehaviour
                 var offset = new Vector2(xOffset, yOffset);
                 var scale = new Vector2(trackerScale, trackerScale);
 
-                var tracker = uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, -1f, false);
+                var tracker = uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, -1f, false, false);
                 backgroundProgressTrackers.Add(tracker);
             }
 
@@ -190,7 +190,7 @@ public class NeederController : MonoBehaviour
         var offset = new Vector2(xOffset, yOffset);
         var scale = new Vector2(trackerScale, trackerScale);
 
-        var progress = uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, 0f, false);
+        var progress = uiControl.CreateRadialProgress(transform, offset, scale, materialColor, 1f, 0f, false, false);
         radialProgressTrackers.Add(progress);
     }
 

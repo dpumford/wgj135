@@ -90,6 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentFilled: 0.5
   image: {fileID: 683083458899673425}
+  filled: {fileID: 21300000, guid: 9f16c3f9408ffec499cab89f4a535cdc, type: 3}
+  ringed: {fileID: 21300000, guid: 7785bb05ccae2054ea42ed7d0ef01d26, type: 3}
 --- !u!114 &2693451318538810844
 MonoBehaviour:
   m_ObjectHideFlags: 0

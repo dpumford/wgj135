@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
         
     }
 
-    public RadialProgress CreateRadialProgress(Transform follow, Vector2 offset, Vector2 scale, Nullable<Color> recolor, float startingPercent, float deathPercent, bool active)
+    public RadialProgress CreateRadialProgress(Transform follow, Vector2 offset, Vector2 scale, Nullable<Color> recolor, float startingPercent, float deathPercent, bool active, bool isRinged)
     {
         if (follow == null)
         {
@@ -35,7 +35,7 @@ public class UIController : MonoBehaviour
         rGameObject.GetComponent<UIScaler>().Init(scale);
         
         var r = rGameObject.GetComponent<RadialProgress>();
-        r.Init(startingPercent, deathPercent, recolor, active);
+        r.Init(startingPercent, deathPercent, recolor, active, isRinged);
 
         return r;
     }

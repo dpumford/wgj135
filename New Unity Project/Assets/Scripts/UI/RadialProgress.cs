@@ -8,6 +8,8 @@ public class RadialProgress : MonoBehaviour
 {
     public float percentFilled;
     public Image image;
+    public Sprite filled;
+    public Sprite ringed;
     
     float deathPercent = -1f;
     bool active;
@@ -18,7 +20,7 @@ public class RadialProgress : MonoBehaviour
         
     }
 
-    public void Init(float startingPercent, float dp, Nullable<Color> recolor, bool a)
+    public void Init(float startingPercent, float dp, Nullable<Color> recolor, bool a, bool isRing)
     {
         percentFilled = startingPercent;
         deathPercent = dp;
@@ -31,6 +33,14 @@ public class RadialProgress : MonoBehaviour
         if (!active)
         {
             SetInactive();
+        }
+
+        if (isRing)
+        {
+            image.sprite = ringed;
+        } else
+        {
+            image.sprite = filled;
         }
     }
 
